@@ -4212,6 +4212,16 @@
 	dc.b $38, $03, $15	; Set frequency '339' for channel PSG 1
 	dc.b $39, $00, $0c	; Set frequency '192' for channel PSG 2
 	dc.b $3a, $0e, $17	; Set frequency '382' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $30, $1b, $27	; Set frequency '6951' (octave 3 semitone 807) for channel FM 1
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $32, $23, $27	; Set frequency '8999' (octave 4 semitone 807) for channel FM 3
+	dc.b $34, $23, $8a	; Set frequency '9098' (octave 4 semitone 906) for channel FM 4
+	dc.b $35, $23, $26	; Set frequency '8998' (octave 4 semitone 806) for channel FM 5
+	dc.b $36, $22, $ce	; Set frequency '8910' (octave 4 semitone 718) for channel FM 6
+	dc.b $38, $04, $15	; Set frequency '340' for channel PSG 1
+	dc.b $39, $01, $0c	; Set frequency '193' for channel PSG 2
+	dc.b $3a, $0f, $17	; Set frequency '383' for channel PSG 3
 ; Pattern $18, Row 1; 
 ; Pattern $18, Row 2; 
 	dc.b $fe, $03	; Delay

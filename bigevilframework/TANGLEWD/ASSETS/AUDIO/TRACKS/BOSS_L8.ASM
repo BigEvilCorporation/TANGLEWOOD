@@ -5466,27 +5466,29 @@
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
 	dc.b $38, $0d, $08	; Set frequency '141' for channel PSG 1
-; Pattern $0f, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $38, $0c, $08	; Set frequency '140' for channel PSG 1
+; Pattern $0f, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $38, $0b, $08	; Set frequency '139' for channel PSG 1
 	dc.b $fe, $01	; Delay
 	dc.b $38, $0a, $08	; Set frequency '138' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $38, $09, $08	; Set frequency '137' for channel PSG 1
 ; Pattern $0f, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $38, $09, $08	; Set frequency '137' for channel PSG 1
-	dc.b $fe, $01	; Delay
 	dc.b $38, $08, $08	; Set frequency '136' for channel PSG 1
-; Pattern $0f, Row 51; 
 	dc.b $fe, $01	; Delay
 	dc.b $38, $07, $08	; Set frequency '135' for channel PSG 1
+; Pattern $0f, Row 51; 
 	dc.b $fe, $01	; Delay
 	dc.b $38, $06, $08	; Set frequency '134' for channel PSG 1
 	dc.b $fe, $01	; Delay
 	dc.b $38, $05, $08	; Set frequency '133' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $38, $04, $08	; Set frequency '132' for channel PSG 1
 ; Pattern $0f, Row 52; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $09, $2e	; Note B-1 on channel PSG 2
@@ -5494,27 +5496,29 @@
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
 	dc.b $39, $00, $0e	; Set frequency '224' for channel PSG 2
-; Pattern $0f, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $39, $0f, $0d	; Set frequency '223' for channel PSG 2
+; Pattern $0f, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $39, $0e, $0d	; Set frequency '222' for channel PSG 2
 	dc.b $fe, $01	; Delay
 	dc.b $39, $0d, $0d	; Set frequency '221' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $39, $0c, $0d	; Set frequency '220' for channel PSG 2
 ; Pattern $0f, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $39, $0c, $0d	; Set frequency '220' for channel PSG 2
-	dc.b $fe, $01	; Delay
 	dc.b $39, $0b, $0d	; Set frequency '219' for channel PSG 2
-; Pattern $0f, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $39, $0a, $0d	; Set frequency '218' for channel PSG 2
+; Pattern $0f, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $39, $09, $0d	; Set frequency '217' for channel PSG 2
 	dc.b $fe, $01	; Delay
 	dc.b $39, $08, $0d	; Set frequency '216' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $39, $07, $0d	; Set frequency '215' for channel PSG 2
 ; Pattern $0f, Row 56; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $2b, $01	; Set volume for channel PSG 4
@@ -5522,27 +5526,29 @@
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $05, $09	; Set frequency '149' for channel PSG 3
-; Pattern $0f, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $04, $09	; Set frequency '148' for channel PSG 3
+; Pattern $0f, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $03, $09	; Set frequency '147' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $02, $09	; Set frequency '146' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $3a, $01, $09	; Set frequency '145' for channel PSG 3
 ; Pattern $0f, Row 58; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $3a, $01, $09	; Set frequency '145' for channel PSG 3
-	dc.b $fe, $01	; Delay
 	dc.b $3a, $00, $09	; Set frequency '144' for channel PSG 3
-; Pattern $0f, Row 59; 
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0f, $08	; Set frequency '143' for channel PSG 3
+; Pattern $0f, Row 59; 
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0e, $08	; Set frequency '142' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0d, $08	; Set frequency '141' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $3a, $0c, $08	; Set frequency '140' for channel PSG 3
 ; Pattern $0f, Row 60; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $09, $38	; Note E-2 on channel PSG 2
@@ -6491,73 +6497,74 @@
 	dc.b $34, $22, $b5	; Set frequency '8885' (octave 4 semitone 693) for channel FM 4
 	dc.b $35, $23, $f6	; Set frequency '9206' (octave 4 semitone 1014) for channel FM 5
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $32, $1b, $5d	; Set frequency '7005' (octave 3 semitone 861) for channel FM 3
 	dc.b $34, $22, $b6	; Set frequency '8886' (octave 4 semitone 694) for channel FM 4
 	dc.b $35, $23, $f7	; Set frequency '9207' (octave 4 semitone 1015) for channel FM 5
-; Pattern $13, Row 53; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
 	dc.b $32, $1b, $5e	; Set frequency '7006' (octave 3 semitone 862) for channel FM 3
 	dc.b $34, $22, $b7	; Set frequency '8887' (octave 4 semitone 695) for channel FM 4
 	dc.b $35, $23, $f8	; Set frequency '9208' (octave 4 semitone 1016) for channel FM 5
+; Pattern $13, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $32, $1b, $5f	; Set frequency '7007' (octave 3 semitone 863) for channel FM 3
 	dc.b $34, $22, $b8	; Set frequency '8888' (octave 4 semitone 696) for channel FM 4
 	dc.b $35, $23, $f9	; Set frequency '9209' (octave 4 semitone 1017) for channel FM 5
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $32, $1b, $60	; Set frequency '7008' (octave 3 semitone 864) for channel FM 3
 	dc.b $34, $22, $b9	; Set frequency '8889' (octave 4 semitone 697) for channel FM 4
 	dc.b $35, $23, $fa	; Set frequency '9210' (octave 4 semitone 1018) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $32, $1b, $61	; Set frequency '7009' (octave 3 semitone 865) for channel FM 3
+	dc.b $34, $22, $ba	; Set frequency '8890' (octave 4 semitone 698) for channel FM 4
+	dc.b $35, $23, $fb	; Set frequency '9211' (octave 4 semitone 1019) for channel FM 5
 ; Pattern $13, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
-	dc.b $32, $1b, $61	; Set frequency '7009' (octave 3 semitone 865) for channel FM 3
-	dc.b $34, $22, $ba	; Set frequency '8890' (octave 4 semitone 698) for channel FM 4
-	dc.b $35, $23, $fb	; Set frequency '9211' (octave 4 semitone 1019) for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $32, $1b, $62	; Set frequency '7010' (octave 3 semitone 866) for channel FM 3
 	dc.b $34, $22, $bb	; Set frequency '8891' (octave 4 semitone 699) for channel FM 4
 	dc.b $35, $23, $fc	; Set frequency '9212' (octave 4 semitone 1020) for channel FM 5
-; Pattern $13, Row 55; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 	dc.b $32, $1b, $63	; Set frequency '7011' (octave 3 semitone 867) for channel FM 3
 	dc.b $34, $22, $bc	; Set frequency '8892' (octave 4 semitone 700) for channel FM 4
 	dc.b $35, $23, $fd	; Set frequency '9213' (octave 4 semitone 1021) for channel FM 5
+; Pattern $13, Row 55; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $32, $1b, $64	; Set frequency '7012' (octave 3 semitone 868) for channel FM 3
 	dc.b $34, $22, $bd	; Set frequency '8893' (octave 4 semitone 701) for channel FM 4
 	dc.b $35, $23, $fe	; Set frequency '9214' (octave 4 semitone 1022) for channel FM 5
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $32, $1b, $65	; Set frequency '7013' (octave 3 semitone 869) for channel FM 3
 	dc.b $34, $22, $be	; Set frequency '8894' (octave 4 semitone 702) for channel FM 4
 	dc.b $35, $23, $ff	; Set frequency '9215' (octave 4 semitone 1023) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $32, $1b, $66	; Set frequency '7014' (octave 3 semitone 870) for channel FM 3
+	dc.b $34, $22, $bf	; Set frequency '8895' (octave 4 semitone 703) for channel FM 4
+	dc.b $35, $24, $00	; Set frequency '9216' (octave 4 semitone 1024) for channel FM 5
 ; Pattern $13, Row 56; 
 	dc.b $41, $3d	; Set instrument for channel FM 2
 	dc.b $01, $8f	; Note G-4 on channel FM 2
 	dc.b $2b, $01	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $32, $1b, $66	; Set frequency '7014' (octave 3 semitone 870) for channel FM 3
-	dc.b $34, $22, $bf	; Set frequency '8895' (octave 4 semitone 703) for channel FM 4
-	dc.b $35, $24, $00	; Set frequency '9216' (octave 4 semitone 1024) for channel FM 5
-	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $67	; Set frequency '7015' (octave 3 semitone 871) for channel FM 3
 	dc.b $34, $22, $c0	; Set frequency '8896' (octave 4 semitone 704) for channel FM 4
 	dc.b $35, $24, $01	; Set frequency '9217' (octave 4 semitone 1025) for channel FM 5
-; Pattern $13, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $68	; Set frequency '7016' (octave 3 semitone 872) for channel FM 3
 	dc.b $34, $22, $c1	; Set frequency '8897' (octave 4 semitone 705) for channel FM 4
 	dc.b $35, $24, $02	; Set frequency '9218' (octave 4 semitone 1026) for channel FM 5
+; Pattern $13, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $69	; Set frequency '7017' (octave 3 semitone 873) for channel FM 3
 	dc.b $34, $22, $c2	; Set frequency '8898' (octave 4 semitone 706) for channel FM 4
@@ -6566,22 +6573,22 @@
 	dc.b $32, $1b, $6a	; Set frequency '7018' (octave 3 semitone 874) for channel FM 3
 	dc.b $34, $22, $c3	; Set frequency '8899' (octave 4 semitone 707) for channel FM 4
 	dc.b $35, $24, $04	; Set frequency '9220' (octave 4 semitone 1028) for channel FM 5
-; Pattern $13, Row 58; 
-	dc.b $2b, $05	; Set volume for channel PSG 4
-	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $6b	; Set frequency '7019' (octave 3 semitone 875) for channel FM 3
 	dc.b $34, $22, $c4	; Set frequency '8900' (octave 4 semitone 708) for channel FM 4
 	dc.b $35, $24, $05	; Set frequency '9221' (octave 4 semitone 1029) for channel FM 5
+; Pattern $13, Row 58; 
+	dc.b $2b, $05	; Set volume for channel PSG 4
+	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $6c	; Set frequency '7020' (octave 3 semitone 876) for channel FM 3
 	dc.b $34, $22, $c5	; Set frequency '8901' (octave 4 semitone 709) for channel FM 4
 	dc.b $35, $24, $06	; Set frequency '9222' (octave 4 semitone 1030) for channel FM 5
-; Pattern $13, Row 59; 
 	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $6d	; Set frequency '7021' (octave 3 semitone 877) for channel FM 3
 	dc.b $34, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 4
 	dc.b $35, $24, $07	; Set frequency '9223' (octave 4 semitone 1031) for channel FM 5
+; Pattern $13, Row 59; 
 	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $6e	; Set frequency '7022' (octave 3 semitone 878) for channel FM 3
 	dc.b $34, $22, $c7	; Set frequency '8903' (octave 4 semitone 711) for channel FM 4
@@ -6590,24 +6597,24 @@
 	dc.b $32, $1b, $6f	; Set frequency '7023' (octave 3 semitone 879) for channel FM 3
 	dc.b $34, $22, $c8	; Set frequency '8904' (octave 4 semitone 712) for channel FM 4
 	dc.b $35, $24, $09	; Set frequency '9225' (octave 4 semitone 1033) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $32, $1b, $70	; Set frequency '7024' (octave 3 semitone 880) for channel FM 3
+	dc.b $34, $22, $c9	; Set frequency '8905' (octave 4 semitone 713) for channel FM 4
+	dc.b $35, $24, $0a	; Set frequency '9226' (octave 4 semitone 1034) for channel FM 5
 ; Pattern $13, Row 60; 
 	dc.b $41, $40	; Set instrument for channel FM 2
 	dc.b $01, $81	; Note C-4 on channel FM 2
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $32, $1b, $70	; Set frequency '7024' (octave 3 semitone 880) for channel FM 3
-	dc.b $34, $22, $c9	; Set frequency '8905' (octave 4 semitone 713) for channel FM 4
-	dc.b $35, $24, $0a	; Set frequency '9226' (octave 4 semitone 1034) for channel FM 5
-	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $71	; Set frequency '7025' (octave 3 semitone 881) for channel FM 3
 	dc.b $34, $22, $ca	; Set frequency '8906' (octave 4 semitone 714) for channel FM 4
 	dc.b $35, $24, $0b	; Set frequency '9227' (octave 4 semitone 1035) for channel FM 5
-; Pattern $13, Row 61; 
 	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $72	; Set frequency '7026' (octave 3 semitone 882) for channel FM 3
 	dc.b $34, $22, $cb	; Set frequency '8907' (octave 4 semitone 715) for channel FM 4
 	dc.b $35, $24, $0c	; Set frequency '9228' (octave 4 semitone 1036) for channel FM 5
+; Pattern $13, Row 61; 
 	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $73	; Set frequency '7027' (octave 3 semitone 883) for channel FM 3
 	dc.b $34, $22, $cc	; Set frequency '8908' (octave 4 semitone 716) for channel FM 4
@@ -6616,18 +6623,22 @@
 	dc.b $32, $1b, $74	; Set frequency '7028' (octave 3 semitone 884) for channel FM 3
 	dc.b $34, $22, $cd	; Set frequency '8909' (octave 4 semitone 717) for channel FM 4
 	dc.b $35, $24, $0e	; Set frequency '9230' (octave 4 semitone 1038) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $32, $1b, $75	; Set frequency '7029' (octave 3 semitone 885) for channel FM 3
+	dc.b $34, $22, $ce	; Set frequency '8910' (octave 4 semitone 718) for channel FM 4
+	dc.b $35, $24, $0f	; Set frequency '9231' (octave 4 semitone 1039) for channel FM 5
 ; Pattern $13, Row 62; 
 	dc.b $01, $81	; Note C-4 on channel FM 2
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $32, $1b, $75	; Set frequency '7029' (octave 3 semitone 885) for channel FM 3
-	dc.b $34, $22, $ce	; Set frequency '8910' (octave 4 semitone 718) for channel FM 4
-	dc.b $35, $24, $0f	; Set frequency '9231' (octave 4 semitone 1039) for channel FM 5
-	dc.b $fe, $01	; Delay
 	dc.b $32, $1b, $76	; Set frequency '7030' (octave 3 semitone 886) for channel FM 3
 	dc.b $34, $22, $cf	; Set frequency '8911' (octave 4 semitone 719) for channel FM 4
 	dc.b $35, $24, $10	; Set frequency '9232' (octave 4 semitone 1040) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $32, $1b, $77	; Set frequency '7031' (octave 3 semitone 887) for channel FM 3
+	dc.b $34, $22, $d0	; Set frequency '8912' (octave 4 semitone 720) for channel FM 4
+	dc.b $35, $24, $11	; Set frequency '9233' (octave 4 semitone 1041) for channel FM 5
 ; Pattern $13, Row 63; 
 ; Pattern $14, Row 0; 
 	dc.b $fe, $03	; Delay
@@ -6642,28 +6653,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $14, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $14, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $14, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $14, Row 4; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -6673,28 +6686,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $14, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $14, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $14, Row 6; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $14, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $14, Row 8; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -6721,28 +6736,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $14, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $14, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $14, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $14, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $14, Row 16; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -6751,28 +6768,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $14, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $14, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $14, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $14, Row 20; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -6780,28 +6799,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $14, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $14, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $14, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $14, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $14, Row 24; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $21, $1f	; Set volume for channel FM 2
@@ -6839,28 +6860,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $14, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $14, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $14, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $14, Row 36; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -6868,28 +6891,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $14, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $14, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $14, Row 38; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $14, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $14, Row 40; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -6914,28 +6939,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $14, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $14, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $14, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $14, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $14, Row 48; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -6944,28 +6971,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $14, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $14, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $14, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $14, Row 52; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -6973,28 +7002,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $14, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $14, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $14, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $14, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $14, Row 56; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -7032,28 +7063,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $15, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $15, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $15, Row 4; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -7062,28 +7095,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $15, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $15, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $15, Row 6; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $15, Row 8; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -7109,28 +7144,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $15, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $15, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $15, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $15, Row 16; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -7139,28 +7176,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $15, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $15, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $15, Row 20; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $21, $05	; Set volume for channel FM 2
@@ -7169,28 +7208,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $15, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $15, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $15, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $15, Row 24; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $21, $07	; Set volume for channel FM 2
@@ -7200,27 +7241,29 @@
 	dc.b $0a, $38	; Note E-2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $be	; Set frequency '11454' (octave 5 semitone 1214) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $2c, $3f	; Set frequency '11327' (octave 5 semitone 1087) for channel FM 2
 ; Pattern $15, Row 25; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2b, $bf	; Set frequency '11199' (octave 5 semitone 959) for channel FM 2
+	dc.b $31, $2b, $c0	; Set frequency '11200' (octave 5 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2a, $c0	; Set frequency '10944' (octave 5 semitone 704) for channel FM 2
+	dc.b $31, $2b, $41	; Set frequency '11073' (octave 5 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
+	dc.b $31, $2a, $c2	; Set frequency '10946' (octave 5 semitone 706) for channel FM 2
 ; Pattern $15, Row 26; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $bf	; Set frequency '9151' (octave 4 semitone 959) for channel FM 2
+	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $c0	; Set frequency '8896' (octave 4 semitone 704) for channel FM 2
+	dc.b $31, $24, $3f	; Set frequency '9279' (octave 4 semitone 1087) for channel FM 2
 ; Pattern $15, Row 27; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
+	dc.b $31, $23, $c0	; Set frequency '9152' (octave 4 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $23, $41	; Set frequency '9025' (octave 4 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $22, $c2	; Set frequency '8898' (octave 4 semitone 706) for channel FM 2
 ; Pattern $15, Row 28; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -7243,28 +7286,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $15, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $15, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $15, Row 36; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -7272,28 +7317,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $15, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $15, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $15, Row 38; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $15, Row 40; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -7303,13 +7350,15 @@
 	dc.b $0a, $38	; Note E-2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 ; Pattern $15, Row 41; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $2e	; Set frequency '7214' (octave 3 semitone 1070) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $9e	; Set frequency '7070' (octave 3 semitone 926) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $0e	; Set frequency '6926' (octave 3 semitone 782) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 42; 
 	dc.b $41, $40	; Set instrument for channel FM 2
 	dc.b $01, $81	; Note C-4 on channel FM 2
@@ -7325,28 +7374,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $15, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $15, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $15, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $15, Row 48; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -7355,28 +7406,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $15, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $15, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $15, Row 52; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -7384,28 +7437,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $15, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $15, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $15, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $15, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $15, Row 56; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -7443,28 +7498,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $16, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $16, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $16, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $16, Row 4; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -7473,28 +7530,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $16, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $16, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $16, Row 6; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $16, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $16, Row 8; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -7520,28 +7579,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $16, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $16, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $16, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $16, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $16, Row 16; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -7550,28 +7611,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $16, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $16, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $16, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $16, Row 20; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -7579,28 +7642,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $16, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $16, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $16, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $16, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $16, Row 24; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $21, $1f	; Set volume for channel FM 2
@@ -7638,28 +7703,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $16, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $16, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $16, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $16, Row 36; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -7667,28 +7734,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $16, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $16, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $16, Row 38; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $16, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $16, Row 40; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -7713,28 +7782,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $16, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $16, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $16, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $16, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $16, Row 48; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -7743,28 +7814,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $16, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $16, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $16, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $16, Row 52; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -7772,28 +7845,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $16, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $16, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $16, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $16, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $16, Row 56; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -7831,28 +7906,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $17, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $17, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $17, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $17, Row 4; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -7861,28 +7938,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $17, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $17, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $17, Row 6; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $17, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $17, Row 8; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -7908,28 +7987,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $17, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $17, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $17, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $17, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $17, Row 16; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -7938,28 +8019,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $17, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $17, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $17, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $17, Row 20; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -7967,28 +8050,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $17, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $17, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $17, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $17, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $17, Row 24; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $21, $07	; Set volume for channel FM 2
@@ -7998,27 +8083,29 @@
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $be	; Set frequency '11454' (octave 5 semitone 1214) for channel FM 2
-; Pattern $17, Row 25; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $44	; Set frequency '11332' (octave 5 semitone 1092) for channel FM 2
+; Pattern $17, Row 25; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2b, $ca	; Set frequency '11210' (octave 5 semitone 970) for channel FM 2
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2b, $50	; Set frequency '11088' (octave 5 semitone 848) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $2a, $d6	; Set frequency '10966' (octave 5 semitone 726) for channel FM 2
 ; Pattern $17, Row 26; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2a, $d6	; Set frequency '10966' (octave 5 semitone 726) for channel FM 2
-	dc.b $fe, $01	; Delay
 	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
-; Pattern $17, Row 27; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $24, $44	; Set frequency '9284' (octave 4 semitone 1092) for channel FM 2
+; Pattern $17, Row 27; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $23, $ca	; Set frequency '9162' (octave 4 semitone 970) for channel FM 2
 	dc.b $fe, $01	; Delay
 	dc.b $31, $23, $50	; Set frequency '9040' (octave 4 semitone 848) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $d6	; Set frequency '8918' (octave 4 semitone 726) for channel FM 2
 ; Pattern $17, Row 28; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -8041,28 +8128,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $17, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $17, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $17, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $17, Row 36; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -8070,28 +8159,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $17, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $17, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $17, Row 38; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $17, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $17, Row 40; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -8116,28 +8207,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $17, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $17, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $17, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $17, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $17, Row 48; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -8146,37 +8239,40 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
 	dc.b $38, $0d, $08	; Set frequency '141' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
+	dc.b $38, $0c, $08	; Set frequency '140' for channel PSG 1
 ; Pattern $17, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
-	dc.b $38, $0c, $08	; Set frequency '140' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
 	dc.b $38, $0b, $08	; Set frequency '139' for channel PSG 1
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $38, $0a, $08	; Set frequency '138' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $38, $09, $08	; Set frequency '137' for channel PSG 1
 ; Pattern $17, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $38, $09, $08	; Set frequency '137' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $38, $08, $08	; Set frequency '136' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $38, $07, $08	; Set frequency '135' for channel PSG 1
 ; Pattern $17, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
-	dc.b $38, $07, $08	; Set frequency '135' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $38, $06, $08	; Set frequency '134' for channel PSG 1
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $38, $05, $08	; Set frequency '133' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $38, $04, $08	; Set frequency '132' for channel PSG 1
 ; Pattern $17, Row 52; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -8184,37 +8280,40 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $39, $00, $0e	; Set frequency '224' for channel PSG 2
-; Pattern $17, Row 53; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
 	dc.b $39, $0f, $0d	; Set frequency '223' for channel PSG 2
+; Pattern $17, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $39, $0e, $0d	; Set frequency '222' for channel PSG 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $39, $0d, $0d	; Set frequency '221' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $39, $0c, $0d	; Set frequency '220' for channel PSG 2
 ; Pattern $17, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
-	dc.b $39, $0c, $0d	; Set frequency '220' for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $39, $0b, $0d	; Set frequency '219' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $39, $0a, $0d	; Set frequency '218' for channel PSG 2
 ; Pattern $17, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $39, $0a, $0d	; Set frequency '218' for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
 	dc.b $39, $09, $0d	; Set frequency '217' for channel PSG 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $39, $08, $0d	; Set frequency '216' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $39, $07, $0d	; Set frequency '215' for channel PSG 2
 ; Pattern $17, Row 56; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $3d	; Set instrument for channel FM 2
@@ -8223,37 +8322,40 @@
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $3a, $05, $09	; Set frequency '149' for channel PSG 3
-; Pattern $17, Row 57; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
 	dc.b $3a, $04, $09	; Set frequency '148' for channel PSG 3
+; Pattern $17, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $3a, $03, $09	; Set frequency '147' for channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $3a, $02, $09	; Set frequency '146' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $3a, $01, $09	; Set frequency '145' for channel PSG 3
 ; Pattern $17, Row 58; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
-	dc.b $3a, $01, $09	; Set frequency '145' for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $3a, $00, $09	; Set frequency '144' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $3a, $0f, $08	; Set frequency '143' for channel PSG 3
 ; Pattern $17, Row 59; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $3a, $0f, $08	; Set frequency '143' for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
 	dc.b $3a, $0e, $08	; Set frequency '142' for channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $3a, $0d, $08	; Set frequency '141' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $3a, $0c, $08	; Set frequency '140' for channel PSG 3
 ; Pattern $17, Row 60; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -8280,28 +8382,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $18, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $18, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $18, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $18, Row 4; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -8311,28 +8415,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $18, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $18, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $18, Row 6; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $18, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $18, Row 8; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -8359,28 +8465,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $18, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $18, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $18, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $18, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $18, Row 16; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -8389,28 +8497,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $18, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $18, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $18, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $18, Row 20; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -8418,28 +8528,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $18, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $18, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $18, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $18, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $18, Row 24; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $21, $1f	; Set volume for channel FM 2
@@ -8477,28 +8589,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $18, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $18, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $18, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $18, Row 36; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -8506,28 +8620,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $18, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $18, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $18, Row 38; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $18, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $18, Row 40; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -8552,28 +8668,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $18, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $18, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $18, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $18, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $18, Row 48; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -8582,28 +8700,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $18, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $18, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $18, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $18, Row 52; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -8611,28 +8731,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $18, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $18, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $18, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $18, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $18, Row 56; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -8670,28 +8792,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $19, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $19, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $19, Row 4; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -8700,28 +8824,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $19, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $19, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $19, Row 6; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $19, Row 8; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -8747,28 +8873,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $19, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $19, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $19, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $19, Row 16; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -8777,28 +8905,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $19, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $19, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $19, Row 20; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $21, $05	; Set volume for channel FM 2
@@ -8807,28 +8937,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $19, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $19, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $19, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $19, Row 24; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $21, $07	; Set volume for channel FM 2
@@ -8838,27 +8970,29 @@
 	dc.b $0a, $38	; Note E-2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $be	; Set frequency '11454' (octave 5 semitone 1214) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $2c, $3f	; Set frequency '11327' (octave 5 semitone 1087) for channel FM 2
 ; Pattern $19, Row 25; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2b, $bf	; Set frequency '11199' (octave 5 semitone 959) for channel FM 2
+	dc.b $31, $2b, $c0	; Set frequency '11200' (octave 5 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2a, $c0	; Set frequency '10944' (octave 5 semitone 704) for channel FM 2
+	dc.b $31, $2b, $41	; Set frequency '11073' (octave 5 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
+	dc.b $31, $2a, $c2	; Set frequency '10946' (octave 5 semitone 706) for channel FM 2
 ; Pattern $19, Row 26; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $bf	; Set frequency '9151' (octave 4 semitone 959) for channel FM 2
+	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $c0	; Set frequency '8896' (octave 4 semitone 704) for channel FM 2
+	dc.b $31, $24, $3f	; Set frequency '9279' (octave 4 semitone 1087) for channel FM 2
 ; Pattern $19, Row 27; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
+	dc.b $31, $23, $c0	; Set frequency '9152' (octave 4 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $23, $41	; Set frequency '9025' (octave 4 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $22, $c2	; Set frequency '8898' (octave 4 semitone 706) for channel FM 2
 ; Pattern $19, Row 28; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -8881,28 +9015,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $19, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $19, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $19, Row 36; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -8910,28 +9046,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $19, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $19, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $19, Row 38; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $19, Row 40; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -8941,13 +9079,15 @@
 	dc.b $0a, $38	; Note E-2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 ; Pattern $19, Row 41; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $2e	; Set frequency '7214' (octave 3 semitone 1070) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $9e	; Set frequency '7070' (octave 3 semitone 926) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $0e	; Set frequency '6926' (octave 3 semitone 782) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 42; 
 	dc.b $41, $40	; Set instrument for channel FM 2
 	dc.b $01, $81	; Note C-4 on channel FM 2
@@ -8963,28 +9103,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $19, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $19, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $19, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $19, Row 48; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -8993,28 +9135,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $19, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $19, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $19, Row 52; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -9022,28 +9166,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $19, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $19, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $19, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $19, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $19, Row 56; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -9081,28 +9227,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1a, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1a, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1a, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1a, Row 4; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -9111,28 +9259,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1a, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1a, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1a, Row 6; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1a, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1a, Row 8; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -9158,28 +9308,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1a, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1a, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1a, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1a, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1a, Row 16; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -9188,28 +9340,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1a, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1a, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1a, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1a, Row 20; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -9217,28 +9371,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1a, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1a, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1a, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1a, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1a, Row 24; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $21, $1f	; Set volume for channel FM 2
@@ -9276,28 +9432,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1a, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1a, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1a, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1a, Row 36; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -9305,28 +9463,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1a, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1a, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1a, Row 38; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1a, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1a, Row 40; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -9351,28 +9511,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1a, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1a, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1a, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1a, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1a, Row 48; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -9381,28 +9543,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1a, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1a, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1a, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1a, Row 52; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -9410,28 +9574,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1a, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1a, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1a, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1a, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1a, Row 56; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -9469,28 +9635,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1b, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1b, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1b, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1b, Row 4; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -9499,28 +9667,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1b, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1b, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1b, Row 6; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1b, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1b, Row 8; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -9546,28 +9716,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1b, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1b, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1b, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1b, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1b, Row 16; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -9576,28 +9748,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1b, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1b, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1b, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1b, Row 20; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -9605,28 +9779,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1b, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1b, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1b, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1b, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1b, Row 24; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $21, $07	; Set volume for channel FM 2
@@ -9636,27 +9812,29 @@
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $be	; Set frequency '11454' (octave 5 semitone 1214) for channel FM 2
-; Pattern $1b, Row 25; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $44	; Set frequency '11332' (octave 5 semitone 1092) for channel FM 2
+; Pattern $1b, Row 25; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2b, $ca	; Set frequency '11210' (octave 5 semitone 970) for channel FM 2
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2b, $50	; Set frequency '11088' (octave 5 semitone 848) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $2a, $d6	; Set frequency '10966' (octave 5 semitone 726) for channel FM 2
 ; Pattern $1b, Row 26; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2a, $d6	; Set frequency '10966' (octave 5 semitone 726) for channel FM 2
-	dc.b $fe, $01	; Delay
 	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
-; Pattern $1b, Row 27; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $24, $44	; Set frequency '9284' (octave 4 semitone 1092) for channel FM 2
+; Pattern $1b, Row 27; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $23, $ca	; Set frequency '9162' (octave 4 semitone 970) for channel FM 2
 	dc.b $fe, $01	; Delay
 	dc.b $31, $23, $50	; Set frequency '9040' (octave 4 semitone 848) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $d6	; Set frequency '8918' (octave 4 semitone 726) for channel FM 2
 ; Pattern $1b, Row 28; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -9679,28 +9857,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1b, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1b, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1b, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1b, Row 36; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -9708,28 +9888,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1b, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1b, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1b, Row 38; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1b, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1b, Row 40; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -9754,28 +9936,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1b, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1b, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1b, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1b, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1b, Row 48; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -9784,37 +9968,40 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
 	dc.b $38, $0d, $08	; Set frequency '141' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
+	dc.b $38, $0c, $08	; Set frequency '140' for channel PSG 1
 ; Pattern $1b, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
-	dc.b $38, $0c, $08	; Set frequency '140' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
 	dc.b $38, $0b, $08	; Set frequency '139' for channel PSG 1
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $38, $0a, $08	; Set frequency '138' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $38, $09, $08	; Set frequency '137' for channel PSG 1
 ; Pattern $1b, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $38, $09, $08	; Set frequency '137' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $38, $08, $08	; Set frequency '136' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $38, $07, $08	; Set frequency '135' for channel PSG 1
 ; Pattern $1b, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
-	dc.b $38, $07, $08	; Set frequency '135' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $38, $06, $08	; Set frequency '134' for channel PSG 1
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $38, $05, $08	; Set frequency '133' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $38, $04, $08	; Set frequency '132' for channel PSG 1
 ; Pattern $1b, Row 52; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -9822,37 +10009,40 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $39, $00, $0e	; Set frequency '224' for channel PSG 2
-; Pattern $1b, Row 53; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
 	dc.b $39, $0f, $0d	; Set frequency '223' for channel PSG 2
+; Pattern $1b, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $39, $0e, $0d	; Set frequency '222' for channel PSG 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $39, $0d, $0d	; Set frequency '221' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $39, $0c, $0d	; Set frequency '220' for channel PSG 2
 ; Pattern $1b, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
-	dc.b $39, $0c, $0d	; Set frequency '220' for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $39, $0b, $0d	; Set frequency '219' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $39, $0a, $0d	; Set frequency '218' for channel PSG 2
 ; Pattern $1b, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $39, $0a, $0d	; Set frequency '218' for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
 	dc.b $39, $09, $0d	; Set frequency '217' for channel PSG 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $39, $08, $0d	; Set frequency '216' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $39, $07, $0d	; Set frequency '215' for channel PSG 2
 ; Pattern $1b, Row 56; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $3d	; Set instrument for channel FM 2
@@ -9861,37 +10051,40 @@
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $3a, $05, $09	; Set frequency '149' for channel PSG 3
-; Pattern $1b, Row 57; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
 	dc.b $3a, $04, $09	; Set frequency '148' for channel PSG 3
+; Pattern $1b, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $3a, $03, $09	; Set frequency '147' for channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $3a, $02, $09	; Set frequency '146' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $3a, $01, $09	; Set frequency '145' for channel PSG 3
 ; Pattern $1b, Row 58; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
-	dc.b $3a, $01, $09	; Set frequency '145' for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $3a, $00, $09	; Set frequency '144' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $3a, $0f, $08	; Set frequency '143' for channel PSG 3
 ; Pattern $1b, Row 59; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $3a, $0f, $08	; Set frequency '143' for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
 	dc.b $3a, $0e, $08	; Set frequency '142' for channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $3a, $0d, $08	; Set frequency '141' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $3a, $0c, $08	; Set frequency '140' for channel PSG 3
 ; Pattern $1b, Row 60; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -10310,28 +10503,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1e, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1e, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1e, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1e, Row 4; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -10343,14 +10538,16 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1e, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1e, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1e, Row 6; 
 	dc.b $44, $80	; Set instrument for channel FM 4
 	dc.b $24, $0f	; Set volume for channel FM 4
@@ -10359,14 +10556,14 @@
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $02	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 ; Pattern $1e, Row 7; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 ; Pattern $1e, Row 8; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -10399,28 +10596,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1e, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1e, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1e, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1e, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1e, Row 16; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -10429,28 +10628,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1e, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1e, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1e, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1e, Row 20; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -10458,28 +10659,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1e, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1e, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1e, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1e, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1e, Row 24; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $21, $1f	; Set volume for channel FM 2
@@ -10533,28 +10736,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1e, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1e, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1e, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1e, Row 36; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -10563,29 +10768,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1e, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1e, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1e, Row 38; 
 	dc.b $04, $b3	; Note A-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1e, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1e, Row 40; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -10610,28 +10817,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1e, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1e, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1e, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1e, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1e, Row 48; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -10641,28 +10850,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1e, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1e, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1e, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1e, Row 52; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -10671,29 +10882,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1e, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1e, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1e, Row 54; 
 	dc.b $04, $ab	; Note F-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1e, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1e, Row 56; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -10731,28 +10944,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1f, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1f, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1f, Row 4; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -10761,29 +10976,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1f, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1f, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1f, Row 6; 
 	dc.b $04, $a9	; Note E-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1f, Row 8; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -10808,28 +11025,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1f, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1f, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1f, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1f, Row 16; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -10838,28 +11057,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1f, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1f, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1f, Row 20; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $21, $05	; Set volume for channel FM 2
@@ -10868,28 +11089,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1f, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1f, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1f, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1f, Row 24; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $21, $07	; Set volume for channel FM 2
@@ -10899,27 +11122,29 @@
 	dc.b $0a, $38	; Note E-2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $be	; Set frequency '11454' (octave 5 semitone 1214) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $2c, $3f	; Set frequency '11327' (octave 5 semitone 1087) for channel FM 2
 ; Pattern $1f, Row 25; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2b, $bf	; Set frequency '11199' (octave 5 semitone 959) for channel FM 2
+	dc.b $31, $2b, $c0	; Set frequency '11200' (octave 5 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2a, $c0	; Set frequency '10944' (octave 5 semitone 704) for channel FM 2
+	dc.b $31, $2b, $41	; Set frequency '11073' (octave 5 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
+	dc.b $31, $2a, $c2	; Set frequency '10946' (octave 5 semitone 706) for channel FM 2
 ; Pattern $1f, Row 26; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $bf	; Set frequency '9151' (octave 4 semitone 959) for channel FM 2
+	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $c0	; Set frequency '8896' (octave 4 semitone 704) for channel FM 2
+	dc.b $31, $24, $3f	; Set frequency '9279' (octave 4 semitone 1087) for channel FM 2
 ; Pattern $1f, Row 27; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
+	dc.b $31, $23, $c0	; Set frequency '9152' (octave 4 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $23, $41	; Set frequency '9025' (octave 4 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $22, $c2	; Set frequency '8898' (octave 4 semitone 706) for channel FM 2
 ; Pattern $1f, Row 28; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -10943,28 +11168,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1f, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1f, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1f, Row 36; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -10973,29 +11200,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1f, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1f, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1f, Row 38; 
 	dc.b $04, $a3	; Note C#5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1f, Row 40; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -11005,13 +11234,15 @@
 	dc.b $0a, $38	; Note E-2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 ; Pattern $1f, Row 41; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $2e	; Set frequency '7214' (octave 3 semitone 1070) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $9e	; Set frequency '7070' (octave 3 semitone 926) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $0e	; Set frequency '6926' (octave 3 semitone 782) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 42; 
 	dc.b $41, $40	; Set instrument for channel FM 2
 	dc.b $01, $81	; Note C-4 on channel FM 2
@@ -11027,28 +11258,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1f, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1f, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1f, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1f, Row 48; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -11057,28 +11290,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $1f, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1f, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1f, Row 52; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -11086,28 +11321,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $1f, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $1f, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $1f, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $1f, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $1f, Row 56; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -11145,28 +11382,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $20, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $20, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $20, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $20, Row 4; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -11175,29 +11414,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $20, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $20, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $20, Row 6; 
 	dc.b $04, $a5	; Note D-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $20, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $20, Row 8; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -11222,28 +11463,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $20, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $20, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $20, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $20, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $20, Row 16; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -11252,28 +11495,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $20, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $20, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $20, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $20, Row 20; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -11281,28 +11526,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $20, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $20, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $20, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $20, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $20, Row 24; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $21, $1f	; Set volume for channel FM 2
@@ -11341,28 +11588,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $20, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $20, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $20, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $20, Row 36; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -11371,29 +11620,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $20, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $20, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $20, Row 38; 
 	dc.b $04, $95	; Note A#4 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $20, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $20, Row 40; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -11418,28 +11669,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $20, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $20, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $20, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $20, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $20, Row 48; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -11448,28 +11701,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $20, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $20, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $20, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $20, Row 52; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -11477,28 +11732,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $20, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $20, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $20, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $20, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $20, Row 56; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -11536,28 +11793,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $21, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $21, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $21, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $21, Row 4; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -11566,29 +11825,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $21, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $21, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $21, Row 6; 
 	dc.b $04, $a5	; Note D-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $21, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $21, Row 8; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -11613,28 +11874,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $21, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $21, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $21, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $21, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $21, Row 16; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -11643,28 +11906,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $21, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $21, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $21, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $21, Row 20; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -11672,28 +11937,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $21, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $21, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $21, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $21, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $21, Row 24; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $21, $07	; Set volume for channel FM 2
@@ -11703,27 +11970,29 @@
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $be	; Set frequency '11454' (octave 5 semitone 1214) for channel FM 2
-; Pattern $21, Row 25; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $44	; Set frequency '11332' (octave 5 semitone 1092) for channel FM 2
+; Pattern $21, Row 25; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2b, $ca	; Set frequency '11210' (octave 5 semitone 970) for channel FM 2
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2b, $50	; Set frequency '11088' (octave 5 semitone 848) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $2a, $d6	; Set frequency '10966' (octave 5 semitone 726) for channel FM 2
 ; Pattern $21, Row 26; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2a, $d6	; Set frequency '10966' (octave 5 semitone 726) for channel FM 2
-	dc.b $fe, $01	; Delay
 	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
-; Pattern $21, Row 27; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $24, $44	; Set frequency '9284' (octave 4 semitone 1092) for channel FM 2
+; Pattern $21, Row 27; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $23, $ca	; Set frequency '9162' (octave 4 semitone 970) for channel FM 2
 	dc.b $fe, $01	; Delay
 	dc.b $31, $23, $50	; Set frequency '9040' (octave 4 semitone 848) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $d6	; Set frequency '8918' (octave 4 semitone 726) for channel FM 2
 ; Pattern $21, Row 28; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -11747,28 +12016,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $21, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $21, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $21, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $21, Row 36; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -11777,29 +12048,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $21, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $21, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $21, Row 38; 
 	dc.b $04, $a3	; Note C#5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $21, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $21, Row 40; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -11824,28 +12097,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $21, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $21, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $21, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $21, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $21, Row 48; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -11854,37 +12129,40 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
 	dc.b $38, $0d, $08	; Set frequency '141' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
+	dc.b $38, $0c, $08	; Set frequency '140' for channel PSG 1
 ; Pattern $21, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
-	dc.b $38, $0c, $08	; Set frequency '140' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
 	dc.b $38, $0b, $08	; Set frequency '139' for channel PSG 1
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $38, $0a, $08	; Set frequency '138' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $38, $09, $08	; Set frequency '137' for channel PSG 1
 ; Pattern $21, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $38, $09, $08	; Set frequency '137' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $38, $08, $08	; Set frequency '136' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $38, $07, $08	; Set frequency '135' for channel PSG 1
 ; Pattern $21, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
-	dc.b $38, $07, $08	; Set frequency '135' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $38, $06, $08	; Set frequency '134' for channel PSG 1
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $38, $05, $08	; Set frequency '133' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $38, $04, $08	; Set frequency '132' for channel PSG 1
 ; Pattern $21, Row 52; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -11892,37 +12170,40 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $39, $00, $0e	; Set frequency '224' for channel PSG 2
-; Pattern $21, Row 53; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
 	dc.b $39, $0f, $0d	; Set frequency '223' for channel PSG 2
+; Pattern $21, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $39, $0e, $0d	; Set frequency '222' for channel PSG 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $39, $0d, $0d	; Set frequency '221' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $39, $0c, $0d	; Set frequency '220' for channel PSG 2
 ; Pattern $21, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
-	dc.b $39, $0c, $0d	; Set frequency '220' for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $39, $0b, $0d	; Set frequency '219' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $39, $0a, $0d	; Set frequency '218' for channel PSG 2
 ; Pattern $21, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $39, $0a, $0d	; Set frequency '218' for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
 	dc.b $39, $09, $0d	; Set frequency '217' for channel PSG 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $39, $08, $0d	; Set frequency '216' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $39, $07, $0d	; Set frequency '215' for channel PSG 2
 ; Pattern $21, Row 56; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $3d	; Set instrument for channel FM 2
@@ -11931,37 +12212,40 @@
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $3a, $05, $09	; Set frequency '149' for channel PSG 3
-; Pattern $21, Row 57; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
 	dc.b $3a, $04, $09	; Set frequency '148' for channel PSG 3
+; Pattern $21, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $3a, $03, $09	; Set frequency '147' for channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $3a, $02, $09	; Set frequency '146' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $3a, $01, $09	; Set frequency '145' for channel PSG 3
 ; Pattern $21, Row 58; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
-	dc.b $3a, $01, $09	; Set frequency '145' for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $3a, $00, $09	; Set frequency '144' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $3a, $0f, $08	; Set frequency '143' for channel PSG 3
 ; Pattern $21, Row 59; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $3a, $0f, $08	; Set frequency '143' for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
 	dc.b $3a, $0e, $08	; Set frequency '142' for channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $3a, $0d, $08	; Set frequency '141' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $3a, $0c, $08	; Set frequency '140' for channel PSG 3
 ; Pattern $21, Row 60; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -11986,28 +12270,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $22, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $22, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $22, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $22, Row 4; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -12016,29 +12302,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $22, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $22, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $22, Row 6; 
 	dc.b $04, $af	; Note G-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $22, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $22, Row 8; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -12063,28 +12351,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $22, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $22, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $22, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $22, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $22, Row 16; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -12093,28 +12383,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $22, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $22, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $22, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $22, Row 20; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -12122,28 +12414,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $22, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $22, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $22, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $22, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $22, Row 24; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $21, $1f	; Set volume for channel FM 2
@@ -12182,28 +12476,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $22, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $22, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $22, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $22, Row 36; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -12212,29 +12508,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $22, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $22, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $22, Row 38; 
 	dc.b $04, $b3	; Note A-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $22, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $22, Row 40; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -12259,28 +12557,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $22, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $22, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $22, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $22, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $22, Row 48; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -12290,28 +12590,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $22, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $22, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $22, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $22, Row 52; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -12320,29 +12622,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $22, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $22, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $22, Row 54; 
 	dc.b $04, $ab	; Note F-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $22, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $22, Row 56; 
 	dc.b $00, $4f	; Note G-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -12380,28 +12684,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $23, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $23, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $23, Row 4; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -12410,29 +12716,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $23, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $23, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $23, Row 6; 
 	dc.b $04, $af	; Note G-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $23, Row 8; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -12457,28 +12765,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $23, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $23, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $23, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $23, Row 16; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -12487,28 +12797,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $23, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $23, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $23, Row 20; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $21, $05	; Set volume for channel FM 2
@@ -12517,28 +12829,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $23, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $23, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $23, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $23, Row 24; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $21, $07	; Set volume for channel FM 2
@@ -12548,27 +12862,29 @@
 	dc.b $0a, $38	; Note E-2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $be	; Set frequency '11454' (octave 5 semitone 1214) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $2c, $3f	; Set frequency '11327' (octave 5 semitone 1087) for channel FM 2
 ; Pattern $23, Row 25; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2b, $bf	; Set frequency '11199' (octave 5 semitone 959) for channel FM 2
+	dc.b $31, $2b, $c0	; Set frequency '11200' (octave 5 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2a, $c0	; Set frequency '10944' (octave 5 semitone 704) for channel FM 2
+	dc.b $31, $2b, $41	; Set frequency '11073' (octave 5 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
+	dc.b $31, $2a, $c2	; Set frequency '10946' (octave 5 semitone 706) for channel FM 2
 ; Pattern $23, Row 26; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $bf	; Set frequency '9151' (octave 4 semitone 959) for channel FM 2
+	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $c0	; Set frequency '8896' (octave 4 semitone 704) for channel FM 2
+	dc.b $31, $24, $3f	; Set frequency '9279' (octave 4 semitone 1087) for channel FM 2
 ; Pattern $23, Row 27; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
+	dc.b $31, $23, $c0	; Set frequency '9152' (octave 4 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $23, $41	; Set frequency '9025' (octave 4 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $22, $c2	; Set frequency '8898' (octave 4 semitone 706) for channel FM 2
 ; Pattern $23, Row 28; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -12592,28 +12908,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $23, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $23, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $23, Row 36; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -12622,29 +12940,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $23, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $23, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $23, Row 38; 
 	dc.b $04, $a9	; Note E-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $23, Row 40; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -12654,13 +12974,15 @@
 	dc.b $0a, $38	; Note E-2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 ; Pattern $23, Row 41; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $2e	; Set frequency '7214' (octave 3 semitone 1070) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $9e	; Set frequency '7070' (octave 3 semitone 926) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $0e	; Set frequency '6926' (octave 3 semitone 782) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 42; 
 	dc.b $41, $40	; Set instrument for channel FM 2
 	dc.b $01, $81	; Note C-4 on channel FM 2
@@ -12676,28 +12998,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $23, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $23, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $23, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $23, Row 48; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -12706,28 +13030,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $23, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $23, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $23, Row 52; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -12735,28 +13061,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $23, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $23, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $23, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $23, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $23, Row 56; 
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -12794,28 +13122,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $24, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $24, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $24, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $24, Row 4; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -12824,29 +13154,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $24, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $24, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $24, Row 6; 
 	dc.b $04, $b3	; Note A-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $24, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $24, Row 8; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -12871,28 +13203,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $24, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $24, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $24, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $24, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $24, Row 16; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -12901,28 +13235,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $24, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $24, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $24, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $24, Row 20; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -12930,28 +13266,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $24, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $24, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $24, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $24, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $24, Row 24; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $21, $1f	; Set volume for channel FM 2
@@ -12990,28 +13328,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $24, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $24, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $24, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $24, Row 36; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -13020,29 +13360,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $24, Row 37; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $24, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $24, Row 38; 
 	dc.b $04, $ab	; Note F-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $24, Row 39; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $24, Row 40; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -13067,28 +13409,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $24, Row 45; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $24, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $24, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $24, Row 47; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $24, Row 48; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -13097,28 +13441,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $24, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $24, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $24, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $24, Row 52; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -13126,28 +13472,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $24, Row 53; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $24, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $24, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $24, Row 55; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $24, Row 56; 
 	dc.b $00, $55	; Note A#2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -13185,28 +13533,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $25, Row 1; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $25, Row 2; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $25, Row 3; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $25, Row 4; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -13215,29 +13565,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $25, Row 5; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $25, Row 5; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $25, Row 6; 
 	dc.b $04, $b7	; Note B-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $25, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $25, Row 8; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $42	; Set instrument for channel FM 2
@@ -13262,28 +13614,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $25, Row 13; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $25, Row 13; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $25, Row 14; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $25, Row 15; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $25, Row 16; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $3c	; Set instrument for channel FM 2
@@ -13292,28 +13646,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $25, Row 17; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $25, Row 18; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $25, Row 19; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $25, Row 20; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8f	; Note G-4 on channel FM 2
@@ -13321,28 +13677,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $23, $24	; Set frequency '8996' (octave 4 semitone 804) for channel FM 2
-; Pattern $25, Row 21; 
+	dc.b $31, $23, $45	; Set frequency '9029' (octave 4 semitone 837) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $84	; Set frequency '8836' (octave 4 semitone 644) for channel FM 2
+	dc.b $31, $22, $c6	; Set frequency '8902' (octave 4 semitone 710) for channel FM 2
+; Pattern $25, Row 21; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1c, $1e	; Set frequency '7198' (octave 3 semitone 1054) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $25, Row 22; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $7e	; Set frequency '7038' (octave 3 semitone 894) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $de	; Set frequency '6878' (octave 3 semitone 734) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $25, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $1e	; Set frequency '5150' (octave 2 semitone 1054) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $7e	; Set frequency '4990' (octave 2 semitone 894) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $25, Row 24; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $21, $07	; Set volume for channel FM 2
@@ -13352,27 +13710,29 @@
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $be	; Set frequency '11454' (octave 5 semitone 1214) for channel FM 2
-; Pattern $25, Row 25; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2c, $44	; Set frequency '11332' (octave 5 semitone 1092) for channel FM 2
+; Pattern $25, Row 25; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2b, $ca	; Set frequency '11210' (octave 5 semitone 970) for channel FM 2
 	dc.b $fe, $01	; Delay
 	dc.b $31, $2b, $50	; Set frequency '11088' (octave 5 semitone 848) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $2a, $d6	; Set frequency '10966' (octave 5 semitone 726) for channel FM 2
 ; Pattern $25, Row 26; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $2a, $d6	; Set frequency '10966' (octave 5 semitone 726) for channel FM 2
-	dc.b $fe, $01	; Delay
 	dc.b $31, $24, $be	; Set frequency '9406' (octave 4 semitone 1214) for channel FM 2
-; Pattern $25, Row 27; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $24, $44	; Set frequency '9284' (octave 4 semitone 1092) for channel FM 2
+; Pattern $25, Row 27; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $23, $ca	; Set frequency '9162' (octave 4 semitone 970) for channel FM 2
 	dc.b $fe, $01	; Delay
 	dc.b $31, $23, $50	; Set frequency '9040' (octave 4 semitone 848) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $d6	; Set frequency '8918' (octave 4 semitone 726) for channel FM 2
 ; Pattern $25, Row 28; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $41, $40	; Set instrument for channel FM 2
@@ -13396,28 +13756,30 @@
 	dc.b $2b, $03	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $25, Row 33; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $25, Row 34; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $25, Row 35; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $25, Row 36; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8d	; Note F#4 on channel FM 2
@@ -13426,29 +13788,31 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $25, Row 37; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $25, Row 38; 
 	dc.b $04, $af	; Note G-5 on channel FM 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $25, Row 39; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $25, Row 40; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8d	; Note F#4 on channel FM 2
@@ -13456,28 +13820,30 @@
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $25, Row 41; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $25, Row 42; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $25, Row 43; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $25, Row 44; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $21, $07	; Set volume for channel FM 2
@@ -13486,28 +13852,30 @@
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
 ; Pattern $25, Row 45; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
 ; Pattern $25, Row 46; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 ; Pattern $25, Row 47; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
 ; Pattern $25, Row 48; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8d	; Note F#4 on channel FM 2
@@ -13516,46 +13884,50 @@
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $32, $2b, $c5	; Set frequency '11205' (octave 5 semitone 965) for channel FM 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
 	dc.b $32, $2b, $c6	; Set frequency '11206' (octave 5 semitone 966) for channel FM 3
 	dc.b $38, $0d, $08	; Set frequency '141' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
+	dc.b $32, $2b, $c7	; Set frequency '11207' (octave 5 semitone 967) for channel FM 3
+	dc.b $38, $0c, $08	; Set frequency '140' for channel PSG 1
 ; Pattern $25, Row 49; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $c7	; Set frequency '11207' (octave 5 semitone 967) for channel FM 3
-	dc.b $38, $0c, $08	; Set frequency '140' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
 	dc.b $32, $2b, $c8	; Set frequency '11208' (octave 5 semitone 968) for channel FM 3
 	dc.b $38, $0b, $08	; Set frequency '139' for channel PSG 1
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
 	dc.b $32, $2b, $c9	; Set frequency '11209' (octave 5 semitone 969) for channel FM 3
 	dc.b $38, $0a, $08	; Set frequency '138' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $32, $2b, $ca	; Set frequency '11210' (octave 5 semitone 970) for channel FM 3
+	dc.b $38, $09, $08	; Set frequency '137' for channel PSG 1
 ; Pattern $25, Row 50; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $ca	; Set frequency '11210' (octave 5 semitone 970) for channel FM 3
-	dc.b $38, $09, $08	; Set frequency '137' for channel PSG 1
-	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
 	dc.b $32, $2b, $cb	; Set frequency '11211' (octave 5 semitone 971) for channel FM 3
 	dc.b $38, $08, $08	; Set frequency '136' for channel PSG 1
-; Pattern $25, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
 	dc.b $32, $2b, $cc	; Set frequency '11212' (octave 5 semitone 972) for channel FM 3
 	dc.b $38, $07, $08	; Set frequency '135' for channel PSG 1
+; Pattern $25, Row 51; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
 	dc.b $32, $2b, $cd	; Set frequency '11213' (octave 5 semitone 973) for channel FM 3
 	dc.b $38, $06, $08	; Set frequency '134' for channel PSG 1
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
 	dc.b $32, $2b, $ce	; Set frequency '11214' (octave 5 semitone 974) for channel FM 3
 	dc.b $38, $05, $08	; Set frequency '133' for channel PSG 1
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $32, $2b, $cf	; Set frequency '11215' (octave 5 semitone 975) for channel FM 3
+	dc.b $38, $04, $08	; Set frequency '132' for channel PSG 1
 ; Pattern $25, Row 52; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $21, $0f	; Set volume for channel FM 2
@@ -13563,125 +13935,136 @@
 	dc.b $09, $2e	; Note B-1 on channel PSG 2
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
-	dc.b $32, $2b, $cf	; Set frequency '11215' (octave 5 semitone 975) for channel FM 3
+	dc.b $32, $2b, $d0	; Set frequency '11216' (octave 5 semitone 976) for channel FM 3
 	dc.b $35, $2b, $c5	; Set frequency '11205' (octave 5 semitone 965) for channel FM 5
 	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
-	dc.b $32, $2b, $d0	; Set frequency '11216' (octave 5 semitone 976) for channel FM 3
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $32, $2b, $d1	; Set frequency '11217' (octave 5 semitone 977) for channel FM 3
 	dc.b $35, $2b, $c6	; Set frequency '11206' (octave 5 semitone 966) for channel FM 5
 	dc.b $39, $00, $0e	; Set frequency '224' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
+	dc.b $32, $2b, $d2	; Set frequency '11218' (octave 5 semitone 978) for channel FM 3
+	dc.b $35, $2b, $c7	; Set frequency '11207' (octave 5 semitone 967) for channel FM 5
+	dc.b $39, $0f, $0d	; Set frequency '223' for channel PSG 2
 ; Pattern $25, Row 53; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $d1	; Set frequency '11217' (octave 5 semitone 977) for channel FM 3
-	dc.b $35, $2b, $c7	; Set frequency '11207' (octave 5 semitone 967) for channel FM 5
-	dc.b $39, $0f, $0d	; Set frequency '223' for channel PSG 2
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
-	dc.b $32, $2b, $d2	; Set frequency '11218' (octave 5 semitone 978) for channel FM 3
+	dc.b $32, $2b, $d3	; Set frequency '11219' (octave 5 semitone 979) for channel FM 3
 	dc.b $35, $2b, $c8	; Set frequency '11208' (octave 5 semitone 968) for channel FM 5
 	dc.b $39, $0e, $0d	; Set frequency '222' for channel PSG 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
-	dc.b $32, $2b, $d3	; Set frequency '11219' (octave 5 semitone 979) for channel FM 3
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $32, $2b, $d4	; Set frequency '11220' (octave 5 semitone 980) for channel FM 3
 	dc.b $35, $2b, $c9	; Set frequency '11209' (octave 5 semitone 969) for channel FM 5
 	dc.b $39, $0d, $0d	; Set frequency '221' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $32, $2b, $d5	; Set frequency '11221' (octave 5 semitone 981) for channel FM 3
+	dc.b $35, $2b, $ca	; Set frequency '11210' (octave 5 semitone 970) for channel FM 5
+	dc.b $39, $0c, $0d	; Set frequency '220' for channel PSG 2
 ; Pattern $25, Row 54; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $02	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $d4	; Set frequency '11220' (octave 5 semitone 980) for channel FM 3
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
+	dc.b $32, $2b, $d6	; Set frequency '11222' (octave 5 semitone 982) for channel FM 3
 	dc.b $34, $2b, $c5	; Set frequency '11205' (octave 5 semitone 965) for channel FM 4
-	dc.b $35, $2b, $ca	; Set frequency '11210' (octave 5 semitone 970) for channel FM 5
-	dc.b $39, $0c, $0d	; Set frequency '220' for channel PSG 2
-; Pattern $25, Row 55; 
-	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
-	dc.b $32, $2b, $d5	; Set frequency '11221' (octave 5 semitone 981) for channel FM 3
-	dc.b $34, $2b, $c6	; Set frequency '11206' (octave 5 semitone 966) for channel FM 4
 	dc.b $35, $2b, $cb	; Set frequency '11211' (octave 5 semitone 971) for channel FM 5
 	dc.b $39, $0b, $0d	; Set frequency '219' for channel PSG 2
+; Pattern $25, Row 55; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
-	dc.b $32, $2b, $d6	; Set frequency '11222' (octave 5 semitone 982) for channel FM 3
-	dc.b $34, $2b, $c7	; Set frequency '11207' (octave 5 semitone 967) for channel FM 4
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $32, $2b, $d7	; Set frequency '11223' (octave 5 semitone 983) for channel FM 3
+	dc.b $34, $2b, $c6	; Set frequency '11206' (octave 5 semitone 966) for channel FM 4
 	dc.b $35, $2b, $cc	; Set frequency '11212' (octave 5 semitone 972) for channel FM 5
 	dc.b $39, $0a, $0d	; Set frequency '218' for channel PSG 2
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $d7	; Set frequency '11223' (octave 5 semitone 983) for channel FM 3
-	dc.b $34, $2b, $c8	; Set frequency '11208' (octave 5 semitone 968) for channel FM 4
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $32, $2b, $d8	; Set frequency '11224' (octave 5 semitone 984) for channel FM 3
+	dc.b $34, $2b, $c7	; Set frequency '11207' (octave 5 semitone 967) for channel FM 4
 	dc.b $35, $2b, $cd	; Set frequency '11213' (octave 5 semitone 973) for channel FM 5
 	dc.b $39, $09, $0d	; Set frequency '217' for channel PSG 2
+	dc.b $fe, $01	; Delay
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
+	dc.b $32, $2b, $d9	; Set frequency '11225' (octave 5 semitone 985) for channel FM 3
+	dc.b $34, $2b, $c8	; Set frequency '11208' (octave 5 semitone 968) for channel FM 4
+	dc.b $35, $2b, $ce	; Set frequency '11214' (octave 5 semitone 974) for channel FM 5
+	dc.b $39, $08, $0d	; Set frequency '216' for channel PSG 2
 ; Pattern $25, Row 56; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $01, $8d	; Note F#4 on channel FM 2
 	dc.b $2b, $01	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $0a, $3c	; Note F#2 on channel PSG 3
-	dc.b $32, $2b, $d8	; Set frequency '11224' (octave 5 semitone 984) for channel FM 3
+	dc.b $32, $2b, $da	; Set frequency '11226' (octave 5 semitone 986) for channel FM 3
 	dc.b $34, $2b, $c9	; Set frequency '11209' (octave 5 semitone 969) for channel FM 4
-	dc.b $35, $2b, $ce	; Set frequency '11214' (octave 5 semitone 974) for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
-	dc.b $32, $2b, $d9	; Set frequency '11225' (octave 5 semitone 985) for channel FM 3
-	dc.b $34, $2b, $ca	; Set frequency '11210' (octave 5 semitone 970) for channel FM 4
 	dc.b $35, $2b, $cf	; Set frequency '11215' (octave 5 semitone 975) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $32, $2b, $db	; Set frequency '11227' (octave 5 semitone 987) for channel FM 3
+	dc.b $34, $2b, $ca	; Set frequency '11210' (octave 5 semitone 970) for channel FM 4
+	dc.b $35, $2b, $d0	; Set frequency '11216' (octave 5 semitone 976) for channel FM 5
 	dc.b $3a, $05, $09	; Set frequency '149' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
+	dc.b $32, $2b, $dc	; Set frequency '11228' (octave 5 semitone 988) for channel FM 3
+	dc.b $34, $2b, $cb	; Set frequency '11211' (octave 5 semitone 971) for channel FM 4
+	dc.b $35, $2b, $d1	; Set frequency '11217' (octave 5 semitone 977) for channel FM 5
+	dc.b $3a, $04, $09	; Set frequency '148' for channel PSG 3
 ; Pattern $25, Row 57; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $da	; Set frequency '11226' (octave 5 semitone 986) for channel FM 3
-	dc.b $34, $2b, $cb	; Set frequency '11211' (octave 5 semitone 971) for channel FM 4
-	dc.b $35, $2b, $d0	; Set frequency '11216' (octave 5 semitone 976) for channel FM 5
-	dc.b $3a, $04, $09	; Set frequency '148' for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
-	dc.b $32, $2b, $db	; Set frequency '11227' (octave 5 semitone 987) for channel FM 3
+	dc.b $32, $2b, $dd	; Set frequency '11229' (octave 5 semitone 989) for channel FM 3
 	dc.b $34, $2b, $cc	; Set frequency '11212' (octave 5 semitone 972) for channel FM 4
-	dc.b $35, $2b, $d1	; Set frequency '11217' (octave 5 semitone 977) for channel FM 5
+	dc.b $35, $2b, $d2	; Set frequency '11218' (octave 5 semitone 978) for channel FM 5
 	dc.b $3a, $03, $09	; Set frequency '147' for channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
-	dc.b $32, $2b, $dc	; Set frequency '11228' (octave 5 semitone 988) for channel FM 3
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $32, $2b, $de	; Set frequency '11230' (octave 5 semitone 990) for channel FM 3
 	dc.b $34, $2b, $cd	; Set frequency '11213' (octave 5 semitone 973) for channel FM 4
-	dc.b $35, $2b, $d2	; Set frequency '11218' (octave 5 semitone 978) for channel FM 5
+	dc.b $35, $2b, $d3	; Set frequency '11219' (octave 5 semitone 979) for channel FM 5
 	dc.b $3a, $02, $09	; Set frequency '146' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $32, $2b, $df	; Set frequency '11231' (octave 5 semitone 991) for channel FM 3
+	dc.b $34, $2b, $ce	; Set frequency '11214' (octave 5 semitone 974) for channel FM 4
+	dc.b $35, $2b, $d4	; Set frequency '11220' (octave 5 semitone 980) for channel FM 5
+	dc.b $3a, $01, $09	; Set frequency '145' for channel PSG 3
 ; Pattern $25, Row 58; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $dd	; Set frequency '11229' (octave 5 semitone 989) for channel FM 3
-	dc.b $34, $2b, $ce	; Set frequency '11214' (octave 5 semitone 974) for channel FM 4
-	dc.b $35, $2b, $d3	; Set frequency '11219' (octave 5 semitone 979) for channel FM 5
-	dc.b $3a, $01, $09	; Set frequency '145' for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
-	dc.b $32, $2b, $de	; Set frequency '11230' (octave 5 semitone 990) for channel FM 3
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
+	dc.b $32, $2b, $e0	; Set frequency '11232' (octave 5 semitone 992) for channel FM 3
 	dc.b $34, $2b, $cf	; Set frequency '11215' (octave 5 semitone 975) for channel FM 4
-	dc.b $35, $2b, $d4	; Set frequency '11220' (octave 5 semitone 980) for channel FM 5
+	dc.b $35, $2b, $d5	; Set frequency '11221' (octave 5 semitone 981) for channel FM 5
 	dc.b $3a, $00, $09	; Set frequency '144' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $32, $2b, $e1	; Set frequency '11233' (octave 5 semitone 993) for channel FM 3
+	dc.b $34, $2b, $d0	; Set frequency '11216' (octave 5 semitone 976) for channel FM 4
+	dc.b $35, $2b, $d6	; Set frequency '11222' (octave 5 semitone 982) for channel FM 5
+	dc.b $3a, $0f, $08	; Set frequency '143' for channel PSG 3
 ; Pattern $25, Row 59; 
 	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
-	dc.b $32, $2b, $df	; Set frequency '11231' (octave 5 semitone 991) for channel FM 3
-	dc.b $34, $2b, $d0	; Set frequency '11216' (octave 5 semitone 976) for channel FM 4
-	dc.b $35, $2b, $d5	; Set frequency '11221' (octave 5 semitone 981) for channel FM 5
-	dc.b $3a, $0f, $08	; Set frequency '143' for channel PSG 3
-	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $e0	; Set frequency '11232' (octave 5 semitone 992) for channel FM 3
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $32, $2b, $e2	; Set frequency '11234' (octave 5 semitone 994) for channel FM 3
 	dc.b $34, $2b, $d1	; Set frequency '11217' (octave 5 semitone 977) for channel FM 4
-	dc.b $35, $2b, $d6	; Set frequency '11222' (octave 5 semitone 982) for channel FM 5
+	dc.b $35, $2b, $d7	; Set frequency '11223' (octave 5 semitone 983) for channel FM 5
 	dc.b $3a, $0e, $08	; Set frequency '142' for channel PSG 3
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
-	dc.b $32, $2b, $e1	; Set frequency '11233' (octave 5 semitone 993) for channel FM 3
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
+	dc.b $32, $2b, $e3	; Set frequency '11235' (octave 5 semitone 995) for channel FM 3
 	dc.b $34, $2b, $d2	; Set frequency '11218' (octave 5 semitone 978) for channel FM 4
-	dc.b $35, $2b, $d7	; Set frequency '11223' (octave 5 semitone 983) for channel FM 5
+	dc.b $35, $2b, $d8	; Set frequency '11224' (octave 5 semitone 984) for channel FM 5
 	dc.b $3a, $0d, $08	; Set frequency '141' for channel PSG 3
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $32, $2b, $e4	; Set frequency '11236' (octave 5 semitone 996) for channel FM 3
+	dc.b $34, $2b, $d3	; Set frequency '11219' (octave 5 semitone 979) for channel FM 4
+	dc.b $35, $2b, $d9	; Set frequency '11225' (octave 5 semitone 985) for channel FM 5
+	dc.b $3a, $0c, $08	; Set frequency '140' for channel PSG 3
 ; Pattern $25, Row 60; 
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $21, $17	; Set volume for channel FM 2
@@ -13689,58 +14072,63 @@
 	dc.b $09, $38	; Note E-2 on channel PSG 2
 	dc.b $2b, $07	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
-	dc.b $32, $2b, $e2	; Set frequency '11234' (octave 5 semitone 994) for channel FM 3
-	dc.b $34, $2b, $d3	; Set frequency '11219' (octave 5 semitone 979) for channel FM 4
-	dc.b $35, $2b, $d8	; Set frequency '11224' (octave 5 semitone 984) for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $31, $22, $8f	; Set frequency '8847' (octave 4 semitone 655) for channel FM 2
-	dc.b $32, $2b, $e3	; Set frequency '11235' (octave 5 semitone 995) for channel FM 3
+	dc.b $32, $2b, $e5	; Set frequency '11237' (octave 5 semitone 997) for channel FM 3
 	dc.b $34, $2b, $d4	; Set frequency '11220' (octave 5 semitone 980) for channel FM 4
-	dc.b $35, $2b, $d9	; Set frequency '11225' (octave 5 semitone 985) for channel FM 5
+	dc.b $35, $2b, $da	; Set frequency '11226' (octave 5 semitone 986) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $31, $23, $0f	; Set frequency '8975' (octave 4 semitone 783) for channel FM 2
+	dc.b $32, $2b, $e6	; Set frequency '11238' (octave 5 semitone 998) for channel FM 3
+	dc.b $34, $2b, $d5	; Set frequency '11221' (octave 5 semitone 981) for channel FM 4
+	dc.b $35, $2b, $db	; Set frequency '11227' (octave 5 semitone 987) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $31, $22, $90	; Set frequency '8848' (octave 4 semitone 656) for channel FM 2
+	dc.b $32, $2b, $e7	; Set frequency '11239' (octave 5 semitone 999) for channel FM 3
+	dc.b $34, $2b, $d6	; Set frequency '11222' (octave 5 semitone 982) for channel FM 4
+	dc.b $35, $2b, $dc	; Set frequency '11228' (octave 5 semitone 988) for channel FM 5
 ; Pattern $25, Row 61; 
 	dc.b $fe, $01	; Delay
 	dc.b $31, $1c, $be	; Set frequency '7358' (octave 3 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $e4	; Set frequency '11236' (octave 5 semitone 996) for channel FM 3
-	dc.b $34, $2b, $d5	; Set frequency '11221' (octave 5 semitone 981) for channel FM 4
-	dc.b $35, $2b, $da	; Set frequency '11226' (octave 5 semitone 986) for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1b, $bf	; Set frequency '7103' (octave 3 semitone 959) for channel FM 2
-	dc.b $32, $2b, $e5	; Set frequency '11237' (octave 5 semitone 997) for channel FM 3
-	dc.b $34, $2b, $d6	; Set frequency '11222' (octave 5 semitone 982) for channel FM 4
-	dc.b $35, $2b, $db	; Set frequency '11227' (octave 5 semitone 987) for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $31, $1a, $c0	; Set frequency '6848' (octave 3 semitone 704) for channel FM 2
-	dc.b $32, $2b, $e6	; Set frequency '11238' (octave 5 semitone 998) for channel FM 3
+	dc.b $32, $2b, $e8	; Set frequency '11240' (octave 5 semitone 1000) for channel FM 3
 	dc.b $34, $2b, $d7	; Set frequency '11223' (octave 5 semitone 983) for channel FM 4
-	dc.b $35, $2b, $dc	; Set frequency '11228' (octave 5 semitone 988) for channel FM 5
+	dc.b $35, $2b, $dd	; Set frequency '11229' (octave 5 semitone 989) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1c, $3f	; Set frequency '7231' (octave 3 semitone 1087) for channel FM 2
+	dc.b $32, $2b, $e9	; Set frequency '11241' (octave 5 semitone 1001) for channel FM 3
+	dc.b $34, $2b, $d8	; Set frequency '11224' (octave 5 semitone 984) for channel FM 4
+	dc.b $35, $2b, $de	; Set frequency '11230' (octave 5 semitone 990) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $31, $1b, $c0	; Set frequency '7104' (octave 3 semitone 960) for channel FM 2
+	dc.b $32, $2b, $ea	; Set frequency '11242' (octave 5 semitone 1002) for channel FM 3
+	dc.b $34, $2b, $d9	; Set frequency '11225' (octave 5 semitone 985) for channel FM 4
+	dc.b $35, $2b, $df	; Set frequency '11231' (octave 5 semitone 991) for channel FM 5
 ; Pattern $25, Row 62; 
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
-	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $e7	; Set frequency '11239' (octave 5 semitone 999) for channel FM 3
-	dc.b $34, $2b, $d8	; Set frequency '11224' (octave 5 semitone 984) for channel FM 4
-	dc.b $35, $2b, $dd	; Set frequency '11229' (octave 5 semitone 989) for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $31, $13, $bf	; Set frequency '5055' (octave 2 semitone 959) for channel FM 2
-	dc.b $32, $2b, $e8	; Set frequency '11240' (octave 5 semitone 1000) for channel FM 3
-	dc.b $34, $2b, $d9	; Set frequency '11225' (octave 5 semitone 985) for channel FM 4
-	dc.b $35, $2b, $de	; Set frequency '11230' (octave 5 semitone 990) for channel FM 5
-; Pattern $25, Row 63; 
-	dc.b $fe, $01	; Delay
-	dc.b $31, $12, $c0	; Set frequency '4800' (octave 2 semitone 704) for channel FM 2
-	dc.b $32, $2b, $e9	; Set frequency '11241' (octave 5 semitone 1001) for channel FM 3
+	dc.b $31, $1b, $41	; Set frequency '6977' (octave 3 semitone 833) for channel FM 2
+	dc.b $32, $2b, $eb	; Set frequency '11243' (octave 5 semitone 1003) for channel FM 3
 	dc.b $34, $2b, $da	; Set frequency '11226' (octave 5 semitone 986) for channel FM 4
-	dc.b $35, $2b, $df	; Set frequency '11231' (octave 5 semitone 991) for channel FM 5
-	dc.b $fe, $01	; Delay
-	dc.b $31, $0c, $be	; Set frequency '3262' (octave 1 semitone 1214) for channel FM 2
-	dc.b $32, $2b, $ea	; Set frequency '11242' (octave 5 semitone 1002) for channel FM 3
-	dc.b $34, $2b, $db	; Set frequency '11227' (octave 5 semitone 987) for channel FM 4
 	dc.b $35, $2b, $e0	; Set frequency '11232' (octave 5 semitone 992) for channel FM 5
 	dc.b $fe, $01	; Delay
-	dc.b $31, $0b, $bf	; Set frequency '3007' (octave 1 semitone 959) for channel FM 2
-	dc.b $32, $2b, $eb	; Set frequency '11243' (octave 5 semitone 1003) for channel FM 3
-	dc.b $34, $2b, $dc	; Set frequency '11228' (octave 5 semitone 988) for channel FM 4
+	dc.b $31, $1a, $c2	; Set frequency '6850' (octave 3 semitone 706) for channel FM 2
+	dc.b $32, $2b, $ec	; Set frequency '11244' (octave 5 semitone 1004) for channel FM 3
+	dc.b $34, $2b, $db	; Set frequency '11227' (octave 5 semitone 987) for channel FM 4
 	dc.b $35, $2b, $e1	; Set frequency '11233' (octave 5 semitone 993) for channel FM 5
+; Pattern $25, Row 63; 
+	dc.b $fe, $01	; Delay
+	dc.b $31, $14, $be	; Set frequency '5310' (octave 2 semitone 1214) for channel FM 2
+	dc.b $32, $2b, $ed	; Set frequency '11245' (octave 5 semitone 1005) for channel FM 3
+	dc.b $34, $2b, $dc	; Set frequency '11228' (octave 5 semitone 988) for channel FM 4
+	dc.b $35, $2b, $e2	; Set frequency '11234' (octave 5 semitone 994) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $31, $14, $3f	; Set frequency '5183' (octave 2 semitone 1087) for channel FM 2
+	dc.b $32, $2b, $ee	; Set frequency '11246' (octave 5 semitone 1006) for channel FM 3
+	dc.b $34, $2b, $dd	; Set frequency '11229' (octave 5 semitone 989) for channel FM 4
+	dc.b $35, $2b, $e3	; Set frequency '11235' (octave 5 semitone 995) for channel FM 5
+	dc.b $fe, $01	; Delay
+	dc.b $31, $13, $c0	; Set frequency '5056' (octave 2 semitone 960) for channel FM 2
+	dc.b $32, $2b, $ef	; Set frequency '11247' (octave 5 semitone 1007) for channel FM 3
+	dc.b $34, $2b, $de	; Set frequency '11230' (octave 5 semitone 990) for channel FM 4
+	dc.b $35, $2b, $e4	; Set frequency '11236' (octave 5 semitone 996) for channel FM 5
 	dc.b $fc	; Goto loop
 	dc.b $ff	; The End

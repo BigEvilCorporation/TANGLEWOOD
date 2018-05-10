@@ -18,6 +18,8 @@
 ; Pattern $00, Row 4; 
 	dc.b $fe, $01	; Delay
 	dc.b $06, $57	; Note B-2 on channel FM 6
+	dc.b $fe, $01	; Delay
+	dc.b $36, $1a, $84	; Set frequency '6788' (octave 3 semitone 644) for channel FM 6
 ; Pattern $00, Row 5; 
 	dc.b $06, $69	; Note E-3 on channel FM 6
 ; Pattern $00, Row 6; 
@@ -26,6 +28,8 @@
 ; Pattern $00, Row 7; 
 	dc.b $fe, $01	; Delay
 	dc.b $06, $6f	; Note G-3 on channel FM 6
+	dc.b $fe, $01	; Delay
+	dc.b $36, $1b, $c9	; Set frequency '7113' (octave 3 semitone 969) for channel FM 6
 ; Pattern $00, Row 8; 
 	dc.b $06, $81	; Note C-4 on channel FM 6
 ; Pattern $00, Row 9; 
@@ -47,6 +51,8 @@
 ; Pattern $00, Row 14; 
 	dc.b $fe, $01	; Delay
 	dc.b $06, $83	; Note C#4 on channel FM 6
+	dc.b $fe, $01	; Delay
+	dc.b $36, $22, $a8	; Set frequency '8872' (octave 4 semitone 680) for channel FM 6
 ; Pattern $00, Row 15; 
 	dc.b $06, $47	; Note D#2 on channel FM 6
 ; Pattern $00, Row 16; 
@@ -87,6 +93,8 @@
 ; Pattern $00, Row 27; 
 	dc.b $fe, $01	; Delay
 	dc.b $06, $89	; Note E-4 on channel FM 6
+	dc.b $fe, $01	; Delay
+	dc.b $36, $23, $28	; Set frequency '9000' (octave 4 semitone 808) for channel FM 6
 ; Pattern $00, Row 28; 
 	dc.b $26, $09	; Set volume for channel FM 6
 	dc.b $06, $6b	; Note F-3 on channel FM 6
