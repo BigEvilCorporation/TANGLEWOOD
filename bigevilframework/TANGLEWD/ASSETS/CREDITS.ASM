@@ -181,11 +181,11 @@ CreditsStrings:
 	CREDIT_NAME		"Karl Burnett"
 	CREDIT_NAME		"Lennart Brink-Abeler"
 	CREDIT_NAME		"Mael of Quakeworld"
-	CREDIT_NAME		"Michael Becerra"
 	CREDIT_NAME		"Mike Pavone"
 	CREDIT_NAME		"Nils Muellner"
 	CREDIT_NAME		"Pierre Gosselin"
 	CREDIT_NAME		"Roman Kolchigin"
+	CREDIT_NAME		"Scorpion Illuminati"
 	CREDIT_NAME		"Scott Munro"
 	CREDIT_NAME		"Thomas King"
 	CREDIT_SPACE
