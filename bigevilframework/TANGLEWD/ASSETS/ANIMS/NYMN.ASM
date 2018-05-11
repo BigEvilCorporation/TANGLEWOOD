@@ -637,8 +637,12 @@ actor_nymn_sheet_idle_anim_idle_track_frames:
 	dc.l actor_nymn_sheet_idle_frame_5_header
 
 	Even
-actor_nymn_sheet_idle_anim_idle_track_posx equ 0
-actor_nymn_sheet_idle_anim_idle_track_posy equ 0
+actor_nymn_sheet_idle_anim_idle_track_posx:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
+actor_nymn_sheet_idle_anim_idle_track_posy:
+	dc.b 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	Even
 actor_nymn_sheet_idle_anim_idle_track_sfx equ 0
 
 actor_nymn_sheet_climb_anim_climb:
