@@ -387,6 +387,14 @@ Pause_Update:
 	
 	; Get prev state
 	move.w PauseState_PrevPadState(a0), d1
+
+	; Check reset combo
+	cmp.w  #SoftResetButtonCombo, d0
+	bne    @NoSoftReset
+	jsr    GameSoftReset
+	bra    @End
+
+	@NoSoftReset:
 	
 	; Check start button
 	btst   #pad_button_start, d0
@@ -434,6 +442,8 @@ Pause_Update:
 
 	; Force water level off
 	move.b #0xFF, raster_water_level
+
+	@End:
 	
 	POPL   a1
 	POPL   a0

@@ -18,6 +18,18 @@ PlayerTeleport:
 
 	rts
 
+; Reset mid-game (return to main menu)
+GameSoftReset:
+
+	move.b #GamestateReset_ResetAudio, d0
+	jsr    GameStateReset
+	
+	move.l #InitialLevel, CurrentLevel
+	lea    GameStateMainMenu, a0
+	jsr    GameStateEnter
+
+	rts
+
 ;==============================================================
 ; Camera peek
 ;==============================================================

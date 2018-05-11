@@ -115,6 +115,9 @@ TotalFireflyCount		 equ (MaxFirefliesPerAct*MaxLevelsWithFireflies)
 ; Cheat codes
 CheatCodeLevelSelect	 equ 0x01020304	; 0x19851226
 
+; Reset combo
+SoftResetButtonCombo	equ (1<<pad_button_a|1<<pad_button_b|1<<pad_button_c|1<<pad_button_start)
+
 ; Debug button combos
 	IFND FINAL
 DebugButtonCombo_Profiler		equ 0x3000 ;(pad_button_a|pad_button_start)								; A+Start = profile frame
