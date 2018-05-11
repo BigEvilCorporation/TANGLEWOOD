@@ -35,14 +35,6 @@ tiles_l7:
 	incbin 'assets\maps\l7\tiles.bin'
 
 ;==============================================================
-; Graphics blocks
-;==============================================================
-	include 'assets\maps\l7\blocks.asm'
-
-map_blocks_l7:
-	incbin 'assets\maps\l7\blocks.bin'
-
-;==============================================================
 ; Graphics block maps
 ;==============================================================
 	include 'assets\maps\l7\l7a1\blockmap.asm'
@@ -68,14 +60,6 @@ collisiontiles_l7:
 	incbin 'assets\maps\l7\coltiles.bin'
 
 ;==============================================================
-; Collision blocks
-;==============================================================
-	include 'assets\maps\l7\colblock.asm'
-
-collisionmap_blocks_l7:
-	incbin 'assets\maps\l7\colblock.bin'
-
-;==============================================================
 ; Collision block maps
 ;==============================================================
 	include 'assets\maps\l7\l7a1\colmap.asm'
@@ -86,5 +70,31 @@ collisionmap_blockmap_l7a1:
 	incbin 'assets\maps\l7\l7a1\colmap.bin'
 collisionmap_blockmap_l7a2:
 	incbin 'assets\maps\l7\l7a2\colmap.bin'
+
+	IFD FINAL
+	dcb.b 0x00200100-*, $FF
+	dc.b 'SEGA            '
+	dc.b '                '
+	dc.b '                                                '
+	dc.b '                                                '
+	dc.b 'GM 00001009-00'
+	ENDIF
+
 collisionmap_blockmap_l7a3:
 	incbin 'assets\maps\l7\l7a3\colmap.bin'
+
+;==============================================================
+; Collision blocks
+;==============================================================
+	include 'assets\maps\l7\colblock.asm'
+
+collisionmap_blocks_l7:
+	incbin 'assets\maps\l7\colblock.bin'
+
+;==============================================================
+; Graphics blocks
+;==============================================================
+	include 'assets\maps\l7\blocks.asm'
+
+map_blocks_l7:
+	incbin 'assets\maps\l7\blocks.bin'
