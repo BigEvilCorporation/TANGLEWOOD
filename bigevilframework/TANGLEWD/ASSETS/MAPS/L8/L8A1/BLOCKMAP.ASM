@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L8A1_size_b	equ 0x000009C4	; Size in bytes
+map_blockmap_L8A1_size_b	equ 0x000009C8	; Size in bytes
 map_blockmap_L8A1_size_w	equ (map_blockmap_L8A1_size_b/2)	; Size in words
 map_blockmap_L8A1_size_l	equ (map_blockmap_L8A1_size_b/4)	; Size in longwords
 map_L8A1_width	equ 0x258
@@ -158,11 +158,11 @@ map_blockmap_L8A1_coloffsets:
 	dc.w 0x0918
 	dc.w 0x0924
 	dc.w 0x0930
-	dc.w 0x0942
-	dc.w 0x0954
-	dc.w 0x095E
-	dc.w 0x0974
-	dc.w 0x098A
-	dc.w 0x0990
-	dc.w 0x0996
-	dc.w 0x099C
+	dc.w 0x0944
+	dc.w 0x0956
+	dc.w 0x0962
+	dc.w 0x0978
+	dc.w 0x098E
+	dc.w 0x0994
+	dc.w 0x099A
+	dc.w 0x09A0
