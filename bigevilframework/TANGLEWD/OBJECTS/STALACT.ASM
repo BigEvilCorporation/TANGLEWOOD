@@ -92,6 +92,10 @@ StalactiteUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
 
+	; if waiting until off screen to destroy
+	tst.b  Entity_Active(a0)
+	beq    @WaitOffScreen
+
 	tst.b  PhysicsObj_HasCollision(a0)
 	bne    @Active
 
@@ -130,13 +134,28 @@ StalactiteUpdate:
 	; If hit floor, done processing
 	tst.b  PhysicsObj_OnFloor(a0)
 	beq    @InAir
-	jsr    EntityRemoveFromUpdateList
 
-	; Remove from world grid
-	bclr.b #EntityWorldGridFlag_GridUpdates, Entity_WorldGridFlags(a0)
+	move.b #0x0, Entity_Active(a0)
+
+	; Remove from physics list
+	bclr.b #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
+	jsr    PhysicsWorldRemoveObject
 
 	; Play SFX
 	PLAYSFX #Stalactite_HitSFX
+
+	@WaitOffScreen:
+
+	; If off screen
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @OnScreen
+
+	; Remove from world grid, stop updating and rendering
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	jsr    EntityRemoveFromWorldGrid
+
+	@OnScreen:
 
 	@InAir:
 	@Inactive:
