@@ -642,6 +642,9 @@ MonsterCheckBarrier:
 	cmpa.w #0x0, a2
 	beq    @ListEnd
 
+	tst.b  Entity_Active(a2)
+	beq    @NextMarker
+
 	; Check bounds
 	ENTITY_GETBOUNDS d1,d2,d3,a0
 	ENTITY_GETBOUNDS d3,d4,d5,a2
@@ -652,7 +655,7 @@ MonsterCheckBarrier:
 	; Found, check heading in right direction
 	ENTITY_GETCENTREX d1, a0
 	ENTITY_GETCENTREX d2, a2
-	tst.l  PhysicsObj_VelX(a0)
+	tst.l  PhysicsObj_AccelX(a0)
 	beq    @NextMarker
 	bgt    @HeadingRight
 	cmp.l  d1, d2
@@ -667,7 +670,6 @@ MonsterCheckBarrier:
 
 	; Just in case...
 	move.l #0x0, PhysicsObj_VelX(a0)
-	move.w #0x0, PhysicsObj_AccelX(a0)
 
 	bra    @Found
 
@@ -1354,11 +1356,6 @@ MonsterUpdateTrackPlayer:
 	PHYSICS_HITFACINGWALL a0
 	tst.b  d0
 	bne    @HitWall
-
-	; Check if hit an AI barrier
-	jsr    MonsterCheckBarrier
-	tst.b  d0
-	bne    @HitWall
 	
 	;==============================================================
 	
@@ -1454,7 +1451,7 @@ MonsterUpdateTrackPlayer:
 	move.b #Character_WalkGeneral, d2
 	jsr    CharacterAllowRun
 	jsr    CharacterMoveRight
-	bra    @End
+	bra    @Moving
 
 	@RightOfPlayer:
 
@@ -1462,7 +1459,7 @@ MonsterUpdateTrackPlayer:
 	move.b #Character_WalkGeneral, d2
 	jsr    CharacterAllowRun
 	jsr    CharacterMoveLeft
-	bra    @End
+	bra    @Moving
 	
 	;==============================================================
 
@@ -1472,6 +1469,13 @@ MonsterUpdateTrackPlayer:
 	; Lost player, or player dead, back to search state
 	jsr    MonsterStartSearchForPlayer
 	bra    @End
+
+	@Moving:
+
+	; Check if hit an AI barrier
+	jsr    MonsterCheckBarrier
+	tst.b  d0
+	beq    @End
 	
 	@PlayerInactive:
 	@PlayerBeingFlung:

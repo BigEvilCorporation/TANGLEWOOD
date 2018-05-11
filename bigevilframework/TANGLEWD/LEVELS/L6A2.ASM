@@ -189,7 +189,7 @@ l6a2_Init:
 	ENTITY_GETBYNAME Button, l6a2_Button1, a0
 	ENTITY_GETBYNAME Lift, l6a2_Lift1, a1
 	move.l a1, Button_UserData(a0)
-	move.l #LiftActivateDown, Button_OnDown(a0)
+	move.l #L6A2_LiftActivateDown, Button_OnDown(a0)
 	move.b #0x1, Button_Active(a0)
 
 	;==============================================================
@@ -249,6 +249,24 @@ l6a2_Serialise:
 	rts
 
 l6a2_End:
+	rts
+
+L6A2_LiftActivateDown:
+
+	PUSHL  a0
+
+	; Activate lift
+	ENTITY_GETBYNAME Lift, l6a2_Lift1, a0
+	jsr    LiftActivateDown
+
+	; Enable AI markers
+	ENTITY_GETBYNAME AIMarker, l6a2_AIMarkerLiftLeft, a0
+	move.b #0x1, Entity_Active(a0)
+	ENTITY_GETBYNAME AIMarker, l6a2_AIMarkerLiftRight, a0
+	move.b #0x1, Entity_Active(a0)
+
+	POPL   a0
+
 	rts
 
 l6a2_Trigger_EndChase:

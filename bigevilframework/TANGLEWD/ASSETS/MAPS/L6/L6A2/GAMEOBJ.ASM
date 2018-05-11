@@ -218,12 +218,12 @@ L6A2_Button1_name	dc.b "L6A2_Button1",0
 L6A2_Wyrm_count equ 0x0
 
 L6A2_AIMarker_count equ 0x2
-L6A2_AIMarker_34_idx	equ 0x0
-L6A2_AIMarker_35_idx	equ 0x1
+L6A2_AIMarkerLiftLeft_idx	equ 0x0
+L6A2_AIMarkerLiftRight_idx	equ 0x1
 
 	IFND FINAL
-L6A2_AIMarker_34_name	dc.b "L6A2_AIMarker_34",0
-L6A2_AIMarker_35_name	dc.b "L6A2_AIMarker_35",0
+L6A2_AIMarkerLiftLeft_name	dc.b "L6A2_AIMarkerLiftLeft",0
+L6A2_AIMarkerLiftRight_name	dc.b "L6A2_AIMarkerLiftRight",0
 	even
 	ENDIF
 
@@ -1114,9 +1114,10 @@ L6A2_LoadGameObjects:
 	jsr AIMarkerInit
 	move.l #0x09280000, Entity_WorldPosX(a0)
 	move.l #0x03400000, Entity_WorldPosY(a0)
+	move.b #0x0, Entity_Active(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
-	lea L6A2_AIMarker_34_name, a3
+	lea L6A2_AIMarkerLiftLeft_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
@@ -1127,9 +1128,10 @@ L6A2_LoadGameObjects:
 	jsr AIMarkerInit
 	move.l #0x09900000, Entity_WorldPosX(a0)
 	move.l #0x03400000, Entity_WorldPosY(a0)
+	move.b #0x0, Entity_Active(a0)
 	jsr AIMarkerLoadGfx
 	IFND FINAL
-	lea L6A2_AIMarker_35_name, a3
+	lea L6A2_AIMarkerLiftRight_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0
