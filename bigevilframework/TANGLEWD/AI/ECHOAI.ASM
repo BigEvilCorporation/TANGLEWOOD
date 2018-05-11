@@ -1642,11 +1642,14 @@ EchoAIStart_Skivv:
 	move.b #EchoAIState_Skivv, Echo_AIState(a0)
 
 	; Begin camera lerp
+	PUSHL  a3
 	move.l CameraTargetGameObj, a3
 	ENTITY_GETCENTREX d0,a3
 	move.l d0, CameraLerpFromX
 	ENTITY_GETCENTREY d0,a3
 	move.l d0, CameraLerpFromY
+	POPL   a3
+	
 	move.l a0, CameraTargetGameObj
 	move.w #0x0, CameraLerpTime
 	MOVE_NTSC_W Echo_HowlCameraLerpSpeed, CameraLerpSpeed, d0
@@ -3824,7 +3827,9 @@ EchoAIRunNodeAction:
 	beq    @NoCameraLerp
 	tst.b  SpriteObj_SpriteLinked(a0)
 	bne    @OnScreen
+	PUSHL  a3
 	jsr    EchoStartCameraLerp
+	POPL   a3
 	@OnScreen:
 	@NoCameraLerp:
 
