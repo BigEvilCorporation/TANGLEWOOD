@@ -428,5 +428,20 @@ LINECOUNT = LINECOUNT+1
 	WINDOW_CREATE_WIDGET_TEXT a0,#PasswordScreenBack,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#PasswordScreenListX,#PasswordScreenListY+(PasswordScreenLineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,PasswordScreen_OnBack,0x0
+	
+	; Default to previous password
+	move.l CurrentSavePassword, d7
+	lea    GameStatePasswordScreenData, a2	; Screen state
+	lea    PasswordScreenWidgets(a2), a6	; Password UI widgets
+	move.w #PasswordScreenNumChars-1, d6	; Loop through widgets
+	@CharLp:
+	move.l (a6)+, a0						; Get next UI widget
+	move.b d7, d0
+	andi.b #0xF, d0
+	PUSHL  d7
+	jsr    UIWidgetListSetItem
+	POPL   d7
+	ror.l  #0x4, d7							; Next nybble
+	dbra   d6, @CharLp						; Next char
 
 	rts
