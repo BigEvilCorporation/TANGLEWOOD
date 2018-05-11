@@ -176,7 +176,7 @@ CreditsStrings:
 	CREDIT_NAME		"David Howland"
 	CREDIT_NAME		"David Luis"
 	CREDIT_NAME		"Eric Rist"
-	CREDIT_NAME		"Eric Voirin"
+	CREDIT_NAME		"Eric 'oerg866' Voirin"
 	CREDIT_NAME		"Jemayel Mall"
 	CREDIT_NAME		"Karl Burnett"
 	CREDIT_NAME		"Lennart Brink-Abeler"
