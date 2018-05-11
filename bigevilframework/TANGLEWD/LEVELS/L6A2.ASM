@@ -297,9 +297,12 @@ l6a2_Trigger_WakeDjakk3:
 	@MonsterAlreadyWoke:
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a0
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @StillVisible
 	jsr    EntityRemoveFromWorldGrid
 	jsr    EntityRemoveFromUpdateList
 	jsr    EntityRemoveFromRenderList
+	@StillVisible:
 	
 	POPL   a0
 
@@ -316,9 +319,7 @@ l6a2_Trigger_WakeDjakk4:
 	@MonsterAlreadyWoke:
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a0
-	jsr    EntityRemoveFromWorldGrid
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
+	jsr    l6a2_RemoveDjakkIfOffScreen
 	
 	POPL   a0
 
@@ -338,10 +339,17 @@ l6a2_Trigger_WakeDjakk5:
 	jsr    MonsterStartRoaring
 	@MonsterAlreadyWoke:
 
+	ENTITY_GETBYNAME Monster, l6a2_Djakk1, a0
+	jsr    l6a2_RemoveDjakkIfOffScreen
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk2, a0
+	jsr    l6a2_RemoveDjakkIfOffScreen
+
 	ENTITY_GETBYNAME Monster, l6a2_Djakk3, a0
-	jsr    EntityRemoveFromWorldGrid
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
+	jsr    l6a2_RemoveDjakkIfOffScreen
+
+	ENTITY_GETBYNAME Monster, l6a2_Djakk4, a0
+	jsr    l6a2_RemoveDjakkIfOffScreen
 	
 	POPL   a0
 
@@ -377,9 +385,7 @@ l6a2_Trigger_WakeDjakk7:
 	@MonsterAlreadyWoke:
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk5, a0
-	jsr    EntityRemoveFromWorldGrid
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
+	jsr    l6a2_RemoveDjakkIfOffScreen
 	
 	POPL   a0
 
@@ -415,9 +421,7 @@ l6a2_Trigger_WakeDjakk9:
 	@MonsterAlreadyWoke:
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk7, a0
-	jsr    EntityRemoveFromWorldGrid
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
+	jsr    l6a2_RemoveDjakkIfOffScreen
 	
 	POPL   a0
 
@@ -434,9 +438,7 @@ l6a2_Trigger_WakeDjakk10:
 	@MonsterAlreadyWoke:
 
 	ENTITY_GETBYNAME Monster, l6a2_Djakk8, a0
-	jsr    EntityRemoveFromWorldGrid
-	jsr    EntityRemoveFromUpdateList
-	jsr    EntityRemoveFromRenderList
+	jsr    l6a2_RemoveDjakkIfOffScreen
 	
 	POPL   a0
 
@@ -490,6 +492,19 @@ l6a2_Trigger_Log3:
 	jsr    LogBeginHazardousRoll
 
 	POPL   a0
+
+	rts
+
+l6a2_RemoveDjakkIfOffScreen:
+	; a0 --- Djakk
+
+	tst.b  SpriteObj_SpriteLinked(a0)
+	bne    @StillVisible
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityRemoveFromUpdateList
+	jsr    EntityRemoveFromRenderList
+	jsr    PhysicsWorldRemoveObject
+	@StillVisible:
 
 	rts
 
