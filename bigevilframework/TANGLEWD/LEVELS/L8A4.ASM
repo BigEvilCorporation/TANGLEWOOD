@@ -374,12 +374,37 @@ l8a4_CutsceneDemonStealFuzzl:
 	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
 	CUTSCENE_OBJECT_ROUTINE a2,#DemonAIStart_Boss
 
+	; Wait for zero lives
+	CUTSCENE_ROUTINE l8a4_Cutscene_DemonWaitZeroLives,#0x0,#0x0,#0x0
+
+	CUTSCENE_START_LETTERBOX
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Lerp to Demon
+	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
+	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP_WAIT
+
 	; Wait for death
 	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
 	CUTSCENE_CHARACTER_WAIT_DEATH a2
 
 	; Drop Fuzzl
 	CUTSCENE_ROUTINE l8a4_Cutscene_DemonDropFuzzl,#0x0,#0x0,#0x0
+
+	; Wait
+	CUTSCENE_DELAY #0x0020
+
+	; Lerp back
+	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
+	CUTSCENE_CAMERA_LERP a2,Player1,#0x10
+	CUTSCENE_CAMERA_LERP_WAIT
+
+	; Restore player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
 
 	CUTSCENE_END_LETTERBOX
 	CUTSCENE_END
@@ -739,6 +764,20 @@ l8a4_Cutscene_FuzzlEaten:
 	POPM a0-a2
 
 	move.b #0x0, d0
+
+	rts
+
+l8a4_Cutscene_DemonWaitZeroLives:
+
+	move.b #0x0, d0
+
+	PUSHL a0
+	ENTITY_GETBYNAME Demon, l8a4_Demon, a0
+	tst.b  Demon_NumLives(a0)
+	beq    @NoLives
+	move.b #0x1, d0
+	@NoLives:
+	POPL  a0
 
 	rts
 
