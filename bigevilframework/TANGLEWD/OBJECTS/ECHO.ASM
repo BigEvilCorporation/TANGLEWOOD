@@ -326,7 +326,10 @@ EchoUpdate:
 	move.w d0, Echo_AICameraLerpTimer(a0)
 	tst.w  d0
 	bne    @LerpTimerRunning
-	move.l a0, CameraLerpFromObj
+	ENTITY_GETCENTREX d0,a0
+	move.l d0, CameraLerpFromX
+	ENTITY_GETCENTREY d0,a0
+	move.l d0, CameraLerpFromY
 	move.l (Player1), CameraTargetGameObj
 	move.w #0x0, CameraLerpTime
 	move.w #Echo_HowlCameraLerpSpeed, CameraLerpSpeed
@@ -699,7 +702,11 @@ EchoStartCameraLerp:
 
 	tst.w  Echo_AICameraLerpTimer(a0)
 	bne    @NoCameraLerp
-	move.l (Player1), CameraLerpFromObj
+	move.l Player1, a3
+	ENTITY_GETCENTREX d0,a3
+	move.l d0, CameraLerpFromX
+	ENTITY_GETCENTREY d0,a3
+	move.l d0, CameraLerpFromY
 	move.l a0, CameraTargetGameObj
 	move.w #0x0, CameraLerpTime
 	MOVE_NTSC_W Echo_HowlCameraLerpSpeed, CameraLerpSpeed, d0

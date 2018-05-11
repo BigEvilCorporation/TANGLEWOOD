@@ -1642,7 +1642,11 @@ EchoAIStart_Skivv:
 	move.b #EchoAIState_Skivv, Echo_AIState(a0)
 
 	; Begin camera lerp
-	move.l CameraTargetGameObj, CameraLerpFromObj
+	move.l CameraTargetGameObj, a3
+	ENTITY_GETCENTREX d0,a3
+	move.l d0, CameraLerpFromX
+	ENTITY_GETCENTREY d0,a3
+	move.l d0, CameraLerpFromY
 	move.l a0, CameraTargetGameObj
 	move.w #0x0, CameraLerpTime
 	MOVE_NTSC_W Echo_HowlCameraLerpSpeed, CameraLerpSpeed, d0

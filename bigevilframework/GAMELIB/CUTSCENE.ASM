@@ -418,7 +418,11 @@ CutsceneStep_CameraLerp:
 	; d2 (w) Speed
 	; d0 (b) OUT: Step running
 
-	move.l d0, CameraLerpFromObj
+	move.l d0, a3
+	ENTITY_GETCENTREX d0,a3
+	move.l d0, CameraLerpFromX
+	ENTITY_GETCENTREY d0,a3
+	move.l d0, CameraLerpFromY
 	move.l d1, CameraTargetGameObj
 	move.w d2, CameraLerpSpeed
 	move.w #0x0, CameraLerpTime

@@ -6,6 +6,8 @@
 ;   camera.asm - V/H scroll routines and virtual camera logic
 ;==============================================================
 
+CAMERA_DEBUG	equ 0
+
 CAM_Init:
 	move.l #0x0, CameraWorldPosX
 	move.l #0x0, CameraWorldPosY
@@ -14,7 +16,6 @@ CAM_Init:
 	move.w #0x0, CameraLerpTime
 	move.l #0x0, CameraLerpFromX
 	move.l #0x0, CameraLerpFromY
-	move.l #0x0, CameraLerpFromObj
 	move.w #0x0, CameraShakeSpeedX
 	move.w #0x0, CameraShakeSpeedY
 	move.w #0x0, CameraShakeAmpX
@@ -91,7 +92,10 @@ CAM_LerpBetweenEntities:
 	; a1 --- To entity
 	; d0 (w) Speed
 
-	move.l a0, CameraLerpFromObj
+	ENTITY_GETCENTREX d1,a0
+	move.l d1, CameraLerpFromX
+	ENTITY_GETCENTREY d1,a0
+	move.l d1, CameraLerpFromY
 	move.l a1, CameraTargetGameObj
 	move.w #0x0, CameraLerpTime
 	move.w d0, CameraLerpSpeed
@@ -135,17 +139,7 @@ CAM_Update:
 	; Get lerp source X/Y
 	move.l  (CameraLerpFromX), d2
 	move.l  (CameraLerpFromY), d3
-
-	; If lerp source object set
-	move.l  (CameraLerpFromObj), a2
-	cmpa.w #0x0, a2
-	beq     @NoLerpStartObj
-	
-	; Get lerp source X/Y from object
-	ENTITY_GETCENTREX d2, a2
-	ENTITY_GETCENTREY d3, a2
-
-	@NoLerpStartObj:
+	beq     @NoLerp
 
 	; Lerp target sprite space to camera space
 	sub.l   #(vdp_sprite_border_x*subpixels_per_pixel), d2
@@ -162,8 +156,9 @@ CAM_Update:
 	blt    @LerpInProgress
 
 	; Disable lerp
-	move.l #0x0, CameraLerpFromObj
 	move.w #0x0, CameraLerpSpeed
+	move.l #0x0, CameraLerpFromX
+	move.l #0x0, CameraLerpFromY
 
 	; Finished
 	bra    @EndLerp
@@ -299,6 +294,20 @@ CAM_Update:
 	
 	@ShakeX:
 	
+	;==============================================================
+
+	IF CAMERA_DEBUG
+
+	move.l CameraWorldPosX, d0
+	move.l #((8*8)<<16)|(4*8), d1
+	jsr    DBG_DrawLong
+
+	move.l CameraWorldPosY, d0
+	move.l #((8*8)<<16)|(5*8), d1
+	jsr    DBG_DrawLong
+
+	ENDIF
+
 	;==============================================================
 	
 	move.w  WorldScrollX, d5

@@ -125,7 +125,7 @@ FlueOccupantUpdate:
 	; If occupant was camera owner, wait for camera lerp
 	tst.b  FlueOccupant_CameraOwner(a2)
 	beq    @NotLerpingCamera
-	tst.l  CameraLerpFromObj
+	tst.l  CameraLerpFromX
 	bne    @LerpingCamera
 	@NotLerpingCamera:
 
@@ -205,7 +205,8 @@ FlueOccupantUpdate:
 	tst.b  FlueOccupant_CameraOwner(a2)
 	beq    @NotCameraOwner
 	move.l a1, CameraTargetGameObj
-	move.l #0x0, CameraLerpFromObj
+	move.l #0x0, CameraLerpFromX
+	move.l #0x0, CameraLerpFromY
 	move.w #0x0, CameraLerpTime
 	move.w #0x0, CameraLerpSpeed
 	@NotCameraOwner:
@@ -283,7 +284,10 @@ FlueOccupantUpdate:
 	bne    @NotCameraTarget
 	
 	; Lerp camera towards output flue
-	move.l a1, CameraLerpFromObj
+	ENTITY_GETCENTREX d0,a1
+	move.l d0, CameraLerpFromX
+	ENTITY_GETCENTREY d0,a1
+	move.l d0, CameraLerpFromY
 	move.l a3, CameraTargetGameObj
 	move.w #0x0, CameraLerpTime
 	move.w Flue_CameraLerpSpeed(a0), CameraLerpSpeed

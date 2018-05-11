@@ -192,7 +192,6 @@ CameraShakeOffsetX	    rs.l 1
 CameraShakeOffsetY	    rs.l 1
 CameraPeekOffsetY       rs.l 1
 CameraTargetGameObj     rs.l 1
-CameraLerpFromObj	    rs.l 1
 CameraLerpFromX		    rs.l 1
 CameraLerpFromY		    rs.l 1
 CameraLerpTime		    rs.w 1
