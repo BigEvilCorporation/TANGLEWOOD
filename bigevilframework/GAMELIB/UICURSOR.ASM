@@ -1,3 +1,5 @@
+OLD_MENU_INPUT					equ 0
+
 ;==============================================================
 ;   BIG EVIL FRAMEWORK - Matt Phillips (c) 2017
 ;==============================================================
@@ -229,12 +231,22 @@ UIWidgetCursorUpdate:
 
 	ENDIF
 
+	IF OLD_MENU_INPUT
 	; Debounce
 	cmp.w  UIWidgetCursor_PrevInput(a0), d0
 	beq    @NoInput
 
 	; Store prev input
 	move.w d0, UIWidgetCursor_PrevInput(a0)
+	
+	ELSE
+	
+	move.w	UIWidgetCursor_PrevInput(a0), d1
+	move.w	d0, UIWidgetCursor_PrevInput(a0)
+	not.w	d1
+	and.w	d1, d0
+	
+	ENDIF
 
 	; Determine button pressed
 	move.w d0, d1
