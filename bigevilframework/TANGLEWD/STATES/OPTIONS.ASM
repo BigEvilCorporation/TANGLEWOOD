@@ -476,6 +476,13 @@ LINECOUNT = LINECOUNT+3
 	WIDGET_LIST_ADD_ITEM a3,#ControlSchemeStr3
 	WIDGET_LIST_ADD_ITEM a3,#ControlSchemeStr4
 
+	; Set intial layout setting
+	PUSHM  a0-a5
+	move.b InputMappingScheme, d0
+	move.l a3, a0
+	jsr    UIWidgetListSetItem
+	POPM   a0-a5
+
 	; Align memory
 	RAMPOOL_ALIGN Pool_Entities
 
