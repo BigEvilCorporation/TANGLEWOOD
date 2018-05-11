@@ -17,13 +17,22 @@ CPU_EntryPoint:
 	ENDIF
 
 	; Test reset state
-	;tst.w reset_exp    ; Test expansion reset
-	;bne CPU_Main           ; Branch if Not Equal (to zero) - to CPU_Main
-	;tst.w reset_button ; Test reset button
-	;bne CPU_Main           ; Branch if Not Equal (to zero) - to CPU_Main
-   
-	; Clear RAM
+	tst.w reset_exp    ; Test expansion reset
+	bne @SoftReset
+	tst.w reset_button ; Test reset button
+	bne @SoftReset
+
+	; Clear RAM (for hard reset)
+	jsr    RAM_Clear
+	bra    @EndClearRAM
+
+	; Clear RAM (for soft reset)
+	@SoftReset:
+	move.l SoftResetSaveLong, d7
 	jsr RAM_Clear
+	move.l d7, SoftResetSaveLong
+
+	@EndClearRAM:
 
 	; Write TMSS
 	jsr VDP_WriteTMSS

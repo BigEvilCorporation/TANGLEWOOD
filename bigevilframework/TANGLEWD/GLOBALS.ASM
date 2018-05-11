@@ -126,6 +126,8 @@ DebugMoveMode_Speed			equ 0x006000
 DebugMoveMode_SpeedMulA		equ 0x0A
 DebugMoveMode_SpeedMulB		equ 0x04
 	ENDIF
+
+SoftResetSaveLong			equ CurrentSavePassword
 	
 OUTPUT_STRUCT_SIZES	equ 0
 
