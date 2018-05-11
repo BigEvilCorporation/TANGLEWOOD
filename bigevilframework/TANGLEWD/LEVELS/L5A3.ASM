@@ -219,10 +219,12 @@ l5a3_Init:
 	
 l5a3_Update:
 
-	; If Djakk dead, disable bridge button
+	; If Djakk dead, remove from physics world, disable bridge button
 	ENTITY_GETBYNAME Monster, l5a3_Djakk1, a0
 	tst.b  Character_Dead(a0)
 	beq    @NotDead
+	bclr   #EntityWorldGridFlag_GridPhysics, Entity_WorldGridFlags(a0)
+	jsr    PhysicsWorldRemoveObject
 	ENTITY_GETBYNAME Button, l5a3_Button2, a0
 	move.b #0x0, Button_Active(a0)
 	@NotDead:
