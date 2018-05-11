@@ -104,6 +104,9 @@ CheckpointUpdate:
 
 	; Play sound
 	PLAYSFX #SFX_Checkpoint
+
+	; Remove from update list
+	jsr    EntityRemoveFromupdateList
 	
 	; Save game state
 	jsr    SaveGame
