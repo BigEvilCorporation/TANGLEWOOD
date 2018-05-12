@@ -625,7 +625,7 @@ L2A3_LoadGameObjects:
 
 	jsr NestInit
 	move.l #0x05e00000, Entity_WorldPosX(a0)
-	move.l #0x03880000, Entity_WorldPosY(a0)
+	move.l #0x03800000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	IFND FINAL
 	lea L2A3_Nest_15_name, a3
