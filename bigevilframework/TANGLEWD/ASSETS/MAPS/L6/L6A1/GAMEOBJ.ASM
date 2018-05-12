@@ -546,7 +546,7 @@ L6A1_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x13800000, Entity_WorldPosX(a0)
+	move.l #0x13980000, Entity_WorldPosX(a0)
 	move.l #0x07680000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL

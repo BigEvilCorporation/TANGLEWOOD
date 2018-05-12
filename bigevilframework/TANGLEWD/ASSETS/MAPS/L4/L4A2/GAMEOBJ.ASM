@@ -762,7 +762,7 @@ L4A2_LoadGameObjects:
 	add.l #TriggerBox_Struct_Size, a0
 
 	jsr TriggerBoxInit
-	move.l #0x02100000, Entity_WorldPosX(a0)
+	move.l #0x02180000, Entity_WorldPosX(a0)
 	move.l #0x03f00000, Entity_WorldPosY(a0)
 	move.l #SetTimeOfDay, TriggerBox_Routine(a0)
 	move.l #TimeOfDay_Dusk, TriggerBox_RegisterD0(a0)

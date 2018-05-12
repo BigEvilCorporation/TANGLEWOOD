@@ -416,8 +416,8 @@ L7A2_LoadGameObjects:
 	add.l #Nest_Struct_Size, a0
 
 	jsr NestInit
-	move.l #0x1e580000, Entity_WorldPosX(a0)
-	move.l #0x04680000, Entity_WorldPosY(a0)
+	move.l #0x1e680000, Entity_WorldPosX(a0)
+	move.l #0x04780000, Entity_WorldPosY(a0)
 	jsr NestLoadGfx
 	IFND FINAL
 	lea L7A2_Nest_9_name, a3

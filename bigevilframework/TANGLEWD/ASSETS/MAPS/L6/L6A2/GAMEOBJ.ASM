@@ -945,8 +945,8 @@ L6A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x02480000, Entity_WorldPosX(a0)
-	move.l #0x03c00000, Entity_WorldPosY(a0)
+	move.l #0x02500000, Entity_WorldPosX(a0)
+	move.l #0x03b80000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
 	lea L6A2_Deathbox_21_name, a3
@@ -1036,8 +1036,8 @@ L6A2_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x1f080000, Entity_WorldPosX(a0)
-	move.l #0x06980000, Entity_WorldPosY(a0)
+	move.l #0x1f300000, Entity_WorldPosX(a0)
+	move.l #0x06900000, Entity_WorldPosY(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
 	lea L6A2_Deathbox_56_name, a3

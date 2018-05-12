@@ -310,8 +310,8 @@ L6A3_LoadGameObjects:
 	add.l #Log_Struct_Size, a0
 
 	jsr LogInit
-	move.l #0x18000000, Entity_WorldPosX(a0)
-	move.l #0x03800000, Entity_WorldPosY(a0)
+	move.l #0x18500000, Entity_WorldPosX(a0)
+	move.l #0x03580000, Entity_WorldPosY(a0)
 	jsr LogLoadGfx
 	IFND FINAL
 	lea L6A3_Log2_name, a3
@@ -826,7 +826,7 @@ L6A3_LoadGameObjects:
 	add.l #Deathbox_Struct_Size, a0
 
 	jsr DeathboxInit
-	move.l #0x02d80000, Entity_WorldPosX(a0)
+	move.l #0x02d00000, Entity_WorldPosX(a0)
 	move.l #0x02180000, Entity_WorldPosY(a0)
 	move.w #0x00d8, Entity_Width(a0)
 	move.w #0x0010, Entity_Height(a0)
