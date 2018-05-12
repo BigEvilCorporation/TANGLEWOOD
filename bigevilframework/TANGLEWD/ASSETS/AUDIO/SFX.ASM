@@ -562,7 +562,7 @@ SFX_CrateSmash:
 
 SFX_FireflyCollect:
 	dc.l SFX_Data_FireflyCollect	; Data
-	dc.b SFX_Priority_Highest		; Priority
+	dc.b SFX_Priority_Highest+1		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
@@ -906,7 +906,7 @@ SFX_Ambience_Night1:
 
 SFX_Djakk_Roar:
 	dc.l SFX_Data_Djakk_Roar		; Data
-	dc.b SFX_Priority_High			; Priority
+	dc.b SFX_Priority_Highest		; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
