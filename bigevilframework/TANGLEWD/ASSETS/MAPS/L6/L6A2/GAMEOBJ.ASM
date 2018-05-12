@@ -784,6 +784,7 @@ L6A2_LoadGameObjects:
 	move.l #0x04580000, Entity_WorldPosY(a0)
 	move.l #l6a2_Trigger_Log1, TriggerBox_Routine(a0)
 	move.b #TriggerType_Intersect, TriggerBox_TriggerType(a0)
+	move.b #0x1, TriggerBox_TriggerOnce(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L6A2_TriggerLog1_name, a3
