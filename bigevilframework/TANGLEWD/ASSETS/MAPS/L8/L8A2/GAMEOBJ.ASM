@@ -304,7 +304,7 @@ L8A2_LoadGameObjects:
 
 	jsr WaterBodyInit
 	move.l #0x03300000, Entity_WorldPosX(a0)
-	move.l #0x02980000, Entity_WorldPosY(a0)
+	move.l #0x03600000, Entity_WorldPosY(a0)
 	move.w #0x0300, Entity_Width(a0)
 	move.w #0x0098, Entity_Height(a0)
 	jsr WaterBodyLoadGfx
