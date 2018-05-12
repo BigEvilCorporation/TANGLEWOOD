@@ -6,17 +6,17 @@
 	dc.b $ea		; Lock channel PSG 3
 	dc.b $eb		; Lock channel PSG 4
 ; Pattern $00, Row 0; 
-	dc.b $44, $96	; Set instrument for channel FM 4
+	dc.b $44, $9f	; Set instrument for channel FM 4
 	dc.b $f4, $f7	; Set pan/AMS/FMS for channel FM 4
 	dc.b $04, $13	; Note A-0 on channel FM 4
-	dc.b $45, $bb	; Set instrument for channel FM 5
+	dc.b $45, $c6	; Set instrument for channel FM 5
 	dc.b $25, $17	; Set volume for channel FM 5
 	dc.b $05, $a1	; Note C-5 on channel FM 5
-	dc.b $46, $c4	; Set instrument for channel FM 6
+	dc.b $46, $cf	; Set instrument for channel FM 6
 	dc.b $f6, $cc	; Set pan/AMS/FMS for channel FM 6
 	dc.b $f8, $24, $fe, $f8, $25, $03	; Set PCM rate to value 4
-	dc.b $0c, $c4	; Sample 196 on channel PCM
-	dc.b $4b, $bb	; Set instrument for channel PSG 4
+	dc.b $0c, $cf	; Sample 207 on channel PCM
+	dc.b $4b, $c6	; Set instrument for channel PSG 4
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $3a, $07, $01	; Set frequency '23' for channel PSG 3
 	dc.b $0b, $07	; Note G-0 on channel PSG 4
