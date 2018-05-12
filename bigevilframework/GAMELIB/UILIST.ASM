@@ -167,6 +167,9 @@ UIWidgetListSetItem:
 	; a0 --- Widget addr
 	; d0 (b) Item index
 
+	; Set new index
+	move.b d0, UIWidgetList_ItemIndex(a0)
+
 	; Get string ptr
 	andi.l #0xFF, d0
 	lsl.l  #0x2, d0
