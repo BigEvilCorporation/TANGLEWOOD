@@ -1334,9 +1334,6 @@ PhysicsObjFindFloor:
 	
 	; Query collision map
 	PUSHM  d5-d6/a0-a1
-	move.w Level_ColMapWidthBlocks(a1), d2	; Collision map width (in blocks) to d2 hi
-	swap   d2
-	move.w Level_ColMapHeightBlocks(a1), d2	; Collision map height (in blocks) to d2 lo
 	move.l Level_ColMapBlocksAddr(a1), a0	; Collision blocks to a0
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColMapBlockYLookupAddr(a1), a5	; Collision block map Y offset lookup
@@ -1688,8 +1685,6 @@ PhysicsObjFindWall:
 	swap   d1
 
 	; Get collision data
-	moveq  #0x0, d2
-	move.w Level_ColMapWidthBlocks(a1), d2
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColMapBlocksAddr(a1), a3	; Collision blocks to a3
 	move.l Level_ColTilesAddr(a1), a4		; Collision tileset to a4
@@ -1850,8 +1845,6 @@ PhysicsObjFindCeiling:
 	
 	; Get collision flags for tile at probe pos
 	PUSHM  d5-d6
-	moveq  #0x0, d2
-	move.w Level_ColMapWidthBlocks(a1), d2
 	move.l Level_ColMapBlockMapAddr(a1), a2	; Collision block map to a2
 	move.l Level_ColMapBlocksAddr(a1), a3	; Collision blocks to a0
 	move.l Level_ColTilesAddr(a1), a4		; Collision tileset to a1

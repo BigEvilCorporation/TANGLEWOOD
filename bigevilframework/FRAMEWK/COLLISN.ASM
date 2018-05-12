@@ -18,7 +18,6 @@ PHYS_GetTerrainTile:
 	; a5 ---- : Collision block map row offset lookup table
 	; d0 (w)  : OUT: Tile flags
 	; d1 (ww) : XY coord (pixels, scroll space)
-	; d2 (w)  : Map width (blocks)
 	; d3 (w)  : OUT: Tile pos X (tiles)
 	; d4 (w)  : OUT: Tile pos Y (tiles)
 
@@ -97,7 +96,6 @@ PHYS_GetTerrainHeight:
 	; a5 ---- : Collision block map row offset lookup table
 	; d0 (w)  : OUT: Floor height, or 0
 	; d1 (ww) : Probe XY coord (pixels, scroll space)
-	; d2 (ww) : Map W/H (blocks)
 	; d3 (w)  : OUT: Tile flags
 	
 	; Clear highest found height
@@ -123,7 +121,6 @@ PHYS_GetTerrainHeight:
 	
 	; Get terrain tile
 	PUSHL  d1
-	swap   d2				; Map width to d2
 	jsr    PHYS_GetTerrainTile
 	move.w d0, d4			; Backup tile flags to d4
 	POPL   d1
