@@ -64,7 +64,7 @@ Credits_CentrePosX			equ screen_width/8/2
 Credits_CentrePosY			equ vdp_plane_height/2
 Credits_TextColumnX			equ 7
 Credits_TextSpacingY		equ 2
-Credits_ScrollSpeed			equ 0x00003300
+Credits_ScrollSpeed			equ 0x00003700
 
 CreditsState_OpeningTitle	equ 0
 CreditsState_OpeningCredit	equ 1
@@ -119,6 +119,10 @@ Credits_Enter:
 	; Reset state (but leave audio playing)
 	move.b #GamestateReset_LeaveAudio, d0
 	jsr    GameStateReset
+
+	; Unlock level select
+	move.b #0x1, LegalFuzzlEaten
+	move.l #CheatCodeLevelSelect, SoundTestHistory
 
 	; Set BG colour
 	move.w #(PaletteId_World0<<4)|0xD, d0
@@ -224,7 +228,7 @@ Credits_Enter:
 	rts
 	
 Credits_Exit:
-	
+
 	rts
 	
 Credits_Update:
