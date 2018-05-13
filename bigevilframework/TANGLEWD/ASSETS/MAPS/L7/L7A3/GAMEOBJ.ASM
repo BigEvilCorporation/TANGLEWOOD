@@ -71,7 +71,13 @@ L7A3_Cogs_count equ 0x0
 
 L7A3_Button_count equ 0x0
 
-L7A3_Wyrm_count equ 0x0
+L7A3_Wyrm_count equ 0x1
+L7A3_Wyrm_2_idx	equ 0x0
+
+	IFND FINAL
+L7A3_Wyrm_2_name	dc.b "L7A3_Wyrm_2",0
+	even
+	ENDIF
 
 L7A3_AIMarker_count equ 0x0
 
@@ -157,6 +163,25 @@ L7A3_LoadGameObjects:
 
 
 
+
+	PUSHL  a1
+	RAMPOOL_ALLOC Pool_Entities, #(Wyrm_Struct_Size*L7A3_Wyrm_count)
+	move.l a1, EntityPoolStart_Wyrm
+	move.l a1, a0
+	POPL   a1
+
+	jsr WyrmInit
+	move.l #0x01a00000, Entity_WorldPosX(a0)
+	move.l #0x01d00000, Entity_WorldPosY(a0)
+	jsr WyrmLoadGfx
+	IFND FINAL
+	lea L7A3_Wyrm_2_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xb, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Wyrm_Struct_Size, a0
 
 
 
