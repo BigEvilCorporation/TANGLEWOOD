@@ -9,12 +9,14 @@
 ;==============================================================
 ; Password format:
 ;==============================================================
-;  0xAABBCCDD >> 7
+;  0xAABBCCDD >> 2
 ;==============================================================
-;  D = Level index ^ 0x85
+; D = AAAB BBBB (A = checksum, B = level id ^ (CCC0))
+;==============================================================
+;  D = Level index and checksum ^ 0x85
 ;  C = Total fireflies ^ 0x19
-;  B = Firefly count acts 1+2 ^ 0x12
-;  A = Firefly count acts 3+4 ^ 0x26
+;  B = Firefly count acts 1+2 ^ 0x12 ^ (CCC0 CCC0)
+;  A = Firefly count acts 3+4 ^ 0x26 ^ (0CCC 0CCC)
 ;==============================================================
 
 SaveGame:
@@ -152,11 +154,27 @@ SavePasswordEncode:
 	clr.w  d6
 	or.l   d6, d0
 
+	; Checksum
+	move.l d0, d4
+	move.w #0x0, d1
+	move.w #0x8-1, d2
+	@ChecksumLp:
+	move.b d4, d3
+	andi.b #0x0F, d3
+	add.b  d3, d1
+	andi.b #0x07, d1
+	ror.l  #0x4, d4
+	dbra   d2, @ChecksumLp
+
+	; Checksum << 5
+	lsl.w  #0x5, d1
+	or.w   d1, d0
+
 	; ^ 0x26121985
 	eor.l #0x26121985, d0
-
-	; >> 7
-	ror.l #0x7, d0
+	
+	; >> 2
+	ror.l #0x2, d0
 
 	rts
 
@@ -170,11 +188,34 @@ SavePasswordDecode:
 	; d5 (b) Firefly count (act 3)
 	; d6 (b) Firefly count (act 4)
 
-	; << 7
-	rol.l  #0x7, d0
+	; << 2
+	rol.l  #0x2, d0
 
 	; ^ 0x26121985
 	eor.l #0x26121985, d0
+
+	; Extract saved checksum
+	move.b d0, d5
+	lsr.b #0x5, d5
+
+	; Zero saved checksum
+	andi.b #%00011111, d0
+
+	; Calculate checksum
+	move.l d0, d4
+	move.w #0x0, d1
+	move.w #0x8-1, d2
+	@ChecksumLp:
+	move.b d4, d3
+	andi.b #0x0F, d3
+	add.b  d3, d1
+	andi.b #0x07, d1
+	ror.l  #0x4, d4
+	dbra   d2, @ChecksumLp
+
+	; Compare checksum
+	cmp.b  d1, d5
+	bne    @Invalid
 
 	; Extract level id
 	move.b d0, d1
@@ -236,6 +277,9 @@ LoadGameFromPassword:
 	move.w d2, FireflyPickupCountTotalSave
 	move.w d2, FireflyPickupCountTotalUI
 
+	cmp.b  #MaxLevels, d1
+	bge    @Invalid
+
 	; Get level from index
 	lea    LevelList, a1
 	andi.l #0xFF, d1
@@ -263,21 +307,33 @@ LoadFireflyActDataFromPassword:
 
 	move.l (a4)+, a3
 	andi.w #0xFF, d6
+	cmp.b  #MaxFirefliesPerAct, d6
+	bgt    @Invalid
 	move.w d6, LevelData_FireflyCount(a3)
 	cmp.w  #0x1, d1
 	beq    @EndFireflySetup
 
 	move.l (a4)+, a3
 	andi.w #0xFF, d5
+	cmp.b  #MaxFirefliesPerAct, d5
+	bgt    @Invalid
 	move.w d5, LevelData_FireflyCount(a3)
 	cmp.w  #0x2, d1
 	beq    @EndFireflySetup
 
 	move.l (a4)+, a3
 	andi.w #0xFF, d4
+	cmp.b  #MaxFirefliesPerAct, d4
+	bgt    @Invalid
 	move.w d4, LevelData_FireflyCount(a3)
 	cmp.w  #0x3, d1
 	beq    @EndFireflySetup
+
+	move.l (a4)+, a3
+	andi.w #0xFF, d3
+	cmp.b  #MaxFirefliesPerAct, d3
+	bgt    @Invalid
+	move.w d3, LevelData_FireflyCount(a3)
 
 	move.l (a4)+, a3
 	andi.w #0xFF, d3
