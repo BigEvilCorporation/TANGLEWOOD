@@ -1,4 +1,4 @@
-   
+
 	; ******************************************************************
 	; Sega Megadrive ROM header
 	; ******************************************************************
@@ -93,10 +93,10 @@
     ; Genesis
 
 	dc.b "SEGA MEGA DRIVE "                                                                 ; 16 bytes - Console name
-	dc.b "BIG EVIL CORP.  "                                                                 ; 16 bytes - Copyright holder and release date
-	dc.b "TANGLEWOOD (BETA BUILD 0.9.14)  d637c9510106404d"                                 ; 48 bytes - Domestic name
-	dc.b "TANGLEWOOD (BETA BUILD 0.9.14)  d637c9510106404d"                                 ; 48 bytes - International name
-	dc.b "GM XXXXXXXX-XX"                                                                   ; 14 bytes - Game type and product code
+	dc.b "(C)EVIL 2018.MAY"                                                                 ; 16 bytes - Copyright holder and release date
+	dc.b "TANGLEWOOD (R)                                  "                                 ; 48 bytes - Domestic name
+	dc.b "TANGLEWOOD (R)                                  "                                 ; 48 bytes - International name
+	dc.b "GM EVIL0106-00"                                                                   ; 14 bytes - Game type and product code
 header_checksum_addr:
 	dc.w 0xD867                                                                             ; 02 bytes - Checksum
 	dc.b "J               "                                                                 ; 16 bytes - I/O support
@@ -104,9 +104,9 @@ header_checksum_addr:
 	dc.l __end-1                                                                            ; 04 bytes - End address of ROM
 	dc.l ram_start                                                                          ; 04 bytes - Start address of RAM
 	dc.l ram_end                                                                            ; 04 bytes - End address of RAM
-	dc.l 0x00000000                                                                         ; 04 bytes - SRAM enabled
-	dc.l 0x00000000                                                                         ; 04 bytes - Start address of SRAM
-	dc.l 0x00000000                                                                         ; 04 bytes - End address of SRAM
+	dc.b "    "                                                                             ; 04 bytes - SRAM enabled
+	dc.b "    "                                                                             ; 04 bytes - Start address of SRAM
+	dc.b "    "                                                                             ; 04 bytes - End address of SRAM
 	dc.b "            "                                                                     ; 12 bytes - Modem
 	dc.b "                                        "                                         ; 40 bytes - Notes
 	dc.b "JUE             "                                                                 ; 16 bytes - Country codes
