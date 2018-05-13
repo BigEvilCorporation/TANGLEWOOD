@@ -201,6 +201,12 @@ CreditsStrings:
 	CREDIT_SPACE
 	CREDIT_SPACE
 
+	CREDIT_HEADING1 "Mega Emulator Core by"
+	CREDIT_NAME		"Lee Hammerton"
+	CREDIT_NAME		"Jake Turner"
+	CREDIT_SPACE
+	CREDIT_SPACE
+
 	CREDIT_HEADING1 "Video Editing"
 	CREDIT_NAME		"Klash Productions"
 	CREDIT_NAME		"FriendlyDictator"
