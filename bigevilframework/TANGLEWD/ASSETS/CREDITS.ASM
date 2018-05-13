@@ -251,7 +251,9 @@ CreditsStrings:
 	CREDIT_NAME		"Jenni Wardell"
 	CREDIT_NAME		"Meg Rouncefield"
 	CREDIT_NAME		"Gemma Young"
-	CREDIT_NAME		"Simon Butler"
+	CREDIT_NAME		"Luke Hatton"
+	CREDIT_NAME		"Hannah 'Hanrar' Marsh"
+	CREDIT_NAME		"Stefan Rutherford"
 	CREDIT_NAME		"Darren Wall"
 	CREDIT_NAME		"Lee Hutchinson"
 	CREDIT_NAME		"Gruss Newton"
@@ -321,7 +323,7 @@ CreditsStrings:
 	CREDIT_NAME		"Michael 'My Mate' Bamford"
 	CREDIT_NAME		"Rose-Marie Bamford"
 	CREDIT_SPACE
-	CREDIT_NAME		"Our Lord and Saviour Torbjorn"
+	CREDIT_NAME		"Our Swedish Lord and Saviour, Torbjorn"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
