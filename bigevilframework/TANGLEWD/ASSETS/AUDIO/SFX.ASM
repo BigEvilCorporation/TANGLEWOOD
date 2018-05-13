@@ -1110,6 +1110,24 @@ SFX_UI_Move:
 	dc.b Audio_NonExclusive			; Exclusivity
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
+SFX_UI_Move2:
+	dc.l SFX_Data_UI_Move			; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+SFX_UI_Move3:
+	dc.l SFX_Data_UI_Move			; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+
+SFX_UI_Move4:
+	dc.l SFX_Data_UI_Move			; Data
+	dc.b SFX_Priority_Default		; Priority
+	dc.b Audio_NonExclusive			; Exclusivity
+	dc.b SFX_PriorityClash_Replace	; Priority clash
+
 	even
 
 SFXTableEnd:

@@ -113,7 +113,7 @@ MaxLevelsWithFireflies	 equ 21
 TotalFireflyCount		 equ (MaxFirefliesPerAct*MaxLevelsWithFireflies)
 
 ; Cheat codes
-CheatCodeLevelSelect	 equ 0x01020304	; 0x19851226
+CheatCodeLevelSelect	 equ 0x19650917
 
 ; Reset combo
 SoftResetButtonCombo	equ (1<<pad_button_a|1<<pad_button_b|1<<pad_button_c|1<<pad_button_start)
