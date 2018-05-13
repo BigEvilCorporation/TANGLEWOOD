@@ -47,7 +47,7 @@ PoolInit:
 	; Set update and render routines
 	move.l #PoolUpdate, Entity_UpdateRoutine(a0)
 	move.l #PoolDraw, Entity_RenderRoutine(a0)
-	move.l #EntitySerialise, Entity_SerialiseRoutine(a0)
+	move.l #PoolSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
 	;jsr EntityAddToUpdateList
@@ -454,6 +454,38 @@ PoolDraw:
 	@NotDirty:
 	@OutOfBounds:
 	
+	rts
+
+PoolSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	jsr   EntitySerialise
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEW Pool_WaterHeight(a0)
+	SAVEW Pool_WaterSpeed(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADW Pool_WaterHeight(a0)
+	LOADW Pool_WaterSpeed(a0)
+	
+	;==============================================================
+	
+	@End:
 	rts
 
 PoolDMALine:
