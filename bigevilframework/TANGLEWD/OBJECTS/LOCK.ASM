@@ -41,7 +41,7 @@ LockInit:
 	; Set update and render routines
 	move.l #LockUpdate, Entity_UpdateRoutine(a0)
 	move.l #AnimObjDraw, Entity_RenderRoutine(a0)
-	move.l #EntitySerialise, Entity_SerialiseRoutine(a0)
+	move.l #LockSerialise, Entity_SerialiseRoutine(a0)
 	
 	; Add to update and render lists
 	;jsr EntityAddToUpdateList
@@ -146,6 +146,54 @@ LockUpdate:
 
 	@Moving:
 	@NotMoving:
+
+	; Reposition barrier
+	jsr    LockRepositionBarrier
+
+	rts
+
+LockSerialise:
+	; a0 --- GameObj addr
+	; a1 --- Level addr
+	; a3 --- Stream ptr
+	; d1 (b) Direction (serialise_dir_in/serialise_dir_out)
+
+	jsr   EntitySerialise
+
+	cmp.b #serialise_dir_in, d1
+	beq   @Loading
+	
+	;==============================================================
+	
+	@Saving:
+	
+	SAVEW Lock_RaiseHeight(a0)
+	SAVEW Lock_RaiseSpeed(a0)
+	SAVEL AnimObj_AnimSubframe(a0)
+	
+	bra  @End
+	
+	;==============================================================
+	
+	@Loading:
+	
+	LOADW Lock_RaiseHeight(a0)
+	LOADW Lock_RaiseSpeed(a0)
+	LOADL AnimObj_AnimSubframe(a0)
+
+	PUSHM  d1/a3
+	jsr    LockRepositionBarrier
+	POPM   d1/a3
+	
+	move.b #0x1, AnimObj_UploadFrame(a0)
+	
+	;==============================================================
+	
+	@End:
+
+	rts
+
+LockRepositionBarrier:
 
 	; Reposition barrier
 	lea    Lock_Barrier(a0), a2
