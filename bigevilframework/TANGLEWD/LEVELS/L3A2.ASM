@@ -195,10 +195,9 @@ l3a2_Update:
 
 	; Timer elapsed, lerp camera back to player
 	PUSHM  a0-a2
-	ENTITY_GETBYNAME Log, l3a2_Log1, a0
-	move.l (Player1), a1
-	move.l #L3A2_LogRollCamLerpSpeed, d0
-	jsr    CAM_LerpBetweenEntities
+	move.l Player1, a1
+	move.w #L3A2_LogRollCamLerpSpeed, d0
+	jsr    CAM_LerpToEntity
 	POPM   a0-a2
 
 	@NoLerpTimer:
@@ -234,12 +233,11 @@ l3a2_LogRollBegin:
 	move.b #0x1, AnimObj_UpdateOutOfView(a0)
 
 	; Start camera lerp
-	PUSHL  a1
-	move.l (Player1), a0
+	PUSHM  a0-a2
 	ENTITY_GETBYNAME Log, l3a2_Log1, a1
-	move.l #L3A2_LogRollCamLerpSpeed, d0
-	jsr    CAM_LerpBetweenEntities
-	POPL   a1
+	move.w #L3A2_LogRollCamLerpSpeed, d0
+	jsr    CAM_LerpToEntity
+	POPM   a0-a2
 
 	; Begin lerp timer
 	move.l #LevelData_L3A2, a2

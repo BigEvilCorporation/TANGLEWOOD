@@ -607,13 +607,12 @@ l5a3_CutsceneRevealDemon:
 
 	; Lerp camera to demon
 	CUTSCENE_GET_ENTITY Demon,l5a3_Demon,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 
 	; Lerp back
-	CUTSCENE_GET_ENTITY Demon,l5a3_Demon,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	CUTSCENE_END
 
@@ -644,14 +643,13 @@ l5a3_CutsceneRevealScrap:
 
 	; Lerp camera to just above scrap
 	CUTSCENE_GET_ENTITY Location,l5a3_LocationScrapCamera,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x04
+	CUTSCENE_CAMERA_LERP a2,#0x04
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 
 	; Lerp camera to scrap
-	CUTSCENE_GET_ENTITY Location,l5a3_LocationScrapCamera,a2
 	CUTSCENE_GET_ENTITY Scrap,l5a3_Scrap,a3
-	CUTSCENE_CAMERA_LERP a2,a3,#0x10
+	CUTSCENE_CAMERA_LERP a3,#0x10
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 
@@ -673,8 +671,7 @@ l5a3_CutsceneRevealScrap:
 	CUTSCENE_DELAY #0x0020
 
 	; Lerp camera to Echo
-	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
-	CUTSCENE_CAMERA_LERP a2,Player2,#0x08
+	CUTSCENE_CAMERA_LERP Player2,#0x08
 
 	; Echo shout
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoTalk
@@ -697,7 +694,7 @@ l5a3_CutsceneRevealScrap:
 	CUTSCENE_DELAY #0x0080
 
 	; Lerp back
-	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	; Scrap begin AI
 	CUTSCENE_GET_ENTITY Scrap, l5a3_Scrap, a2
@@ -735,7 +732,7 @@ l5a3_CutsceneRaftStart:
 	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
 
 	; Camera lerp
-	CUTSCENE_CAMERA_LERP Player1,Player2,#0x08
+	CUTSCENE_CAMERA_LERP Player2,#0x08
 
 	; Lower locks
 	CUTSCENE_GET_ENTITY Lock, l5a3_Lock1, a2
@@ -760,7 +757,7 @@ l5a3_CutsceneRaftStart:
 	CUTSCENE_OBJECT_ROUTINE a2, #Lock_Raise
 
 	; Camera lerp back
-	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1

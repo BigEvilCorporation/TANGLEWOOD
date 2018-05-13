@@ -1572,9 +1572,11 @@ PlayerUpdateMount:
 	jsr    PlayerSyncWithPet
 	
 	; Start camera lerp
-	move.l a0, CameraTargetGameObj
-	move.w #0x0, CameraLerpTime
-	move.w #Player1MountCameraLerpSpeed, CameraLerpSpeed
+	PUSHM  a0-a2
+	move.l a0, a1
+	move.w #Player1MountCameraLerpSpeed, d0
+	jsr    CAM_LerpToEntity
+	POPM   a0-a2
 
 	; Done, start riding
 	move.b #Player_RideState_Riding, Player_RideState(a0)

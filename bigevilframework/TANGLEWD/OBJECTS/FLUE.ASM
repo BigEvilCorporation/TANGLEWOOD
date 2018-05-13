@@ -284,13 +284,11 @@ FlueOccupantUpdate:
 	bne    @NotCameraTarget
 	
 	; Lerp camera towards output flue
-	ENTITY_GETCENTREX d0,a1
-	move.l d0, CameraLerpFromX
-	ENTITY_GETCENTREY d0,a1
-	move.l d0, CameraLerpFromY
-	move.l a3, CameraTargetGameObj
-	move.w #0x0, CameraLerpTime
-	move.w Flue_CameraLerpSpeed(a0), CameraLerpSpeed
+	PUSHM a0-a2
+	move.l a3, a1
+	move.w Flue_CameraLerpSpeed(a0), d0
+	jsr   CAM_LerpToEntity
+	POPM  a0-a2
 	
 	; Occupant was camera owner
 	move.b #0x1, FlueOccupant_CameraOwner(a2)

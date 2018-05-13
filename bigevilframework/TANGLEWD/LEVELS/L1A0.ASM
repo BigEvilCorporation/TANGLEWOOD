@@ -245,10 +245,7 @@ l1a0_CutsceneIntro:
 	CUTSCENE_DELAY #0x0080
 
 	; Camera to Nymn
-	ENTITY_GETBYNAME Demon,l1a1_CutsceneDemon,a2
-	ENTITY_GETCENTREX d0,a2
-	ENTITY_GETCENTREY d1,a2
-	CUTSCENE_CAMERA_LERP_FROM_POS d0,d1,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	; Demon run off
 	CUTSCENE_ROUTINE l1a0_Cutscene_DemonRunOff,#0x0,#0x0,#0x0

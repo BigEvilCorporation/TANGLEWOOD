@@ -309,7 +309,7 @@ l2a3_CutsceneLightning:
 
 	; Lerp camera up to tree branch
 	CUTSCENE_GET_ENTITY Location,l2a3_LocationLightningCameraLerp,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	; Lightning strike (warning shot)
@@ -322,9 +322,8 @@ l2a3_CutsceneLightning:
 	CUTSCENE_PLAY_SFX #SFX_Hogg_Grunt
 
 	; Lerp camera to Hogg
-	CUTSCENE_GET_ENTITY Location,l2a3_LocationLightningCameraLerp,a2
 	CUTSCENE_GET_ENTITY Hogg,l2a3_HoggLightningCutscene,a3
-	CUTSCENE_CAMERA_LERP a2,a3,#0x08
+	CUTSCENE_CAMERA_LERP a3,#0x08
 
 	; Move Hogg to marker
 	CUTSCENE_GET_ENTITY Hogg,l2a3_HoggLightningCutscene,a2
@@ -344,8 +343,7 @@ l2a3_CutsceneLightning:
 	CUTSCENE_DELAY #0x0020
 
 	; Lerp camera back
-	CUTSCENE_GET_ENTITY Hogg,l2a3_HoggLightningCutscene,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	; Set lightning params
 	CUTSCENE_ROUTINE l2a3_CutsceneThunderSetParams,#0x0,#0x0,#0x0

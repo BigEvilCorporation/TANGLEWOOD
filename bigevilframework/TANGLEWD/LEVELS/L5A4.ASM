@@ -323,7 +323,7 @@ l5a4_Cutscene:
 	; Echo runs scared
 	CUTSCENE_DELAY #l5a4_DemonWaitTimeEchoScared
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStop
-	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed
+	CUTSCENE_CAMERA_LERP Player2,#Echo_HowlCameraLerpSpeed
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,Player1,#-l5a4_EchoHideToPlayerX,#0x10
 
 	; Echo hides
@@ -337,7 +337,7 @@ l5a4_Cutscene:
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
-	CUTSCENE_CAMERA_LERP Player2,Player1,#Echo_HowlCameraLerpSpeed
+	CUTSCENE_CAMERA_LERP Player1,#Echo_HowlCameraLerpSpeed
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	; Demon fully emerges
@@ -384,7 +384,7 @@ l5a4_Cutscene:
 
 	; Echo emerges
 	CUTSCENE_DELAY #0x0100
-	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed
+	CUTSCENE_CAMERA_LERP Player2,#Echo_HowlCameraLerpSpeed
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x0

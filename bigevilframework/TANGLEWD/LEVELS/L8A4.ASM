@@ -317,7 +317,7 @@ l8a4_CutsceneDemonStealFuzzl:
 
 	; Lerp camera to demon
 	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 
@@ -348,15 +348,13 @@ l8a4_CutsceneDemonStealFuzzl:
 
 	; Lerp to trap
 	CUTSCENE_DELAY #0x0020
-	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
 	CUTSCENE_GET_ENTITY Trap,l8a4_Trap1,a3
-	CUTSCENE_CAMERA_LERP a2,a3,#0x08
+	CUTSCENE_CAMERA_LERP a3,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 
 	; Lerp back
-	CUTSCENE_GET_ENTITY Trap,l8a4_Trap1,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
@@ -385,7 +383,7 @@ l8a4_CutsceneDemonStealFuzzl:
 
 	; Lerp to Demon
 	CUTSCENE_GET_ENTITY Demon,l8a4_Demon,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	; Wait for death
@@ -399,8 +397,7 @@ l8a4_CutsceneDemonStealFuzzl:
 	CUTSCENE_DELAY #0x0020
 
 	; Lerp back
-	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x10
+	CUTSCENE_CAMERA_LERP Player1,#0x10
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	; Restore player control
@@ -462,7 +459,7 @@ l8a4_CutsceneDemonReturn:
 
 	; Lerp to Fuzzl
 	CUTSCENE_GET_ENTITY Fuzzl,l8a4_FuzzlRed1,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x16
+	CUTSCENE_CAMERA_LERP a2,#0x16
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 
@@ -494,8 +491,7 @@ l8a4_CutsceneDemonReturn:
 
 	; Lerp camera back to player
 	CUTSCENE_DELAY #0x0040
-	CUTSCENE_GET_ENTITY Fuzzl,l8a4_FuzzlRed1,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x16
+	CUTSCENE_CAMERA_LERP Player1,#0x16
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0040
 
@@ -571,14 +567,14 @@ l8a4_CutsceneDemonReturn:
 	; Activate Nymn, howl, pan camera
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Entity_Active,#0x1
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_Visible,#0x1
-	CUTSCENE_CAMERA_LERP Player2,Player1,#0x16
+	CUTSCENE_CAMERA_LERP Player1,#0x16
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_CHARACTER_ANIM Player1,#Player_Animations,#PlayerAnimIdx_Howl
 	CUTSCENE_CHARACTER_ANIM_WAIT Player1
 
 	; Echo runs over to Nymn
 	CUTSCENE_DELAY #0x0020
-	CUTSCENE_CAMERA_LERP Player1,Player2,#0x16
+	CUTSCENE_CAMERA_LERP Player2,#0x16
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,Player1,#-EchoPounceNymnDistOffset,#0x08
 	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelXMovement
 	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
@@ -592,7 +588,7 @@ l8a4_CutsceneDemonReturn:
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
 	; Lerp camera to Nymn
-	CUTSCENE_CAMERA_LERP Player2,Player1,#EchoToNymnCamLerpSpeed
+	CUTSCENE_CAMERA_LERP Player1,#EchoToNymnCamLerpSpeed
 
 	; Lock Nymn sprite flipping
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x0
@@ -626,7 +622,7 @@ l8a4_CutsceneDemonReturn:
 	move.l  CameraWorldPosY, d1
 	addi.l  #(vdp_sprite_border_x*subpixels_per_pixel), d0
 	addi.l  #(vdp_sprite_border_y*subpixels_per_pixel), d1
-	CUTSCENE_CAMERA_LERP_FROM_POS d0,d1,Player1,#EchoToNymnCamLerpSpeed
+	CUTSCENE_CAMERA_LERP Player1,#EchoToNymnCamLerpSpeed
 
 	; Restore Nymn sprite flipping
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x1

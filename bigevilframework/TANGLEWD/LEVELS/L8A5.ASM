@@ -279,7 +279,7 @@ l8a5_CutsceneDemonStealFuzzl:
 
 	; Lerp camera to demon
 	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 
@@ -304,8 +304,7 @@ l8a5_CutsceneDemonStealFuzzl:
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAISetState
 
 	; Echo runs scared
-	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
-	CUTSCENE_CAMERA_LERP a2,Player2,#0x08
+	CUTSCENE_CAMERA_LERP Player2,#0x08
 	CUTSCENE_GET_ENTITY Lift,l8a5_Lift1,a2
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#-0x10,#0x10
 
@@ -319,7 +318,7 @@ l8a5_CutsceneDemonStealFuzzl:
 	; Lerp camera back to Demon
 	CUTSCENE_DELAY #0x0020
 	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
-	CUTSCENE_CAMERA_LERP Player2,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	l8a5_NoEchoHide:
@@ -340,8 +339,7 @@ l8a5_CutsceneDemonStealFuzzl:
 	CUTSCENE_ROUTINE l8a5_Cutscene_FuzzlEaten,#0x0,#0x0,#0x0
 
 	; Lerp back
-	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x10
+	CUTSCENE_CAMERA_LERP Player1,#0x10
 
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
@@ -370,7 +368,7 @@ l8a5_CutsceneDemonStealFuzzl:
 
 	; Lerp to Demon
 	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	; Wait for death
@@ -385,13 +383,13 @@ l8a5_CutsceneDemonStealFuzzl:
 	beq    NoEchoUnhide
 
 	; Echo emerges and jump onto lift
-	CUTSCENE_CAMERA_LERP Player1,Player2,#0x08
+	CUTSCENE_CAMERA_LERP Player2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x0
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoStopHiding
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterStartJump
-	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	NoEchoUnhide:
 
@@ -399,8 +397,7 @@ l8a5_CutsceneDemonStealFuzzl:
 	CUTSCENE_DELAY #0x0020
 
 	; Lerp back
-	CUTSCENE_GET_ENTITY Demon,l8a5_Demon,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x10
+	CUTSCENE_CAMERA_LERP Player1,#0x10
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	; Restore player control

@@ -581,7 +581,7 @@ l3a3_CutsceneSaveEcho:
 
 	; Echo runs scared
 	CUTSCENE_DELAY #EchoGreetCustsceneStartDelay
-	CUTSCENE_CAMERA_LERP Player1,Player2,#EchoToNymnCamLerpSpeed
+	CUTSCENE_CAMERA_LERP Player2,#EchoToNymnCamLerpSpeed
 	MOVE_NTSC_L Player1MaxVelXRun, d3, d1
 	neg.l d3
 	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,d3
@@ -600,7 +600,7 @@ l3a3_CutsceneSaveEcho:
 	; Lerp camera back
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
-	CUTSCENE_CAMERA_LERP Player2,Player1,#EchoToNymnCamLerpSpeed
+	CUTSCENE_CAMERA_LERP Player1,#EchoToNymnCamLerpSpeed
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	; TODO: Nymn faces Echo
@@ -614,14 +614,13 @@ l3a3_CutsceneSaveEcho:
 
 	; Pan camera to Djakk
 	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#EchoToNymnCamLerpSpeed
+	CUTSCENE_CAMERA_LERP a2,#EchoToNymnCamLerpSpeed
 
 	; Wait
 	CUTSCENE_DELAY #EchoGreetDjakkCameraTime
 
 	; Pan camera back to Nymn
-	ENTITY_GETBYNAME Monster, l3a3_DjakkEchoFight, a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#EchoToNymnCamLerpSpeed
+	CUTSCENE_CAMERA_LERP Player1,#EchoToNymnCamLerpSpeed
 
 	; Restore control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
@@ -651,7 +650,7 @@ l3a3_CutsceneMeetEcho:
 
 	; Echo emerges
 	CUTSCENE_DELAY #0x0020
-	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed
+	CUTSCENE_CAMERA_LERP Player2,#Echo_HowlCameraLerpSpeed
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x0
@@ -678,7 +677,7 @@ l3a3_CutsceneMeetEcho:
 	CUTSCENE_CHARACTER_ANIM_WAIT Player2
 
 	; Lerp camera to Nymn
-	CUTSCENE_CAMERA_LERP Player2,Player1,#EchoToNymnCamLerpSpeed
+	CUTSCENE_CAMERA_LERP Player1,#EchoToNymnCamLerpSpeed
 
 	; Lock Nymn sprite flipping
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x0
@@ -708,11 +707,7 @@ l3a3_CutsceneMeetEcho:
 	CUTSCENE_OBJECT_SET_PARAM_L Player2,#Entity_WorldPosX,d3
 
 	; Lerp camera
-	move.l  CameraWorldPosX, d0
-	move.l  CameraWorldPosY, d1
-	addi.l  #(vdp_sprite_border_x*subpixels_per_pixel), d0
-	addi.l  #(vdp_sprite_border_y*subpixels_per_pixel), d1
-	CUTSCENE_CAMERA_LERP_FROM_POS d0,d1,Player1,#EchoToNymnCamLerpSpeed
+	CUTSCENE_CAMERA_LERP Player1,#EchoToNymnCamLerpSpeed
 
 	; Restore Nymn sprite flipping
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#SpriteObj_FlippedX,#0x1

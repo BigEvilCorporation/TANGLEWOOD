@@ -87,18 +87,19 @@ CAM_StopCameraShake:
 
 	rts
 
-CAM_LerpBetweenEntities:
-	; a0 --- From entity
+CAM_LerpToEntity:
 	; a1 --- To entity
 	; d0 (w) Speed
 
-	ENTITY_GETCENTREX d1,a0
+	move.l CameraWorldPosX, d1
+	move.l CameraWorldPosY, d2
+	addi.l #(vdp_sprite_border_x*subpixels_per_pixel), d1
+	addi.l #(vdp_sprite_border_y*subpixels_per_pixel), d2
 	move.l d1, CameraLerpFromX
-	ENTITY_GETCENTREY d1,a0
-	move.l d1, CameraLerpFromY
+	move.l d2, CameraLerpFromY
 	move.l a1, CameraTargetGameObj
-	move.w #0x0, CameraLerpTime
 	move.w d0, CameraLerpSpeed
+	move.w #0x0, CameraLerpTime
 	
 	rts
 

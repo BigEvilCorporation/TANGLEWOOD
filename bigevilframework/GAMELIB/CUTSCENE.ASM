@@ -413,39 +413,15 @@ CutsceneStep_CharacterWaitDeath:
 
 CutsceneStep_CameraLerp:
 	; a0 --- Cutscene
-	; d0 (l) Source object
-	; d1 (l) Dest object
+	; d0 (l) Dest object
 	; d2 (w) Speed
 	; d0 (b) OUT: Step running
 
-	PUSHL  a3
-	move.l d0, a3
-	ENTITY_GETCENTREX d0,a3
-	move.l d0, CameraLerpFromX
-	ENTITY_GETCENTREY d0,a3
-	move.l d0, CameraLerpFromY
-	POPL   a3
-	move.l d1, CameraTargetGameObj
-	move.w d2, CameraLerpSpeed
-	move.w #0x0, CameraLerpTime
-
-	move.b #0x0, d0
-
-	rts
-
-CutsceneStep_CameraLerpPos:
-	; a0 --- Cutscene
-	; d0 (l) Source X
-	; d1 (l) Source Y
-	; d2 (l) Dest object
-	; d3 (w) Speed
-	; d0 (b) OUT: Step running
-
-	move.l d0, CameraLerpFromX
-	move.l d1, CameraLerpFromY
-	move.l d2, CameraTargetGameObj
-	move.w d3, CameraLerpSpeed
-	move.w #0x0, CameraLerpTime
+	PUSHM a0-a2
+	move.l d0, a1
+	move.w d2, d0
+	jsr   CAM_LerpToEntity
+	POPM  a0-a2
 
 	move.b #0x0, d0
 
@@ -631,19 +607,10 @@ CUTSCENE_DELAY: macro time
 	CUTSCENE_RUN_STEP CutsceneStep_Delay
 	endm
 
-CUTSCENE_CAMERA_LERP: macro object1,object2,speed
-	move.l \object1, d0
-	move.l \object2, d1
+CUTSCENE_CAMERA_LERP: macro object,speed
+	move.l \object, d0
 	move.l \speed, d2
 	CUTSCENE_RUN_STEP CutsceneStep_CameraLerp
-	endm
-
-CUTSCENE_CAMERA_LERP_FROM_POS: macro posx,posy,destobject,speed
-	move.l \posx, d0
-	move.l \posy, d1
-	move.l \destobject, d2
-	move.l \speed, d3
-	CUTSCENE_RUN_STEP CutsceneStep_CameraLerpPos
 	endm
 
 CUTSCENE_CAMERA_LERP_WAIT: macro

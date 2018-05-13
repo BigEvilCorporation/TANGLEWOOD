@@ -264,7 +264,7 @@ l4a2_ScriptWaterLock:
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
 
 	; Camera lerp to Echo
-	CUTSCENE_CAMERA_LERP Player1,Player2,#0x08
+	CUTSCENE_CAMERA_LERP Player2,#0x08
 
 	; Make sure Nymn is holding raft against wall, not backing away
 	CUTSCENE_GET_ENTITY Longboat, l4a2_longboat2, a2
@@ -283,7 +283,7 @@ l4a2_ScriptWaterLock:
 	CUTSCENE_OBJECT_SET_PARAM_L Player2,#PhysicsObj_VelX,#0x0
 
 	; Camera lerp to Nymn
-	CUTSCENE_CAMERA_LERP Player2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	; Enable player movement
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1

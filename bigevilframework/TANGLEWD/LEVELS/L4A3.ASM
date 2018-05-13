@@ -495,7 +495,7 @@ l4a3_CutsceneRevealBorgus:
 
 	; Lerp camera to Borgus
 	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	; Wait
@@ -522,8 +522,7 @@ l4a3_CutsceneRevealBorgus:
 	CUTSCENE_DELAY #0x0020
 
 	; Lerp back
-	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
@@ -538,11 +537,10 @@ l4a3_CutsceneRevealBorgus:
 
 	; Lerp camera to Borgus and back
 	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x20
+	CUTSCENE_CAMERA_LERP a2,#0x20
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
-	CUTSCENE_GET_ENTITY Borgus,l4a3_Borgus,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	; Fade out audio track
 	CUTSCENE_DELAY #0x0060

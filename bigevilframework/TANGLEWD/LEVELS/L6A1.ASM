@@ -191,10 +191,9 @@ L6a1_Update:
 
 	; Timer elapsed, lerp camera back to player
 	PUSHM  a0-a2
-	ENTITY_GETBYNAME Log, l6a1_Log3, a0
-	move.l (Player1), a1
-	move.l #L6a1_LogRollCamLerpSpeed, d0
-	jsr    CAM_LerpBetweenEntities
+	move.l Player1, a1
+	move.w #L6A1_LogRollCamLerpSpeed, d0
+	jsr    CAM_LerpToEntity
 	POPM   a0-a2
 
 	@NoLerpTimer:
@@ -247,12 +246,11 @@ L6a1_LogRoll2Begin
 	move.b #0x0, Button_Active(a0)
 
 	; Start camera lerp
-	PUSHL  a1
-	move.l (Player1), a0
+	PUSHM  a0-a2
 	ENTITY_GETBYNAME Log, l6a1_Log3, a1
-	move.l #L6A1_LogRollCamLerpSpeed, d0
-	jsr    CAM_LerpBetweenEntities
-	POPL   a1
+	move.w #L6A1_LogRollCamLerpSpeed, d0
+	jsr    CAM_LerpToEntity
+	POPM   a0-a2
 
 	; Begin lerp timer
 	move.l #LevelData_L6A1, a2
@@ -293,7 +291,7 @@ l6a1_CutsceneLogRoll1:
 
 	; Camera lerp
 	CUTSCENE_GET_ENTITY Log, l6a1_Log1, a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 
 	; Roll bridge
 	CUTSCENE_GET_ENTITY Bridge, l6a1_Bridge1, a2
@@ -314,8 +312,7 @@ l6a1_CutsceneLogRoll1:
 	CUTSCENE_OBJECT_WAIT_STOP a2
 
 	; Camera lerp back
-	CUTSCENE_GET_ENTITY Log, l6a1_Log1, a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x08
+	CUTSCENE_CAMERA_LERP Player1,#0x08
 
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1

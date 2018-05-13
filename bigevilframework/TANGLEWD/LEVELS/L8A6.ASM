@@ -281,7 +281,7 @@ l8a6_CutsceneDemonStealFuzzl:
 
 	; Lerp camera to demon
 	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 
@@ -306,8 +306,7 @@ l8a6_CutsceneDemonStealFuzzl:
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAISetState
 
 	; Echo runs scared
-	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
-	CUTSCENE_CAMERA_LERP a2,Player2,#0x08
+	CUTSCENE_CAMERA_LERP Player2,#0x08
 	CUTSCENE_GET_ENTITY Location,l8a6_LocationEchoHide,a2
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x10,#0x10
 
@@ -321,7 +320,7 @@ l8a6_CutsceneDemonStealFuzzl:
 	; Lerp camera back to Demon
 	CUTSCENE_DELAY #0x0020
 	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
-	CUTSCENE_CAMERA_LERP Player2,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	l8a6_NoEchoHide:
@@ -342,8 +341,7 @@ l8a6_CutsceneDemonStealFuzzl:
 	CUTSCENE_ROUTINE l8a6_Cutscene_FuzzlEaten,#0x0,#0x0,#0x0
 
 	; Lerp back
-	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x10
+	CUTSCENE_CAMERA_LERP Player1,#0x10
 
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
@@ -372,7 +370,7 @@ l8a6_CutsceneDemonStealFuzzl:
 
 	; Lerp to Demon
 	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
-	CUTSCENE_CAMERA_LERP Player1,a2,#0x08
+	CUTSCENE_CAMERA_LERP a2,#0x08
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	; Wait for death
@@ -393,8 +391,7 @@ l8a6_CutsceneDemonStealFuzzl:
 	CUTSCENE_DELAY #0x0020
 
 	; Lerp back
-	CUTSCENE_GET_ENTITY Demon,l8a6_Demon,a2
-	CUTSCENE_CAMERA_LERP a2,Player1,#0x10
+	CUTSCENE_CAMERA_LERP Player1,#0x10
 	CUTSCENE_CAMERA_LERP_WAIT
 
 	; Restore player control
@@ -420,7 +417,7 @@ l8a6_CutsceneEnding_WithNymn:
 
 	; Echo emerges
 	CUTSCENE_DELAY #0x0040
-	CUTSCENE_CAMERA_LERP Player1,Player2,#Echo_HowlCameraLerpSpeed
+	CUTSCENE_CAMERA_LERP Player2,#Echo_HowlCameraLerpSpeed
 	CUTSCENE_CAMERA_LERP_WAIT
 	CUTSCENE_DELAY #0x0020
 	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Character_LockSpriteFlip,#0x0
@@ -471,7 +468,7 @@ l8a6_CutsceneEnding_WithNymn:
 	CUTSCENE_OBJECT_ROUTINE Player2,#CharacterCancelInteractB
 
 	; Lerp camera to Nymn
-	CUTSCENE_CAMERA_LERP Player2,Player1,#0x0008
+	CUTSCENE_CAMERA_LERP Player1,#0x0008
 
 	; Nymn runs to glide location
 	CUTSCENE_GET_ENTITY Location,l8a6_LocationGlideJump,a2
@@ -508,7 +505,7 @@ l8a6_CutsceneEnding_WithNymn:
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelJump
 
 	; Echo run to mushroom
-	CUTSCENE_CAMERA_LERP Player1,Player2,#0x0008
+	CUTSCENE_CAMERA_LERP Player2,#0x0008
 	CUTSCENE_GET_ENTITY BouncePlant,l8a6_MushroomEnd,a2
 	CUTSCENE_CHARACTER_MOVE_RELATIVE Player2,a2,#0x0,#0x08
 
@@ -554,7 +551,7 @@ l8a6_CutsceneEnding_WithNymn:
 
 	; Lerp camera to Nymn
 	CUTSCENE_DELAY #0x0040
-	CUTSCENE_CAMERA_LERP Player2,Player1,#0x0008
+	CUTSCENE_CAMERA_LERP Player1,#0x0008
 
 	; Play ending music
 	CUTSCENE_PLAY_TRACK #track_bgm_lvloutro
