@@ -721,7 +721,7 @@ L4A3_LoadGameObjects:
 
 	jsr TriggerBoxInit
 	move.l #0x16900000, Entity_WorldPosX(a0)
-	move.l #0x03400000, Entity_WorldPosY(a0)
+	move.l #0x03380000, Entity_WorldPosY(a0)
 	move.l #l4a3_Trigger_CargoLift, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_EachFrame(a0)
 	jsr TriggerBoxLoadGfx
@@ -1061,7 +1061,7 @@ L4A3_LoadGameObjects:
 
 	jsr CargoLiftInit
 	move.l #0x16a80000, Entity_WorldPosX(a0)
-	move.l #0x03580000, Entity_WorldPosY(a0)
+	move.l #0x03500000, Entity_WorldPosY(a0)
 	move.b #0x1, CargoLift_ManualGfxLoad(a0)
 	jsr CargoLiftLoadGfx
 	IFND FINAL

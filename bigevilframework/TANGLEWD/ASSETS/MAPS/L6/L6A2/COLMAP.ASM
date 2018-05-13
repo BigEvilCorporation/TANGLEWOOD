@@ -7,70 +7,70 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L6A2_size_b	equ 0x00008A42	; Size in bytes
+terrainmap_blockmap_L6A2_size_b	equ 0x00008AA8	; Size in bytes
 terrainmap_blockmap_L6A2_size_w	equ (terrainmap_blockmap_L6A2_size_b/2)	; Size in words
 terrainmap_blockmap_L6A2_size_l	equ (terrainmap_blockmap_L6A2_size_b/4)	; Size in longwords
 terrainmap_L6A2_left	equ 0x0C
 terrainmap_L6A2_top	equ 0x00
-terrainmap_L6A2_width	equ 0x56C
+terrainmap_L6A2_width	equ 0x570
 terrainmap_L6A2_height	equ 0xCC
 terrainmap_blockmap_L6A2_left	equ 0x03
 terrainmap_blockmap_L6A2_top	equ 0x00
-terrainmap_blockmap_L6A2_width	equ 0x15B
+terrainmap_blockmap_L6A2_width	equ 0x15C
 terrainmap_blockmap_L6A2_height	equ 0x33
 
 collisionmap_blockmap_yoffs_L6A2:
 	dc.w 0x0000
-	dc.w 0x015B
-	dc.w 0x02B6
-	dc.w 0x0411
-	dc.w 0x056C
-	dc.w 0x06C7
-	dc.w 0x0822
-	dc.w 0x097D
-	dc.w 0x0AD8
-	dc.w 0x0C33
-	dc.w 0x0D8E
-	dc.w 0x0EE9
-	dc.w 0x1044
-	dc.w 0x119F
-	dc.w 0x12FA
-	dc.w 0x1455
-	dc.w 0x15B0
-	dc.w 0x170B
-	dc.w 0x1866
-	dc.w 0x19C1
-	dc.w 0x1B1C
-	dc.w 0x1C77
-	dc.w 0x1DD2
-	dc.w 0x1F2D
-	dc.w 0x2088
-	dc.w 0x21E3
-	dc.w 0x233E
-	dc.w 0x2499
-	dc.w 0x25F4
-	dc.w 0x274F
-	dc.w 0x28AA
-	dc.w 0x2A05
-	dc.w 0x2B60
-	dc.w 0x2CBB
-	dc.w 0x2E16
-	dc.w 0x2F71
-	dc.w 0x30CC
-	dc.w 0x3227
-	dc.w 0x3382
-	dc.w 0x34DD
-	dc.w 0x3638
-	dc.w 0x3793
-	dc.w 0x38EE
-	dc.w 0x3A49
-	dc.w 0x3BA4
-	dc.w 0x3CFF
-	dc.w 0x3E5A
-	dc.w 0x3FB5
-	dc.w 0x4110
-	dc.w 0x426B
-	dc.w 0x43C6
+	dc.w 0x015C
+	dc.w 0x02B8
+	dc.w 0x0414
+	dc.w 0x0570
+	dc.w 0x06CC
+	dc.w 0x0828
+	dc.w 0x0984
+	dc.w 0x0AE0
+	dc.w 0x0C3C
+	dc.w 0x0D98
+	dc.w 0x0EF4
+	dc.w 0x1050
+	dc.w 0x11AC
+	dc.w 0x1308
+	dc.w 0x1464
+	dc.w 0x15C0
+	dc.w 0x171C
+	dc.w 0x1878
+	dc.w 0x19D4
+	dc.w 0x1B30
+	dc.w 0x1C8C
+	dc.w 0x1DE8
+	dc.w 0x1F44
+	dc.w 0x20A0
+	dc.w 0x21FC
+	dc.w 0x2358
+	dc.w 0x24B4
+	dc.w 0x2610
+	dc.w 0x276C
+	dc.w 0x28C8
+	dc.w 0x2A24
+	dc.w 0x2B80
+	dc.w 0x2CDC
+	dc.w 0x2E38
+	dc.w 0x2F94
+	dc.w 0x30F0
+	dc.w 0x324C
+	dc.w 0x33A8
+	dc.w 0x3504
+	dc.w 0x3660
+	dc.w 0x37BC
+	dc.w 0x3918
+	dc.w 0x3A74
+	dc.w 0x3BD0
+	dc.w 0x3D2C
+	dc.w 0x3E88
+	dc.w 0x3FE4
+	dc.w 0x4140
+	dc.w 0x429C
+	dc.w 0x43F8
 
 ; Terrain bezier bounds
 terrainmap_L6A2_num_special_terrain_descs	equ 0x00

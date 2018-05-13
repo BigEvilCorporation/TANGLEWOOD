@@ -7,58 +7,59 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L2A2_size_b	equ 0x00003CF0	; Size in bytes
+terrainmap_blockmap_L2A2_size_b	equ 0x00003ED0	; Size in bytes
 terrainmap_blockmap_L2A2_size_w	equ (terrainmap_blockmap_L2A2_size_b/2)	; Size in words
 terrainmap_blockmap_L2A2_size_l	equ (terrainmap_blockmap_L2A2_size_b/4)	; Size in longwords
 terrainmap_L2A2_left	equ 0x00
 terrainmap_L2A2_top	equ 0x00
-terrainmap_L2A2_width	equ 0x320
-terrainmap_L2A2_height	equ 0x9C
+terrainmap_L2A2_width	equ 0x324
+terrainmap_L2A2_height	equ 0xA0
 terrainmap_blockmap_L2A2_left	equ 0x00
 terrainmap_blockmap_L2A2_top	equ 0x00
-terrainmap_blockmap_L2A2_width	equ 0xC8
-terrainmap_blockmap_L2A2_height	equ 0x27
+terrainmap_blockmap_L2A2_width	equ 0xC9
+terrainmap_blockmap_L2A2_height	equ 0x28
 
 collisionmap_blockmap_yoffs_L2A2:
 	dc.w 0x0000
-	dc.w 0x00C8
-	dc.w 0x0190
-	dc.w 0x0258
-	dc.w 0x0320
-	dc.w 0x03E8
-	dc.w 0x04B0
-	dc.w 0x0578
-	dc.w 0x0640
-	dc.w 0x0708
-	dc.w 0x07D0
-	dc.w 0x0898
-	dc.w 0x0960
-	dc.w 0x0A28
-	dc.w 0x0AF0
-	dc.w 0x0BB8
-	dc.w 0x0C80
-	dc.w 0x0D48
-	dc.w 0x0E10
-	dc.w 0x0ED8
-	dc.w 0x0FA0
-	dc.w 0x1068
-	dc.w 0x1130
-	dc.w 0x11F8
-	dc.w 0x12C0
-	dc.w 0x1388
-	dc.w 0x1450
-	dc.w 0x1518
-	dc.w 0x15E0
-	dc.w 0x16A8
-	dc.w 0x1770
-	dc.w 0x1838
-	dc.w 0x1900
-	dc.w 0x19C8
-	dc.w 0x1A90
-	dc.w 0x1B58
-	dc.w 0x1C20
-	dc.w 0x1CE8
-	dc.w 0x1DB0
+	dc.w 0x00C9
+	dc.w 0x0192
+	dc.w 0x025B
+	dc.w 0x0324
+	dc.w 0x03ED
+	dc.w 0x04B6
+	dc.w 0x057F
+	dc.w 0x0648
+	dc.w 0x0711
+	dc.w 0x07DA
+	dc.w 0x08A3
+	dc.w 0x096C
+	dc.w 0x0A35
+	dc.w 0x0AFE
+	dc.w 0x0BC7
+	dc.w 0x0C90
+	dc.w 0x0D59
+	dc.w 0x0E22
+	dc.w 0x0EEB
+	dc.w 0x0FB4
+	dc.w 0x107D
+	dc.w 0x1146
+	dc.w 0x120F
+	dc.w 0x12D8
+	dc.w 0x13A1
+	dc.w 0x146A
+	dc.w 0x1533
+	dc.w 0x15FC
+	dc.w 0x16C5
+	dc.w 0x178E
+	dc.w 0x1857
+	dc.w 0x1920
+	dc.w 0x19E9
+	dc.w 0x1AB2
+	dc.w 0x1B7B
+	dc.w 0x1C44
+	dc.w 0x1D0D
+	dc.w 0x1DD6
+	dc.w 0x1E9F
 
 ; Terrain bezier bounds
 terrainmap_L2A2_num_special_terrain_descs	equ 0x00

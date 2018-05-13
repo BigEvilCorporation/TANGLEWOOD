@@ -7,17 +7,17 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L4A1_size_b	equ 0x000035E8	; Size in bytes
+terrainmap_blockmap_L4A1_size_b	equ 0x000027D8	; Size in bytes
 terrainmap_blockmap_L4A1_size_w	equ (terrainmap_blockmap_L4A1_size_b/2)	; Size in words
 terrainmap_blockmap_L4A1_size_l	equ (terrainmap_blockmap_L4A1_size_b/4)	; Size in longwords
 terrainmap_L4A1_left	equ 0x00
-terrainmap_L4A1_top	equ 0x00
+terrainmap_L4A1_top	equ 0x08
 terrainmap_L4A1_width	equ 0x4B0
-terrainmap_L4A1_height	equ 0x5C
+terrainmap_L4A1_height	equ 0x44
 terrainmap_blockmap_L4A1_left	equ 0x00
-terrainmap_blockmap_L4A1_top	equ 0x00
+terrainmap_blockmap_L4A1_top	equ 0x02
 terrainmap_blockmap_L4A1_width	equ 0x12C
-terrainmap_blockmap_L4A1_height	equ 0x17
+terrainmap_blockmap_L4A1_height	equ 0x11
 
 collisionmap_blockmap_yoffs_L4A1:
 	dc.w 0x0000
@@ -37,12 +37,6 @@ collisionmap_blockmap_yoffs_L4A1:
 	dc.w 0x1068
 	dc.w 0x1194
 	dc.w 0x12C0
-	dc.w 0x13EC
-	dc.w 0x1518
-	dc.w 0x1644
-	dc.w 0x1770
-	dc.w 0x189C
-	dc.w 0x19C8
 
 ; Terrain bezier bounds
 terrainmap_L4A1_num_special_terrain_descs	equ 0x00

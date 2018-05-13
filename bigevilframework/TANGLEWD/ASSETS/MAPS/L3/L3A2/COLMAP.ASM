@@ -7,59 +7,56 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L3A2_size_b	equ 0x00004650	; Size in bytes
+terrainmap_blockmap_L3A2_size_b	equ 0x00004154	; Size in bytes
 terrainmap_blockmap_L3A2_size_w	equ (terrainmap_blockmap_L3A2_size_b/2)	; Size in words
 terrainmap_blockmap_L3A2_size_l	equ (terrainmap_blockmap_L3A2_size_b/4)	; Size in longwords
 terrainmap_L3A2_left	equ 0x00
-terrainmap_L3A2_top	equ 0x00
-terrainmap_L3A2_width	equ 0x384
-terrainmap_L3A2_height	equ 0xA0
+terrainmap_L3A2_top	equ 0x04
+terrainmap_L3A2_width	equ 0x388
+terrainmap_L3A2_height	equ 0x94
 terrainmap_blockmap_L3A2_left	equ 0x00
-terrainmap_blockmap_L3A2_top	equ 0x00
-terrainmap_blockmap_L3A2_width	equ 0xE1
-terrainmap_blockmap_L3A2_height	equ 0x28
+terrainmap_blockmap_L3A2_top	equ 0x01
+terrainmap_blockmap_L3A2_width	equ 0xE2
+terrainmap_blockmap_L3A2_height	equ 0x25
 
 collisionmap_blockmap_yoffs_L3A2:
 	dc.w 0x0000
-	dc.w 0x00E1
-	dc.w 0x01C2
-	dc.w 0x02A3
-	dc.w 0x0384
-	dc.w 0x0465
-	dc.w 0x0546
-	dc.w 0x0627
-	dc.w 0x0708
-	dc.w 0x07E9
-	dc.w 0x08CA
-	dc.w 0x09AB
-	dc.w 0x0A8C
-	dc.w 0x0B6D
-	dc.w 0x0C4E
-	dc.w 0x0D2F
-	dc.w 0x0E10
-	dc.w 0x0EF1
-	dc.w 0x0FD2
-	dc.w 0x10B3
-	dc.w 0x1194
-	dc.w 0x1275
-	dc.w 0x1356
-	dc.w 0x1437
-	dc.w 0x1518
-	dc.w 0x15F9
-	dc.w 0x16DA
-	dc.w 0x17BB
-	dc.w 0x189C
-	dc.w 0x197D
-	dc.w 0x1A5E
-	dc.w 0x1B3F
-	dc.w 0x1C20
-	dc.w 0x1D01
-	dc.w 0x1DE2
-	dc.w 0x1EC3
-	dc.w 0x1FA4
-	dc.w 0x2085
-	dc.w 0x2166
-	dc.w 0x2247
+	dc.w 0x00E2
+	dc.w 0x01C4
+	dc.w 0x02A6
+	dc.w 0x0388
+	dc.w 0x046A
+	dc.w 0x054C
+	dc.w 0x062E
+	dc.w 0x0710
+	dc.w 0x07F2
+	dc.w 0x08D4
+	dc.w 0x09B6
+	dc.w 0x0A98
+	dc.w 0x0B7A
+	dc.w 0x0C5C
+	dc.w 0x0D3E
+	dc.w 0x0E20
+	dc.w 0x0F02
+	dc.w 0x0FE4
+	dc.w 0x10C6
+	dc.w 0x11A8
+	dc.w 0x128A
+	dc.w 0x136C
+	dc.w 0x144E
+	dc.w 0x1530
+	dc.w 0x1612
+	dc.w 0x16F4
+	dc.w 0x17D6
+	dc.w 0x18B8
+	dc.w 0x199A
+	dc.w 0x1A7C
+	dc.w 0x1B5E
+	dc.w 0x1C40
+	dc.w 0x1D22
+	dc.w 0x1E04
+	dc.w 0x1EE6
+	dc.w 0x1FC8
 
 ; Terrain bezier bounds
 terrainmap_L3A2_num_special_terrain_descs	equ 0x00

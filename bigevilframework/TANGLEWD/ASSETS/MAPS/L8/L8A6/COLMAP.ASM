@@ -7,43 +7,43 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-terrainmap_blockmap_L8A6_size_b	equ 0x00001740	; Size in bytes
+terrainmap_blockmap_L8A6_size_b	equ 0x00001770	; Size in bytes
 terrainmap_blockmap_L8A6_size_w	equ (terrainmap_blockmap_L8A6_size_b/2)	; Size in words
 terrainmap_blockmap_L8A6_size_l	equ (terrainmap_blockmap_L8A6_size_b/4)	; Size in longwords
 terrainmap_L8A6_left	equ 0x04
 terrainmap_L8A6_top	equ 0x00
-terrainmap_L8A6_width	equ 0x1F0
+terrainmap_L8A6_width	equ 0x1F4
 terrainmap_L8A6_height	equ 0x60
 terrainmap_blockmap_L8A6_left	equ 0x01
 terrainmap_blockmap_L8A6_top	equ 0x00
-terrainmap_blockmap_L8A6_width	equ 0x7C
+terrainmap_blockmap_L8A6_width	equ 0x7D
 terrainmap_blockmap_L8A6_height	equ 0x18
 
 collisionmap_blockmap_yoffs_L8A6:
 	dc.w 0x0000
-	dc.w 0x007C
-	dc.w 0x00F8
-	dc.w 0x0174
-	dc.w 0x01F0
-	dc.w 0x026C
-	dc.w 0x02E8
-	dc.w 0x0364
-	dc.w 0x03E0
-	dc.w 0x045C
-	dc.w 0x04D8
-	dc.w 0x0554
-	dc.w 0x05D0
-	dc.w 0x064C
-	dc.w 0x06C8
-	dc.w 0x0744
-	dc.w 0x07C0
-	dc.w 0x083C
-	dc.w 0x08B8
-	dc.w 0x0934
-	dc.w 0x09B0
-	dc.w 0x0A2C
-	dc.w 0x0AA8
-	dc.w 0x0B24
+	dc.w 0x007D
+	dc.w 0x00FA
+	dc.w 0x0177
+	dc.w 0x01F4
+	dc.w 0x0271
+	dc.w 0x02EE
+	dc.w 0x036B
+	dc.w 0x03E8
+	dc.w 0x0465
+	dc.w 0x04E2
+	dc.w 0x055F
+	dc.w 0x05DC
+	dc.w 0x0659
+	dc.w 0x06D6
+	dc.w 0x0753
+	dc.w 0x07D0
+	dc.w 0x084D
+	dc.w 0x08CA
+	dc.w 0x0947
+	dc.w 0x09C4
+	dc.w 0x0A41
+	dc.w 0x0ABE
+	dc.w 0x0B3B
 
 ; Terrain bezier bounds
 terrainmap_L8A6_num_special_terrain_descs	equ 0x00
