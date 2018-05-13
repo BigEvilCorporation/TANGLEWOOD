@@ -64,7 +64,7 @@ Credits_CentrePosX			equ screen_width/8/2
 Credits_CentrePosY			equ vdp_plane_height/2
 Credits_TextColumnX			equ 7
 Credits_TextSpacingY		equ 2
-Credits_ScrollSpeed			equ 0x00003700
+Credits_ScrollSpeed			equ 0x00003800
 
 CreditsState_OpeningTitle	equ 0
 CreditsState_OpeningCredit	equ 1

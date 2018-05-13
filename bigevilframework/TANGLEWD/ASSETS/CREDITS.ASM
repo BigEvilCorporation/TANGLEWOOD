@@ -241,6 +241,7 @@ CreditsStrings:
 	CREDIT_NAME		"Djanine Taylor"
 	CREDIT_NAME		"Holly Elizabeth Jones"
 	CREDIT_NAME		"Kt 'Thoroughly Good' Chambers"
+	CREDIT_NAME		"Rob Chambers"
 	CREDIT_NAME		"Char Lee"
 	CREDIT_NAME		"Gemo Wainwright"
 	CREDIT_NAME		"Glenn Kneale"
@@ -250,6 +251,7 @@ CreditsStrings:
 	CREDIT_NAME		"Stu Allardes"
 	CREDIT_NAME		"Jenni Wardell"
 	CREDIT_NAME		"Meg Rouncefield"
+	CREDIT_NAME		"Jack Tutton"
 	CREDIT_NAME		"Gemma Young"
 	CREDIT_NAME		"Luke Hatton"
 	CREDIT_NAME		"Hannah 'Hanrar' Marsh"
@@ -258,6 +260,7 @@ CreditsStrings:
 	CREDIT_NAME		"Lee Hutchinson"
 	CREDIT_NAME		"Gruss Newton"
 	CREDIT_NAME		"Octav1us Kitten"
+	CREDIT_NAME		"...and all my friends and family"
 	CREDIT_SPACE
 
 	CREDIT_HEADING1 "A very special thank you to every"
@@ -323,7 +326,7 @@ CreditsStrings:
 	CREDIT_NAME		"Michael 'My Mate' Bamford"
 	CREDIT_NAME		"Rose-Marie Bamford"
 	CREDIT_SPACE
-	CREDIT_NAME		"Our Swedish Lord and Saviour, Torbjorn"
+	CREDIT_NAME		"Our Lord and Saviour, Torbjorn"
 	CREDIT_SPACE
 	CREDIT_SPACE
 
