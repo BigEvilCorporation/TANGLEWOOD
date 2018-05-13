@@ -307,8 +307,16 @@ code_end
 
 	; Pad ROM to 4MB
 	IF ROM_PADDING_4MB
-	dcb.b   $400000-*, $FF
+LarryStringLen	equ 461
+	dcb.b   $400000-*-LarryStringLen, $FF
 	ENDIF
+
+	dc.b "So Larry Bundy Jr of all people messages me out of the blue, with a link to his"
+	dc.b " video on programmers leaving rants in their code, asking if I would leave one"
+	dc.b " in here to wrap around some sort of meta. Like I've got time for that. Listen"
+	dc.b " here, Larry, the least you could have done was visited my booth at Play Expo"
+	dc.b " if you wanted a credit, but no, my favourite YouTuber left me hanging, and"
+	dc.b " expects me to follow this up? I don't even have any space left in the fuc"
 
 	; Checksum calc end
 checksum_end
