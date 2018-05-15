@@ -417,7 +417,6 @@ MainMenu_OnSelected:
 	beq    @NewGame
 	cmp.b  #MainMenu_Opt_Continue, d0
 	beq    @Continue
-	beq    @NewGame
 	cmp.b  #MainMenu_Opt_Options, d0
 	beq    @Options
 	cmp.b  #MainMenu_Opt_LevelSelect, d0

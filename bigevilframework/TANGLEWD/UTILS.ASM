@@ -21,6 +21,9 @@ PlayerTeleport:
 ; Reset mid-game (return to main menu)
 GameSoftReset:
 
+	move.l #0x0, LastActivatedCheckpoint
+	move.w #0x0, LastSaveVersion
+
 	move.b #GamestateReset_ResetAudio, d0
 	jsr    GameStateReset
 	
