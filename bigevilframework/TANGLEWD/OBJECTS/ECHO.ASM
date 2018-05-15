@@ -294,6 +294,7 @@ EchoLoadGfx:
 EchoUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+	rts
 
 	; If mounting Nymn, update is handled by Nymn to match positions
 	move.b Echo_MountedState(a0), d0

@@ -360,7 +360,7 @@ MonsterLoadGfx:
 MonsterUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
-
+	rts
 	tst.b  Entity_Active(a0)
 	beq    @Inactive
 	

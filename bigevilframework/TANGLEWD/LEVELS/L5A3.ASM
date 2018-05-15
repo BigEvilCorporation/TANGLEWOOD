@@ -304,7 +304,7 @@ l5a3_Trigger_EchoFollow:
 	rts
 
 l5a3_Trigger_WakeDjakk:
-
+	rts
 	PUSHL  a0
 	
 	ENTITY_GETBYNAME Monster, l5a3_Djakk1, a0
