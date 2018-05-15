@@ -963,6 +963,19 @@ EchoAIUpdate_Lost:
 	; Watch Nymn for potential safe positions
 	move.l (Player1), a2
 	jsr    EchoAI_WatchNymnSafePos
+
+	; Don't teleport whilst camera lerp is in progress (or camera may snap out of streaming range)
+	tst.w  CameraLerpSpeed
+	bne    @End
+
+	; If on screen, back to follow state
+	jsr    EchoAI_CheckOuterScreenBounds
+	tst.b  d0
+	beq    @OffScreen
+	move.b #0x1, d0
+	jsr    EchoAIStart_Follow
+	bra    @End
+	@OffScreen:
 	
 	; If safe pos exists, transport there and enter catch up state
 	move.w Echo_AISafePosY(a0), d1
@@ -1010,6 +1023,7 @@ EchoAIUpdate_CatchUp:
 	beq    @OffScreen
 	move.b #0x1, d0
 	jsr    EchoAIStart_Follow
+	bra    @End
 	@OffScreen:
 	
 	; Decrement lost timer, if elapsed then head back to lost state and try again

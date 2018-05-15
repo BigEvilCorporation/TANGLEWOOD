@@ -1401,12 +1401,6 @@ PlayerMountPet:
 	jsr    EntityRemoveFromUpdateList
 	POPL   a0
 
-	; Prepare for camera lerp
-	ENTITY_GETCENTREX d2, a0
-	ENTITY_GETCENTREY d3, a0
-	move.l d2, CameraLerpFromX
-	move.l d3, CameraLerpFromY
-
 	; Set initial state
 	move.b #Player_RideState_Mounting, Player_RideState(a0)
 
