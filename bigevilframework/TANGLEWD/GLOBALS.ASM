@@ -94,7 +94,7 @@ NumSwitchingColours		 equ 0x7
 CameraPeekInputHoldTime	 equ 0x0020
 
 ; Checkpoint save
-CheckpointSerialiseBlockSize equ 0x0320 ; 800 bytes
+CheckpointSerialiseBlockSize equ 0x0380 ; 896 bytes
 
 ; Demo timer
 DemoTimeout				 equ (60*60*1)
