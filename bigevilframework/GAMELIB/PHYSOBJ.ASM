@@ -2254,6 +2254,10 @@ PhysicsObjFindPushable:
 	; Check active
 	tst.b  Entity_Active(a2)
 	beq    @NextPushingObj
+
+	; Check in physics list
+	btst   #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a2)
+	beq    @NextPushingObj
 	
 	; Get pushable obj collision bounds
 	PHYSICS_GETBOUNDS d3,d4,d5,a2
@@ -2311,6 +2315,10 @@ PhysicsObjPushPullObj:
 
 	@CanPush:
 	@CanPull:
+
+	; Check still in physics list
+	btst   #EntityWorldGridFlag_InPhysicsList, Entity_WorldGridFlags(a2)
+	beq    @CannotPush
 
 	; Get bounds
 	PHYSICS_GETBOUNDS d1,d2,d5,a0
