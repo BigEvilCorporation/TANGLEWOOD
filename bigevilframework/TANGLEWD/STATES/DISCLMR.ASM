@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-DemoDisclaimerScreenDelayTime	equ 0x0180
+DemoDisclaimerScreenDelayTime	equ 0x0100
 DemoDisclaimerScreenFadeTime	equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
 DemoDisclaimerScreenNumColours	equ 0xF ; For palette lerping
 

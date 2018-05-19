@@ -7,7 +7,7 @@
 ;==============================================================
 
 ; Constants
-ControlsScreenDelayTime	equ 0x0180
+ControlsScreenDelayTime	equ 0x0100
 ControlsScreenFadeTime	equ (0x2<<fade_frame_shift) ; Subframes (2 frames per tick)
 ControlsScreenNumColours	equ 0xE ; For palette lerping
 

@@ -22,6 +22,12 @@ GameStartNew:
 	; Clear total firefly count
 	move.w #0x0, FireflyPickupCountTotalSave
 
+	; Set initial level
+	move.l #InitialLevel, CurrentLevel
+
+	; Clear password
+	move.l #0x0, CurrentSavePassword
+
 	rts
 
 GameStateReset:
