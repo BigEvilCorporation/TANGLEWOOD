@@ -252,8 +252,10 @@ l3a3_Init:
 	move.b #0x0, Monster_BlockPlayerCtrl(a0)
 
 	; Override boss music
+	IF INCLUDE_LEVEL_6
 	move.l #track_bgm_boss_l6, Monster_ChaseMusic(a0)
 	move.l #0x0, Monster_SearchMusic(a0)
+	ENDIF
 
 	;==============================================================
 
@@ -646,7 +648,9 @@ l3a3_CutsceneMeetEcho:
 	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelInteractB
 
 	; Start meet Echo track
+	IF INCLUDE_CHARACTER_ECHO
 	CUTSCENE_PLAY_TRACK #track_bgm_meetecho
+	ENDIF
 
 	; Echo emerges
 	CUTSCENE_DELAY #0x0020

@@ -94,7 +94,9 @@ Credits_Palette:
 ; Music
 Credits_Playlist_Start:
 	dc.l track_bgm_credits
+	IF INCLUDE_LEVEL_4
 	dc.l track_bgm_cue_l4
+	ENDIF
 Credits_Playlist_End
 Credits_Playlist_Size	equ (Credits_Playlist_End-Credits_Playlist_Start)/size_long
 

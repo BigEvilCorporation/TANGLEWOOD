@@ -113,6 +113,7 @@ track_bgm_boss1_search:
 	dc.b	Track_Transition_Instant
 	even
 
+	IF INCLUDE_LEVEL_4
 track_bgm_boss_l4:
 	dc.l	bgm_boss_l4
 	dc.w	0x001F
@@ -122,7 +123,9 @@ track_bgm_boss_l4:
 	dc.b	SFX_Priority_FootstepSml-1
 	dc.b	Track_Transition_Instant
 	even
+	ENDIF
 
+	IF INCLUDE_LEVEL_6
 track_bgm_boss_l6:
 	dc.l	bgm_boss_l6
 	dc.w	0x001F
@@ -132,7 +135,9 @@ track_bgm_boss_l6:
 	dc.b	SFX_Priority_FootstepSml-1
 	dc.b	Track_Transition_Instant
 	even
+	ENDIF
 
+	IF INCLUDE_LEVEL_8
 track_bgm_boss_l8:
 	dc.l	bgm_boss_l8
 	dc.w	0x001F
@@ -142,6 +147,7 @@ track_bgm_boss_l8:
 	dc.b	SFX_Priority_FootstepSml-1
 	dc.b	Track_Transition_Instant
 	even
+	ENDIF
 
 track_bgm_credits:
 	dc.l	bgm_credits
@@ -153,6 +159,7 @@ track_bgm_credits:
 	dc.b	Track_Transition_Crossfade
 	even
 
+	IF INCLUDE_CHARACTER_ECHO
 track_bgm_gameover:
 	dc.l	bgm_gameover
 	dc.w	0x001F
@@ -162,7 +169,9 @@ track_bgm_gameover:
 	dc.b	SFX_Priority_FootstepSml-1
 	dc.b	Track_Transition_Crossfade
 	even
+	ENDIF
 
+	IF INCLUDE_CHARACTER_ECHO
 track_bgm_meetecho:
 	dc.l	bgm_meetecho
 	dc.w	0x0000
@@ -172,6 +181,7 @@ track_bgm_meetecho:
 	dc.b	SFX_Priority_FootstepSml-1
 	dc.b	Track_Transition_Instant
 	even
+	ENDIF
 
 track_bgm_cue_l1:
 	dc.l	bgm_cue_l1
@@ -193,6 +203,7 @@ track_bgm_cue_l1b:
 	dc.b	Track_Transition_Crossfade
 	even
 
+	IF INCLUDE_LEVEL_2
 track_bgm_cue_l2:
 	dc.l	bgm_cue_l2
 	dc.w	0x003F
@@ -202,7 +213,9 @@ track_bgm_cue_l2:
 	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Crossfade
 	even
+	ENDIF
 
+	IF INCLUDE_LEVEL_3
 track_bgm_cue_l3:
 	dc.l	bgm_cue_l3
 	dc.w	0x003F
@@ -212,7 +225,9 @@ track_bgm_cue_l3:
 	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Crossfade
 	even
+	ENDIF
 
+	IF INCLUDE_LEVEL_4
 track_bgm_cue_l4:
 	dc.l	bgm_cue_l4
 	dc.w	0x003F
@@ -222,7 +237,9 @@ track_bgm_cue_l4:
 	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Crossfade
 	even
+	ENDIF
 
+	IF INCLUDE_LEVEL_5
 track_bgm_cue_l5:
 	dc.l	bgm_cue_l5
 	dc.w	0x003F
@@ -232,7 +249,9 @@ track_bgm_cue_l5:
 	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Crossfade
 	even
+	ENDIF
 
+	IF INCLUDE_LEVEL_5
 track_bgm_cue_scrap:
 	dc.l	bgm_cue_scrap
 	dc.w	0x003F
@@ -242,7 +261,9 @@ track_bgm_cue_scrap:
 	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Instant
 	even
+	ENDIF
 
+	IF INCLUDE_LEVEL_6
 track_bgm_cue_l6:
 	dc.l	bgm_cue_l6
 	dc.w	0x003F
@@ -252,7 +273,9 @@ track_bgm_cue_l6:
 	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Crossfade
 	even
+	ENDIF
 
+	IF INCLUDE_LEVEL_7
 track_bgm_cue_l7:
 	dc.l	bgm_cue_l7
 	dc.w	0x003F
@@ -262,6 +285,7 @@ track_bgm_cue_l7:
 	dc.b	SFX_Priority_Ambience-1
 	dc.b	Track_Transition_Crossfade
 	even
+	ENDIF
 
 track_bgm_enemyapproach:
 	dc.l	bgm_enemyapproach
