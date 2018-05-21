@@ -16,11 +16,10 @@ CPU_EntryPoint:
 	jsr MCD_RestoreHINT
 	ENDIF
 
-	; Test reset state
-	tst.w reset_exp    ; Test expansion reset
-	bne @SoftReset
-	tst.w reset_button ; Test reset button
-	bne @SoftReset
+	; Test reset state (if pad A state is still how we initialised it)
+	move.b pad_ctrl_a, d0
+	cmp.b  #pad_byte_latch, d0
+	beq    @SoftReset
 
 	; Clear RAM (for hard reset)
 	jsr    RAM_Clear
