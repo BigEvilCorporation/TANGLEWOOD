@@ -168,6 +168,9 @@ VDP_DMAQueue_ExecuteAll:
 
 	; Prepare VDP control port addr
 	move.l  #vdp_control, a6
+
+	; Take Z80 bus
+	jsr    Z80_TakeBus
 	
 	; Execute jobs
 	@QueueLoop:
@@ -179,6 +182,9 @@ VDP_DMAQueue_ExecuteAll:
 	RESTORE_INTERRUPTS
 	cmp.l  a1, a2
 	bne    @QueueLoop
+
+	; Release Z80 bus
+	jsr   Z80_ReleaseBus
 
 	; Disable DMA
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)

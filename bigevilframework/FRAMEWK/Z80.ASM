@@ -26,3 +26,18 @@ Z80_Init:
 	move.w #0x0000, z80_bus_request  ; Release control of bus
 	
 	rts
+
+Z80_TakeBus:
+
+	move.w #0x0100, z80_bus_request
+
+	; Wait for Z80 bus
+	@WaitZ80Bus:
+	btst #0x0, z80_bus_request
+	bne @WaitZ80Bus
+
+	rts
+
+Z80_ReleaseBus:
+	move.w #0x0000, z80_bus_request
+	rts

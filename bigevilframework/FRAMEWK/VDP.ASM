@@ -148,11 +148,17 @@ VDP_DMACopyVRAM:
 	; Enable DMA
 	ori.w   #0x10, d4  			; Set register 1 + DMA bit (5)
 	VDP_SETREG 1, d4
+
+	; Take Z80 bus
+	jsr    Z80_TakeBus
 	
 	; Initiate DMA - command must come from RAM, so push to stack and pop for write
 	move.l  d0, -(sp)
 	move.w  (sp)+, vdp_control      ; Move dest address to VDP control port
 	move.w  (sp)+, vdp_control      ; Move dest address to VDP control port
+
+	; Release Z80 bus
+	jsr    Z80_ReleaseBus
 	
 	; Disable DMA
 	andi.b  #0xEF, d4 				; Clear DMA bit (5)
