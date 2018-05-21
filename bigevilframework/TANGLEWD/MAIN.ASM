@@ -150,6 +150,7 @@ RenderEndFrame:
 	
 	;==============================================================
 	; DMA palettes if dirty
+	jsr    Z80_TakeBus
 PAL_INDEX = 0
 	REPT 4
 	btst   #PAL_INDEX, DirtyPalettesMask
@@ -158,6 +159,7 @@ PAL_INDEX = 0
 NotDirty_\#PAL_INDEX\:
 PAL_INDEX = PAL_INDEX+1
 	ENDR
+	jsr    Z80_ReleaseBus
 
 	; Reset dirty palette mask
 	move.b #0x0, DirtyPalettesMask
