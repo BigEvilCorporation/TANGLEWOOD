@@ -33,6 +33,7 @@ code_start
 	include '..\framewk\globals.asm'
 
 	; Include framework code
+	include '..\framewk\atgames.asm'
 	include '..\framewk\dmaqueue.asm'
 	include '..\framewk\checksum.asm'
 	include '..\framewk\collisn.asm'
@@ -42,6 +43,7 @@ code_start
 	include '..\framewk\gamepad.asm'
 	include '..\framewk\interpts.asm'
 	include '..\framewk\maths.asm'
+	include '..\framewk\mdmodel.asm'
 	include '..\framewk\megacd.asm'
 	include '..\framewk\memory.asm'
 	include '..\framewk\psg.asm'

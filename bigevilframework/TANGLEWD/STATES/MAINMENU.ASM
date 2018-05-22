@@ -344,12 +344,30 @@ MainMenu_InitUI:
 	move.l a3, a5
 
 	tst.b  LegalFuzzlEaten
+	bne    @RedCursor
+	cmp.b  #system_type_firecore, system_type
+	beq    @BlueCursor
+	cmp.b  #system_type_genuine, system_type
 	beq    @YellowCursor
+	bra    @GreenCursor
+
+	@GreenCursor:
+	CURSOR_LOAD_SPRITE a5,fuzzl,green_idle,0x10,0x10,PaletteId_Fuzzl,0x0
+	bra    @EndCursor
+
+	@RedCursor:
 	CURSOR_LOAD_SPRITE a5,fuzzl,red_idle,0x10,0x10,PaletteId_Fuzzl,0x0
-	bra    @RedCursor
+	bra    @EndCursor
+
 	@YellowCursor:
 	CURSOR_LOAD_SPRITE a5,fuzzl,yellow_idle,0x10,0x10,PaletteId_Fuzzl,0x0
-	@RedCursor:
+	bra    @EndCursor
+
+	@BlueCursor:
+	CURSOR_LOAD_SPRITE a5,fuzzl,blue_idle,0x10,0x10,PaletteId_Fuzzl,0x0
+	bra    @EndCursor
+
+	@EndCursor:
 
 	lea    GameStateMainMenuData, a2
 	move.l a5, MainMenuState_UICursor(a2)

@@ -84,6 +84,13 @@ SND_Init:
 
 	rts
 
+SND_DisableSSG_EG:
+	; Disables SGG-EG feature (screeches on machines that don't implement it properly)
+	IF INCLUDE_AUDIO
+	jsr    Echo_DisableSSGEG
+	ENDIF
+	rts
+
 SND_PauseBGM:
 	IF INCLUDE_AUDIO
 	jsr    Echo_PauseBGM

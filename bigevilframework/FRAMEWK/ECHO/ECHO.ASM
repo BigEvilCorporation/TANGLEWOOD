@@ -1,10 +1,10 @@
 	IFND ECHO_ENCRYPT_Z80
-ECHO_ENCRYPT_Z80	equ 0
+ECHO_ENCRYPT_Z80	equ 1
 	ENDIF
 
 	IF ECHO_ENCRYPT_Z80
 EchoDecryptKey:
-	dc.b 0xd6,0x37,0xc9,0x51,0x01,0x06,0x40,0x4d,0xb9,0xd8,0x1c,0xf2,0xbb,0x79,0xfd,0x1a
+	dc.b 0x2b, 0xcd, 0xc1, 0x9a, 0x80, 0x9c, 0x48, 0x81, 0x8c, 0x6c, 0x28, 0xaa, 0x43, 0xd0, 0xce, 0xa7
 EchoDecryptKeyEnd
 	ENDIF
 
@@ -50,8 +50,19 @@ Echo_Z80Reset macro
 ;****************************************************************************
 
 Echo_SendCommand:
-    movem.l d1/a1, -(sp)            ; Save registers
+    movem.l d1/a1-a2, -(sp)         ; Save registers
     Echo_Z80Request                 ; We need the Z80 bus
+
+	lea     ($A01FF6), a2           ; Get queue lock
+	@Trylock:
+	tst.b   (a2)
+	beq.s   @Unlocked
+	Echo_Z80Release                 ; Let Echo continue
+    move.w  #$FF, d1                ; Give it some time
+    dbf     d1, *                   ; ...
+    Echo_Z80Request                 ; Get Z80 bus back
+    bra.s   @Trylock                ; Try again
+	@Unlocked:
 
     lea     ($A01FFF), a1           ; First try the 1st slot
     tst.b   (a1)                    ; Is 1st slot available?
@@ -71,7 +82,7 @@ Echo_SendCommand:
     move.b  d0, (a1)                ; Write command ID
     Echo_Z80Release                 ; We're done with the Z80 bus
 
-    movem.l (sp)+, d1/a1            ; Restore registers
+    movem.l (sp)+, d1/a1-a2         ; Restore registers
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -84,8 +95,19 @@ Echo_SendCommand:
 
 Echo_SendCommandAddr:
 Echo_SendCommandEx:
-    movem.l d0-d1/a1, -(sp)         ; Save registers
+    movem.l d0-d1/a1-a2, -(sp)       ; Save registers
     Echo_Z80Request                 ; We need the Z80 bus
+
+	lea     ($A01FF6), a2           ; Get queue lock
+	@Trylock:
+	tst.b   (a2)
+	beq.s   @Unlocked
+	Echo_Z80Release                 ; Let Echo continue
+    move.w  #$FF, d1                ; Give it some time
+    dbf     d1, *                   ; ...
+    Echo_Z80Request                 ; Get Z80 bus back
+    bra.s   @Trylock                ; Try again
+	@Unlocked:
 
     lea     ($A01FFF), a1           ; First try the 1st slot
     tst.b   (a1)                    ; Is 1st slot available?
@@ -121,7 +143,7 @@ Echo_SendCommandEx:
 
     Echo_Z80Release                 ; We're done with the Z80 bus
 
-    movem.l (sp)+, d0-d1/a1         ; Restore registers
+    movem.l (sp)+, d0-d1/a1-a2      ; Restore registers
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -156,6 +178,19 @@ Echo_SendCommandByte:
     Echo_Z80Release                 ; We're done with the Z80 bus
 
     movem.l (sp)+, d1-d2/a1            ; Restore registers
+    rts                             ; End of subroutine
+
+;****************************************************************************
+; Echo_DisableSSGEG
+; Disables SSG-EG feature (e.g., for AtGames clones that screech)
+;****************************************************************************
+
+Echo_DisableSSGEG:
+    move.w  d0, -(sp)               ; Save register
+    move.b  #$09, d0                ; Command $09 = disable SSG-EG
+    bsr     Echo_SendCommand        ; Send command to Echo
+    move.w  (sp)+, d0               ; Restore register
+    
     rts                             ; End of subroutine
 
 ;****************************************************************************

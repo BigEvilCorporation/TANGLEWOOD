@@ -25,6 +25,7 @@ vdp_regs			  rs.b vdp_num_registers
 ; Framework stuff
 ; ************************************
 rand_seed				rs.l 1
+system_type				rs.b 1
 
 	RS_ALIGN
 

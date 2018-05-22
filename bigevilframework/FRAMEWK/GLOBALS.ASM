@@ -86,6 +86,10 @@ hardware_ver_bit_ext	equ 5	; 1 if external addon connected (MCD, etc)
 hardware_ver_bit_pal	equ 6	; 1 if PAL, 0 if NTSC
 hardware_ver_bit_us_eu	equ 7	; 1 if US/EU, 0 if JAP
 
+system_type_genuine		equ 0	; Probably genuine SEGA hardware, or a very good clone/emulator
+system_type_firecore	equ 1	; Probably an AtGames Firecore
+system_type_clone_emu	equ 2	; Probably a clone or emulator
+
 ; ************************************
 ; Status register
 ; ************************************
@@ -211,6 +215,7 @@ vdp_status_pal             equ 0x0    ; PAL mode flag
 vdp_reg0_enablehint		   equ 0x10
 vdp_reg1_enablevint		   equ 0x40
 vdp_reg1_enabledisplay     equ 0x40
+vdp_reg1_vram_128KB        equ 0x80
 
 ; ************************************
 ; HINT effects

@@ -165,6 +165,21 @@ VDP_GETREG: macro regnum,valuereg
 	move.b (vdp_regs+\regnum),\valuereg
 	endm
 
+; Setup for writing to static VRAM address
+VDP_SET_VRAM_WRITE: macro addr
+	move.l  #(vdp_cmd_vram_write)|((\addr)&$3FFF)<<16|(\addr)>>14, vdp_control
+	endm
+
+; Setup for reading from static VRAM address
+VDP_SET_VRAM_READ: macro addr
+	move.l  #(vdp_cmd_vram_read)|((\addr)&$3FFF)<<16|(\addr)>>14, vdp_control
+	endm
+	
+; Setup for writing to static CRAM address
+VDP_SET_CRAM_WRITE: macro addr
+	move.l  #(vdp_cmd_cram_write)|((\addr)&$3FFF)<<16|(\addr)>>14, vdp_control
+	endm
+
 ; Set VDP data address for reading/writing
 VDP_SETADDRESS: macro destreg, baseaddr, optype
 	; Address bit pattern: --DC BA98 7654 3210 ---- ---- ---- --FE
