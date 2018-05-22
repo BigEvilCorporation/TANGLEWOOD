@@ -19,6 +19,7 @@ Thunder_BoltToFlashTime		equ 0x0008
 Thunder_Damage				equ 0xFF
 
 	rsset 0
+Thunder_TargetObj		rs.l 1
 Thunder_StrikeTimer		rs.w 1
 Thunder_SoundTimer		rs.w 1
 Thunder_FlashTimer		rs.w 1
@@ -37,6 +38,7 @@ Thunder_Struct_Size		rs.b 0
 ThunderReset:
 
 	lea    Thunder, a2
+	move.l #0x0, Thunder_TargetObj(a2)
 	move.w #0x0, Thunder_StrikeTimer(a2)
 	move.w #0x0, Thunder_SoundTimer(a2)
 	move.w #0x0, Thunder_FlashTimer(a2)
@@ -106,6 +108,7 @@ ThunderStrike:
 	@HasTarget:
 	ENTITY_GETCENTREX d0, a3
 	TOPIXELS d0
+	move.l a3, Thunder_TargetObj(a2)
 	move.w d0, Thunder_StrikePointX(a2)
 
 	; Search for strike point up to player Y pos
@@ -448,6 +451,7 @@ ThunderUpdate:
 	; If harmful to player, and player is target, deal damage
 	tst.b  Thunder_PlayerTarget(a2)
 	beq    @NotHitPlayer
+	move.l Thunder_TargetObj(a2), a3
 	cmp.l  Player1, a3
 	bne    @NotHItPlayer
 
