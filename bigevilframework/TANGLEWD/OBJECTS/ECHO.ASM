@@ -383,6 +383,10 @@ EchoUpdateHowl:
 	bra    @TimerStillRunning
 	@OnFloor:
 
+	; If on ladder, try again next frame
+	tst.b  Character_climbing(a0)
+	bne    @TimerStillRunning
+
 	jsr    EchoHowl
 
 	@TimerStillRunning:
