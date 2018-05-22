@@ -2401,10 +2401,13 @@ PlayerInteractTest_Fireflies:
 	
 	IFND DEBUG
 
-	; If moving
+	; If moving (or riding, vel will be 0)
+	cmp.b  #Player_RideState_None, Player_RideState(a0)
+	bne    @Riding
 	move.l PhysicsObj_VelX(a0), d0
 	or.l   PhysicsObj_VelY(a0), d0
 	beq    @NotMoving
+	@Riding:
 
 	PUSHL  a0
 	PUSHL  a1
