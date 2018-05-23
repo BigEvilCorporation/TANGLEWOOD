@@ -2,27 +2,30 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 ; Pattern $00, Row 0; 
 	dc.b $40, $0e	; Set instrument for channel FM 1
+	dc.b $20, $00	; Set volume for channel FM 1
 	dc.b $f0, $53	; Set pan/AMS/FMS for channel FM 1
 	dc.b $00, $57	; Note B-2 on channel FM 1
 	dc.b $46, $10	; Set instrument for channel FM 6
+	dc.b $26, $00	; Set volume for channel FM 6
 	dc.b $06, $77	; Note B-3 on channel FM 6
-	dc.b $48, $0f	; Set instrument for channel PSG 1
 	dc.b $28, $02	; Set volume for channel PSG 1
+	dc.b $48, $0f	; Set instrument for channel PSG 1
 	dc.b $08, $32	; Note C#2 on channel PSG 1
 ; Pattern $00, Row 1; 
 	dc.b $fe, $03	; Delay
-	dc.b $49, $0f	; Set instrument for channel PSG 2
 	dc.b $29, $02	; Set volume for channel PSG 2
+	dc.b $49, $0f	; Set instrument for channel PSG 2
 	dc.b $09, $42	; Note A-2 on channel PSG 2
 ; Pattern $00, Row 2; 
 	dc.b $fe, $03	; Delay
-	dc.b $4a, $0f	; Set instrument for channel PSG 3
 	dc.b $2a, $02	; Set volume for channel PSG 3
+	dc.b $4a, $0f	; Set instrument for channel PSG 3
 	dc.b $0a, $4a	; Note C#3 on channel PSG 3
 ; Pattern $00, Row 3; 
 ; Pattern $00, Row 4; 
 	dc.b $fe, $06	; Delay
 	dc.b $41, $0e	; Set instrument for channel FM 2
+	dc.b $21, $00	; Set volume for channel FM 2
 	dc.b $f1, $93	; Set pan/AMS/FMS for channel FM 2
 	dc.b $01, $73	; Note A-3 on channel FM 2
 ; Pattern $00, Row 5; 
@@ -34,6 +37,7 @@
 	dc.b $38, $09, $0c	; Set frequency '201' for channel PSG 1
 ; Pattern $00, Row 8; 
 	dc.b $42, $0e	; Set instrument for channel FM 3
+	dc.b $22, $00	; Set volume for channel FM 3
 	dc.b $f2, $d3	; Set pan/AMS/FMS for channel FM 3
 	dc.b $02, $85	; Note D-4 on channel FM 3
 	dc.b $08, $34	; Note D-2 on channel PSG 1
@@ -59,6 +63,7 @@
 ; Pattern $00, Row 12; 
 	dc.b $fe, $06	; Delay
 	dc.b $44, $0e	; Set instrument for channel FM 4
+	dc.b $24, $00	; Set volume for channel FM 4
 	dc.b $f4, $53	; Set pan/AMS/FMS for channel FM 4
 	dc.b $04, $8d	; Note F#4 on channel FM 4
 ; Pattern $00, Row 13; 
@@ -70,6 +75,7 @@
 	dc.b $38, $0e, $0b	; Set frequency '190' for channel PSG 1
 ; Pattern $00, Row 16; 
 	dc.b $45, $0e	; Set instrument for channel FM 5
+	dc.b $25, $00	; Set volume for channel FM 5
 	dc.b $f5, $93	; Set pan/AMS/FMS for channel FM 5
 	dc.b $05, $93	; Note A-4 on channel FM 5
 	dc.b $08, $2a	; Note A-1 on channel PSG 1

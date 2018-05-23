@@ -2,16 +2,18 @@
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 ; Pattern $00, Row 0; 
 	dc.b $fd	; Set loop
+	dc.b $20, $17	; Set volume for channel FM 1
 	dc.b $40, $3b	; Set instrument for channel FM 1
 	dc.b $20, $17	; Set volume for channel FM 1
 	dc.b $f0, $57	; Set pan/AMS/FMS for channel FM 1
 	dc.b $00, $41	; Note C-2 on channel FM 1
+	dc.b $21, $1f	; Set volume for channel FM 2
 	dc.b $41, $3b	; Set instrument for channel FM 2
 	dc.b $21, $1f	; Set volume for channel FM 2
 	dc.b $f1, $97	; Set pan/AMS/FMS for channel FM 2
 	dc.b $01, $21	; Note C-1 on channel FM 2
-	dc.b $4b, $3a	; Set instrument for channel PSG 4
 	dc.b $2b, $06	; Set volume for channel PSG 4
+	dc.b $4b, $3a	; Set instrument for channel PSG 4
 	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
 	dc.b $0b, $07	; Note G-0 on channel PSG 4
 	dc.b $fe, $01	; Delay
@@ -335,49 +337,66 @@
 ; Pattern $01, Row 22; 
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0e, $0a	; Set frequency '174' for channel PSG 3
+	dc.b $3a, $0c, $0a	; Set frequency '172' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $01, $0b	; Set frequency '177' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $04, $0b	; Set frequency '180' for channel PSG 3
+	dc.b $3a, $05, $0b	; Set frequency '181' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $07, $0b	; Set frequency '183' for channel PSG 3
+	dc.b $3a, $09, $0b	; Set frequency '185' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0a, $0b	; Set frequency '186' for channel PSG 3
+	dc.b $3a, $0c, $0b	; Set frequency '188' for channel PSG 3
 ; Pattern $01, Row 23; 
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0d, $0b	; Set frequency '189' for channel PSG 3
+	dc.b $3a, $0f, $0b	; Set frequency '191' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $00, $0c	; Set frequency '192' for channel PSG 3
+	dc.b $3a, $01, $0c	; Set frequency '193' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $03, $0c	; Set frequency '195' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $06, $0c	; Set frequency '198' for channel PSG 3
+	dc.b $3a, $04, $0c	; Set frequency '196' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $09, $0c	; Set frequency '201' for channel PSG 3
+	dc.b $3a, $07, $0c	; Set frequency '199' for channel PSG 3
 ; Pattern $01, Row 24; 
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0c, $0c	; Set frequency '204' for channel PSG 3
+	dc.b $3a, $0a, $0c	; Set frequency '202' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0f, $0c	; Set frequency '207' for channel PSG 3
+	dc.b $3a, $0e, $0c	; Set frequency '206' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $02, $0d	; Set frequency '210' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $05, $0d	; Set frequency '213' for channel PSG 3
+	dc.b $3a, $06, $0d	; Set frequency '214' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $08, $0d	; Set frequency '216' for channel PSG 3
+	dc.b $3a, $0a, $0d	; Set frequency '218' for channel PSG 3
 ; Pattern $01, Row 25; 
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0b, $0d	; Set frequency '219' for channel PSG 3
+	dc.b $3a, $0d, $0d	; Set frequency '221' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0e, $0d	; Set frequency '222' for channel PSG 3
+	dc.b $3a, $0f, $0d	; Set frequency '223' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $01, $0e	; Set frequency '225' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $04, $0e	; Set frequency '228' for channel PSG 3
+	dc.b $3a, $03, $0e	; Set frequency '227' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $07, $0e	; Set frequency '231' for channel PSG 3
+	dc.b $3a, $05, $0e	; Set frequency '229' for channel PSG 3
 ; Pattern $01, Row 26; 
 	dc.b $fe, $01	; Delay
+	dc.b $3a, $0a, $0e	; Set frequency '234' for channel PSG 3
 	dc.b $3a, $0a, $0e	; Set frequency '234' for channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $3a, $0d, $0e	; Set frequency '237' for channel PSG 3
