@@ -576,6 +576,7 @@ Echo_Init:
 	move.b  #$00, ($A01FFB)         ; Init command queue wait flag
 
     move.b  #$01, ($A01FFF)         ; Command: load pointer list
+	move.b  #$00, ($A01FFB)         ; No other command yet
 
     move.l  a0, d0                  ; Easier to manipulate here
     move.b  d0, ($A01FFD)           ; Store low address byte
