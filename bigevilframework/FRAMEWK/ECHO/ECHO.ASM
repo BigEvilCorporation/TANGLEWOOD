@@ -51,6 +51,7 @@ Echo_Z80Reset macro
 
 Echo_SendCommand:
     movem.l d1/a1-a2, -(sp)         ; Save registers
+@Try:
     Echo_Z80Request                 ; We need the Z80 bus
 
 	lea     ($A01FF6), a2           ; Get queue lock
@@ -69,13 +70,11 @@ Echo_SendCommand:
     beq.s   @Ready                    ; If so, move on
     subq.l  #4, a1                  ; Try 2nd slot otherwise
 
-@Try:
     tst.b   (a1)                    ; Check if 2nd slot is ready
     beq.s   @Ready                  ; Too busy?
     Echo_Z80Release                   ; Let Echo continue
     move.w  #$FF, d1                  ; Give it some time
     dbf     d1, *                       ; ...
-    Echo_Z80Request                   ; Get Z80 bus back
     bra.s   @Try                      ; Try again
 
 @Ready:
@@ -96,6 +95,7 @@ Echo_SendCommand:
 Echo_SendCommandAddr:
 Echo_SendCommandEx:
     movem.l d0-d1/a1-a2, -(sp)       ; Save registers
+@Try:
     Echo_Z80Request                 ; We need the Z80 bus
 
 	lea     ($A01FF6), a2           ; Get queue lock
@@ -114,13 +114,11 @@ Echo_SendCommandEx:
     beq.s   @Ready                    ; If so, move on
     subq.l  #4, a1                  ; Try 2nd slot otherwise
 
-@Try:
     tst.b   (a1)                    ; Check if 2nd slot is ready
     beq.s   @Ready                  ; Too busy?
     Echo_Z80Release                   ; Let Echo continue
     move.w  #$FF, d1                  ; Give it some time
     dbf     d1, *                       ; ...
-    Echo_Z80Request                   ; Get Z80 bus back
     bra.s   @Try                      ; Try again
 
 @Ready:
@@ -158,18 +156,17 @@ Echo_SendCommandByte:
     movem.l d1-d2/a1, -(sp)            ; Save registers
     Echo_Z80Request                 ; We need the Z80 bus
 
+@Try:
     lea     ($A01FFF), a1           ; First try the 1st slot
     tst.b   (a1)                    ; Is 1st slot available?
     beq.s   @Ready                    ; If so, move on
     subq.l  #4, a1                  ; Try 2nd slot otherwise
 
-@Try:
     tst.b   (a1)                    ; Check if 2nd slot is ready
     beq.s   @Ready                  ; Too busy?
     Echo_Z80Release                   ; Let Echo continue
     move.w  #$FF, d2                  ; Give it some time
     dbf     d2, *                       ; ...
-    Echo_Z80Request                   ; Get Z80 bus back
     bra.s   @Try                      ; Try again
 
 @Ready:
