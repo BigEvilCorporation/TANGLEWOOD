@@ -124,6 +124,7 @@ status_reg_init			equ (status_reg_supervisor|status_reg_int0|status_reg_int1)
 z80_bus_request			equ 0x00A11100
 z80_bus_reset			equ 0x00A11200
 z80_ram_start			equ 0x00A00000
+z80_ram_size_b			equ 0x2000
 
 ; ************************************
 ; Streaming

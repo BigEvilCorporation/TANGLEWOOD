@@ -15,11 +15,10 @@ Z80_Init:
 	btst #0x0, z80_bus_request ; Test bit 0 of A11100 to see if the 68k has access to the Z80 bus yet
 	bne @Wait                  ; If we don't yet have control, branch back up to Wait
 	
-	move.l #Z80InitData, a0    ; Load address of data into a0
-	move.l #z80_ram_start, a1  ; Copy Z80 RAM address to a1
-	move.l #0x29, d0           ; 42 bytes of init data
+	move.l #z80_ram_start, a1    ; Z80 RAM start
+	move.l #z80_ram_size_b-1, d0 ; 8KB (-1 for loop counter)
 	@CopyZ80:
-	move.b (a0)+, (a1)+        ; Copy data, and increment the source/dest addresses
+	move.b #0x0, (a1)+           ; Clear byte, increment dest address
 	dbra d0, @CopyZ80
 
 	move.w #0x0000, z80_bus_reset    ; Release reset state
