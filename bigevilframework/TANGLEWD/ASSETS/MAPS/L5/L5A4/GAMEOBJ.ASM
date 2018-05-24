@@ -332,7 +332,6 @@ L5A4_LoadGameObjects:
 	move.l #0x00980000, Entity_WorldPosY(a0)
 	move.l #l5a4_Trigger_End, TriggerBox_Routine(a0)
 	move.b #0x1, TriggerBox_TriggerOnce(a0)
-	move.b #0x1, TriggerBox_XOnly(a0)
 	jsr TriggerBoxLoadGfx
 	IFND FINAL
 	lea L5A4_TriggerBox_LevelEnd_name, a3
