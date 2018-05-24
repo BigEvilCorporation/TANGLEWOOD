@@ -81,7 +81,7 @@ collisionmap_blockmap_l7a2:
 	ENDIF
 
 collisionmap_blockmap_l7a3:
-	incbin 'assets\maps\l7\l7a3\colmap.bin'
+	;incbin 'assets\maps\l7\l7a3\colmap.bin'
 
 ;==============================================================
 ; Collision blocks
