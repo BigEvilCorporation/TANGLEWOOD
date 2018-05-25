@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_L7A1_size_b	equ 0x0000161A	; Size in bytes
+map_blockmap_L7A1_size_b	equ 0x0000161C	; Size in bytes
 map_blockmap_L7A1_size_w	equ (map_blockmap_L7A1_size_b/2)	; Size in words
 map_blockmap_L7A1_size_l	equ (map_blockmap_L7A1_size_b/4)	; Size in longwords
 map_L7A1_width	equ 0x44C
@@ -262,32 +262,32 @@ map_blockmap_L7A1_coloffsets:
 	dc.w 0x141E
 	dc.w 0x142E
 	dc.w 0x1440
-	dc.w 0x144C
+	dc.w 0x144A
 	dc.w 0x1456
-	dc.w 0x1460
+	dc.w 0x1462
 	dc.w 0x146C
 	dc.w 0x1478
-	dc.w 0x1488
-	dc.w 0x1498
-	dc.w 0x14A8
-	dc.w 0x14B8
-	dc.w 0x14C8
-	dc.w 0x14D8
-	dc.w 0x14E8
-	dc.w 0x14F8
-	dc.w 0x1508
-	dc.w 0x1518
-	dc.w 0x1528
-	dc.w 0x1538
-	dc.w 0x1548
-	dc.w 0x1558
-	dc.w 0x1564
-	dc.w 0x1576
-	dc.w 0x1586
-	dc.w 0x15A6
-	dc.w 0x15C6
-	dc.w 0x15DA
-	dc.w 0x15EE
-	dc.w 0x15FA
-	dc.w 0x1606
-	dc.w 0x1610
+	dc.w 0x148A
+	dc.w 0x149A
+	dc.w 0x14AA
+	dc.w 0x14BA
+	dc.w 0x14CA
+	dc.w 0x14DA
+	dc.w 0x14EA
+	dc.w 0x14FA
+	dc.w 0x150A
+	dc.w 0x151A
+	dc.w 0x152A
+	dc.w 0x153A
+	dc.w 0x154A
+	dc.w 0x155A
+	dc.w 0x1566
+	dc.w 0x1578
+	dc.w 0x1588
+	dc.w 0x15A8
+	dc.w 0x15C8
+	dc.w 0x15DC
+	dc.w 0x15F0
+	dc.w 0x15FC
+	dc.w 0x1608
+	dc.w 0x1612
