@@ -67,24 +67,8 @@ CPU_EntryPoint:
 	; Init sound driver
 	jsr SND_Init
 
-	; Determine system type
-	move.b #system_type_genuine, system_type
-
-	; Detect systems with broken 128KB VRAM implementation and turn off SSG-EG (not worth risking the screeching)
-	jsr    SYS_Check_VRAM_128KB_Wrap
-	tst.b  d0
-	beq    @ProbablyRealHardware
-	move.b #system_type_clone_emu, system_type
-	jsr    SND_DisableSSG_EG
-	@ProbablyRealHardware:
-
-	; Detect AtGames Firecore
-	jsr    SYS_Check_AtGames_Firecore
-	tst.b  d0
-	beq    @NotFirecore
-	move.b #system_type_firecore, system_type
-	jsr    SYS_Init_AtGames_Firecore
-	@NotFirecore:
+	; Determine system type and apply default settings
+	jsr SYS_DetectSystemType
 
 	; Cleanup registers
 	move.l #ram_start, a0     ; Move address of first byte of ram (contains zero, RAM has been cleared) to a0

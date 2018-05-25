@@ -88,7 +88,8 @@ hardware_ver_bit_us_eu	equ 7	; 1 if US/EU, 0 if JAP
 
 system_type_genuine		equ 0	; Probably genuine SEGA hardware, or a very good clone/emulator
 system_type_firecore	equ 1	; Probably an AtGames Firecore
-system_type_clone_emu	equ 2	; Probably a clone or emulator
+system_type_flashback	equ 2	; Probably an AtGames Flashback
+system_type_clone_emu	equ 3	; Probably a clone or emulator
 
 ; ************************************
 ; Status register

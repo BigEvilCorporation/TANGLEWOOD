@@ -84,7 +84,21 @@ SND_Init:
 
 	rts
 
-SND_DisableSSG_EG:
+SND_GetSSGEGEnabled:
+	; d0 (b) SSG-EG enabled
+	move.b #0x0, d1
+	IF INCLUDE_AUDIO
+	jsr    Echo_GetSSGEGEnabled
+	ENDIF
+	rts
+
+SND_EnableSSGEG:
+	IF INCLUDE_AUDIO
+	jsr    Echo_EnableSSGEG
+	ENDIF
+	rts
+
+SND_DisableSSGEG:
 	; Disables SGG-EG feature (screeches on machines that don't implement it properly)
 	IF INCLUDE_AUDIO
 	jsr    Echo_DisableSSGEG

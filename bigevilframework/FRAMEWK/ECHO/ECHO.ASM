@@ -1,7 +1,3 @@
-	IFND ECHO_ENCRYPT_Z80
-ECHO_ENCRYPT_Z80	equ 1
-	ENDIF
-
 	IF ECHO_ENCRYPT_Z80
 EchoDecryptKey:
 	dc.b 0x2b, 0xcd, 0xc1, 0x9a, 0x80, 0x9c, 0x48, 0x81, 0x8c, 0x6c, 0x28, 0xaa, 0x43, 0xd0, 0xce, 0xa7
@@ -178,16 +174,48 @@ Echo_SendCommandByte:
     rts                             ; End of subroutine
 
 ;****************************************************************************
+; Echo_GetSSGEGEnabled
+; Checks if SSG-EG is enabled (Z80 can disable this automatically if it
+; detects certain machine types)
+;
+; output d0.b ... 0 = disabled, 1 = enabled
+;****************************************************************************
+
+Echo_GetSSGEGEnabled:
+
+	Echo_Z80Request
+	move.b ($A01FF7), d0            ; RAM_SSGEGDisabled
+	Echo_Z80Release
+
+	eor.b #0x1, d0
+
+    rts                             ; End of subroutine
+
+
+;****************************************************************************
+; Echo_EnableSSGEG
+; Enables SSG-EG feature
+;****************************************************************************
+
+Echo_EnableSSGEG:
+
+	Echo_Z80Request
+	move.b #0x0, ($A01FF7)          ; RAM_SSGEGDisabled
+	Echo_Z80Release
+
+    rts                             ; End of subroutine
+
+;****************************************************************************
 ; Echo_DisableSSGEG
 ; Disables SSG-EG feature (e.g., for AtGames clones that screech)
 ;****************************************************************************
 
 Echo_DisableSSGEG:
-    move.w  d0, -(sp)               ; Save register
-    move.b  #$09, d0                ; Command $09 = disable SSG-EG
-    bsr     Echo_SendCommand        ; Send command to Echo
-    move.w  (sp)+, d0               ; Restore register
-    
+
+	Echo_Z80Request
+	move.b #0x1, ($A01FF7)          ; RAM_SSGEGDisabled
+	Echo_Z80Release
+
     rts                             ; End of subroutine
 
 ;****************************************************************************
@@ -570,6 +598,8 @@ Echo_Init:
     Echo_Z80Reset                   ; May not work without this...
     Echo_Z80Request                 ; We need the Z80 bus
 
+	move.b  #$01, ($A01FF6)         ; Lock command queue
+
 	move.b  #$00, ($A01FFB)         ; Init command queue wait flag
 
     move.b  #$01, ($A01FFF)         ; Command: load pointer list
@@ -637,6 +667,15 @@ Echo_Init:
 
     Echo_Z80Reset                   ; Now reset for real
     Echo_Z80Release                 ; Let the Z80 go!
+
+	@EchoInitWaitLp:                ; Wait for initialisation to complete
+	move.w  #$FF, d1                ; Give it some time
+    dbf     d1, *                   ; ...
+	Echo_Z80Request
+	move.b  ($A01FF6), d0           ; Get lock flag
+	Echo_Z80Release
+	tst.b   d0
+	bne     @EchoInitWaitLp
 
     movem.l (sp)+, d0/a0-a1         ; Restore registers
     rts                             ; End of subroutine

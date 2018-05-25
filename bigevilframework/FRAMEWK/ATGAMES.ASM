@@ -38,6 +38,7 @@ SYS_Init_AtGames_Firecore:
 	move.b #atgames_fm_clk, atgames_addr_fm_clk			; Write new FM clock
 	move.w #atgames_latch_off, atgames_addr_reg_latch	; Un-latch
 
-	; Tell Echo to disable SSG-EG
+	; Disable SSG-EG
+	jsr    SND_DisableSSGEG
 
 	rts

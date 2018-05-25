@@ -6,6 +6,39 @@
 ;   mdmodel.asm - Checks for various Mega Drive types
 ;==============================================================
 
+SYS_DetectSystemType:
+
+	; Determine system type
+	move.b #system_type_genuine, system_type
+
+	; Detect AtGames Flashback - Z80 driver will have disabled SSG-EG on boot if it detected missing IYL instruction
+	jsr    SND_GetSSGEGEnabled
+	tst.b  d0
+	bne    @NotFlashback
+	move.b #system_type_flashback, system_type
+	bra    @End
+	@NotFlashback:
+
+	; Detect AtGames Firecore
+	jsr    SYS_Check_AtGames_Firecore
+	tst.b  d0
+	beq    @NotFirecore
+	move.b #system_type_firecore, system_type
+	jsr    SYS_Init_AtGames_Firecore
+	bra    @End
+	@NotFirecore:
+
+	; Detect systems with broken 128KB VRAM implementation, assume clone or emu
+	jsr    SYS_Check_VRAM_128KB_Wrap
+	tst.b  d0
+	beq    @ProbablyRealHardware
+	move.b #system_type_clone_emu, system_type
+	@ProbablyRealHardware:
+
+	@End:
+
+	rts
+
 SYS_Check_VRAM_128KB_Wrap:
 	; ---------------------------------------------------------------------------------------------------------
 	; SYS_Check_VRAM_128KB_Wrap
