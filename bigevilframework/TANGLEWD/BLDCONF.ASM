@@ -16,6 +16,7 @@ DMA_FROM_CART			equ 1
 
 ; ROM config
 ROM_PADDING_4MB			equ 1
+ECHO_ENCRYPT_Z80		equ 0
 
 ; Region testing
 FORCE_PAL_MODE			equ 0
@@ -124,10 +125,10 @@ InitialState			equ  GameStateLogos
 	ELSE
 ;InitialState			equ  GameStateLogos
 ;InitialState			equ  GameStateMainMenu
-;InitialState			equ  GameStateOptions
+InitialState			equ  GameStateOptions
 ;InitialState			equ  GameStateLevelSelect
 ;InitialState			equ  GameStatePasswordScreen
 ;InitialState			equ  GameStateSoundTest
-InitialState			equ  GameStateGameplay
+;InitialState			equ  GameStateGameplay
 ;InitialState			equ  GameStateCredits
 	ENDIF
