@@ -85,6 +85,12 @@ UIWidgetTextSetString:
 	move.w d2, UIWidget_Width(a0)
 	move.w #0x8, UIWidget_Height(a0)
 
+	; Clear original
+	move.l a0, a3
+	move.l #UIWidgetText_MaxStringLen, d3
+	lea    UIWidgetText_String(a3), a3
+	MEMZEROB a3, d3
+
 	; Copy string
 	move.l a0, a3
 	andi.w #0x00FF, d1
