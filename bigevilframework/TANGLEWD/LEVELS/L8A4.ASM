@@ -70,6 +70,7 @@ l8a4_GreyscaleLerpSpeed			equ (0x1<<fade_frame_shift) ; Subframes (1 frame per t
 ; Runtime data
 ; ************************************
 	rsset LevelData_Struct_Size
+l8a4Data_CutsceneCargoLift			rs.b Cutscene_Struct_Size
 l8a4Data_CutsceneDemonStealFuzzl	rs.b Cutscene_Struct_Size
 l8a4Data_CutsceneDemonReturn		rs.b Cutscene_Struct_Size
 ;---------------------------------
@@ -112,6 +113,13 @@ l8a4_Init:
 	;==============================================================
 
 	; Init cutscenes
+	PUSHM  a0-a1
+	lea    LevelData_L8A4, a2
+	lea    l8a4Data_CutsceneCargoLift(a2), a0
+	move.l #l8a4_CutsceneCargoLift, a1
+	jsr    CutsceneInit
+	POPM   a0-a1
+
 	PUSHM  a0-a1
 	lea    LevelData_l8a4, a2
 	lea    l8a4Data_CutsceneDemonStealFuzzl(a2), a0
@@ -201,6 +209,13 @@ l8a4_Init:
 	; Start final fight music
 	lea    L8_FinalBossMusic, a0
 	jsr    SND_PlayTrack
+
+	; Start cargo lift cutscene
+	PUSHL  a0
+	lea    LevelData_L8A4, a2
+	lea    l8a4Data_CutsceneCargoLift(a2), a0
+	jsr    CutscenePlay
+	POPL   a0
 	
 	rts
 	
@@ -303,6 +318,32 @@ l8a4_Trigger_DemonReturn:
 	POPL   a0
 
 	@NotCollectedAll:
+
+	rts
+
+l8a4_CutsceneCargoLift:
+	; a0 --- Cutscene
+
+	CUTSCENE_START
+	CUTSCENE_START_LETTERBOX
+
+	; Disable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x0
+	CUTSCENE_OBJECT_ROUTINE Player1,#CharacterCancelXMovement
+
+	; Start lift
+	CUTSCENE_GET_ENTITY CargoLift, l8a4_CargoLift,a2
+	CUTSCENE_OBJECT_ROUTINE a2,#LiftActivateUp
+
+	; Wait until stopped
+	CUTSCENE_GET_ENTITY CargoLift, l8a4_CargoLift,a2
+	CUTSCENE_OBJECT_WAIT_STOP a2
+
+	; Enable player control
+	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
+
+	CUTSCENE_END_LETTERBOX
+	CUTSCENE_END
 
 	rts
 
