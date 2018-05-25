@@ -6,9 +6,13 @@
 ;   bldconf.asm - Build configuration
 ;==============================================================
 
+; Assembler optimisations
+	OPT op+,os+,ow+,oz+,oaq+,osq+,omq+
+
 ; Engine features
 INCLUDE_AUDIO			equ 1
 CHECKSUM_TEST			equ 0
+DMA_FROM_CART			equ 1
 
 ; ROM config
 ROM_PADDING_4MB			equ 1
