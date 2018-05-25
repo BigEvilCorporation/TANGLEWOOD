@@ -57,16 +57,17 @@ OptionsScreenLineSpacing		equ 0x08
 
 OptionsScreenTitleX				equ (screen_width/2)-(8*4)
 OptionsScreenTitleY				equ 0x28
-OptionsScreenOptionX			equ (screen_width/2)-(8*4)
+OptionsScreenOptionX			equ (screen_width/2)-(8*7)
 OptionsScreenXInteract			equ (screen_width/2)-(8*4)-(8*4)
 OptionsScreenXPower				equ (screen_width/2)-(8*4)-(8*3)
 OptionsScreenXJump				equ (screen_width/2)-(8*4)
 
-OptionsScreenTitle				dc.b "Controls",0
+OptionsScreenTitle				dc.b "Options",0
 OptionsScreenControlInteract	dc.b "Interact",0
 OptionsScreenControlPower		dc.b "Special",0
 OptionsScreenControlJump		dc.b "Jump",0
 OptionsScreenControl1			dc.b "Control scheme",0
+OptionsScreenSSGEG				dc.b "YM2612 SSG-EG",0
 OptionsScreenBack				dc.b "Back",0
 	even
 
@@ -313,6 +314,22 @@ Options_OnCycleControls:
 	
 	rts
 
+Options_OnCycleSSGEG:
+	; a0 --- Widget
+	; d0 (b) 0 = off, 1= on
+
+	eor.b #0x1, d0
+
+	tst.b d0
+	beq   @Disable
+	jsr   SND_EnableSSGEG
+	bra   @Enable
+	@Disable:
+	jsr   SND_DisableSSGEG
+	@Enable:
+
+	rts
+
 Options_OnBack:
 
 	; Begin fade down
@@ -444,9 +461,9 @@ LINECOUNT = LINECOUNT+1
 	move.l a3, OptionsState_TextJump(a6)
 LINECOUNT = LINECOUNT+3
 
-	; Create control title
-;	WINDOW_CREATE_WIDGET_TEXT a0,#OptionsScreenControl1,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#OptionsScreenOptionX,#OptionsScreenTitleY+(OptionsScreenLineSpacing*LINECOUNT)
-;LINECOUNT = LINECOUNT+1
+	; Create controls title
+	WINDOW_CREATE_WIDGET_TEXT a0,#OptionsScreenControl1,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#OptionsScreenOptionX,#OptionsScreenTitleY+(OptionsScreenLineSpacing*LINECOUNT)
+LINECOUNT = LINECOUNT+1
 
 	; Create cursor and add to window
 	WINDOW_CREATE_WIDGET_CURSOR a0
@@ -488,12 +505,33 @@ LINECOUNT = LINECOUNT+3
 
 LINECOUNT = LINECOUNT+2
 
+	; Create audio title
+	WINDOW_CREATE_WIDGET_TEXT a0,#OptionsScreenSSGEG,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#OptionsScreenOptionX,#OptionsScreenTitleY+(OptionsScreenLineSpacing*LINECOUNT)
+LINECOUNT = LINECOUNT+1
+
+	; Create SSG-EG list widget and add to window and cursor
+	WINDOW_CREATE_WIDGET_LIST a0,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#OptionsScreenOptionX,#OptionsScreenTitleY+(OptionsScreenLineSpacing*LINECOUNT)
+	CURSOR_ADD_WIDGET a5,a3
+	move.l #Options_OnCycleSSGEG, UIWidgetList_OnCycle(a3)
+	WIDGET_LIST_ADD_ITEM a3,#OptionsScreen_Str_On
+	WIDGET_LIST_ADD_ITEM a3,#OptionsScreen_Str_Off
+
+	; Set initial value
+	PUSHM  a0-a5
+	jsr    SND_GetSSGEGEnabled
+	eor.b  #0x1, d0
+	move.l a3, a0
+	jsr    UIWidgetListSetItem
+	POPM   a0-a5
+
+LINECOUNT = LINECOUNT+2
+
 	; Add back option
 	WINDOW_CREATE_WIDGET_TEXT a0,#OptionsScreenBack,#tiles_twfontbs,(vram_addr_systemfontb),#PaletteId_MenuText,#UIWidgetText_DrawPlane_Sprite,#OptionsScreenOptionX,#OptionsScreenTitleY+(OptionsScreenLineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,Options_OnBack,0x0
 
-	; Set initial controls strings
+	; Set initial strings
 	jsr    Options_SetString_Interact
 	jsr    Options_SetString_Power
 	jsr    Options_SetString_Jump

@@ -48,7 +48,12 @@ LegalScreen_Str_04	dc.b "SEGA Enterprises Ltd or its affiliates",0
 LegalScreen_Str_05	dc.b "Copyright \2018 Big Evil Corp.",0
 Copyright_Str_short	dc.b "\2018 Big Evil Corp.",0
 	
+	; Sound test screen
 Str_SoundTestLabel	dc.b "SOUND ID: ",0
+
+	; Options screen
+OptionsScreen_Str_On	dc.b "ON",0
+OptionsScreen_Str_Off	dc.b "OFF",0
 
 	; Levels
 LevelSelect_Str_00	dc.b "None",0
