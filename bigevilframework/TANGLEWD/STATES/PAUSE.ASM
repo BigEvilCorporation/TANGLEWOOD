@@ -403,9 +403,9 @@ Pause_Update:
 	bne    @NoStart
 	
 	; Resume game
-	PUSHL  a1
+	PUSHM  a0-a1
 	jsr    GameStatePop
-	POPL   a1
+	POPM   a0-a1
 	
 	@NoStart:
 	

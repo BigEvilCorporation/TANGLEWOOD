@@ -99,7 +99,7 @@ WindFlueLoadGfx:
 	move.l  Entity_WorldPosY(a0), d2
 	move.l  d2, d4
 
-	PUSHL   a0
+	PUSHM   a0-a1
 	lea     WindFlue_Leaves(a0), a0
 	move.w  #WindFlue_MaxLeaves-1, d0
 	@LeafLp:
@@ -108,6 +108,10 @@ WindFlueLoadGfx:
 	PUSHM   d0-d2
 	SPRITE_LOAD_DEFAULT leaf,brown,0,PaletteId_World0,0x0
 	ANIM_LOAD_MANUALCONTROL leaf,green,fall,Leaf_Animation,0
+	lea    Leaf_Animation(a0), a1
+	move.l #0x0, a2
+	move.l #0x0, a3
+	jsr    AnimObjSetAnimation
 	move.l  AnimObj_CurrentAnim(a0), a2
 	move.w  #WindFlue_LeafAnimSpeed, Animation_Speed(a2)
 	move.b  #0x1, AnimObj_Playing(a0)
@@ -133,7 +137,7 @@ WindFlueLoadGfx:
 
 	lea     Leaf_Struct_Size(a0), a0
 	dbra    d0, @LeafLp
-	POPL    a0
+	POPM    a0-a1
 
 	rts
 	

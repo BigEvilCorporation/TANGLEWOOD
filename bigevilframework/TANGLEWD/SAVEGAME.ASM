@@ -335,10 +335,6 @@ LoadFireflyActDataFromPassword:
 	bgt    @Invalid
 	move.w d3, LevelData_FireflyCount(a3)
 
-	move.l (a4)+, a3
-	andi.w #0xFF, d3
-	move.w d3, LevelData_FireflyCount(a3)
-
 	@EndFireflySetup:
 
 	@Invalid:
