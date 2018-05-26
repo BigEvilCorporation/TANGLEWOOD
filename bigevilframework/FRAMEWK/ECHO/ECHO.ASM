@@ -343,6 +343,20 @@ Echo_SetPCMRate:
     rts                             ; End of subroutine
 
 ;****************************************************************************
+; Echo_SetStereo
+; Sets whether stereo is enabled or not
+;
+; input d0.b ... 0 to disable, otherwise to enable
+;****************************************************************************
+Echo_SetStereo:
+    movem.l d0-d1, -(sp)            ; Save registers
+    tst.b   d0                      ; Check what we want to do
+    seq.b   d1                      ; Put parameter in place
+    move.b  #$09, d0                ; Command $09 = set stereo
+    bsr     Echo_SendCommandByte    ; Send command to Echo
+    movem.l (sp)+, d0-d1            ; Restore registers
+    rts                             ; End of subroutine
+;****************************************************************************
 ; Echo_SetVolume
 ; Changes the global volume for every channel.
 ;
@@ -353,7 +367,7 @@ Echo_SetVolume:
     Echo_Z80Request                 ; We need the Z80 bus
     movem.l d0-d1/a0-a1, -(sp)      ; Save registers
     
-    lea     @FMTable(pc), a0        ; Determine FM volume
+    lea     Echo_FMVolTable(pc), a0 ; Determine FM volume
     moveq   #0, d1
     move.b  d0, d1
     lsr.b   #2, d1
@@ -369,7 +383,7 @@ Echo_SetVolume:
     move.b  d1, (a1)+                 ; FM channel 6
     move.b  d1, (a1)+                 ; FM channel 7
     
-    lea     @PSGTable(pc), a0       ; Determine PSG volume
+    lea     Echo_PSGVolTable(pc),a0 ; Determine PSG volume
     moveq   #0, d1
     move.b  d0, d1
     lsr.b   #2, d1
@@ -394,13 +408,13 @@ Echo_SetVolume:
 
 ;----------------------------------------------------------------------------
 
-@FMTable:
+Echo_FMVolTable:
     dc.b    $7F,$7B,$77,$73,$70,$6C,$68,$65,$61,$5E,$5A,$57,$54,$50,$4D,$4A
     dc.b    $47,$44,$41,$3F,$3C,$39,$36,$34,$31,$2F,$2D,$2A,$28,$26,$24,$22
     dc.b    $20,$1E,$1C,$1A,$18,$16,$15,$13,$12,$10,$0F,$0D,$0C,$0B,$0A,$09
     dc.b    $08,$07,$06,$05,$04,$04,$03,$02,$02,$01,$01,$01,$00,$00,$00,$00
 
-@PSGTable:
+Echo_PSGVolTable:
     dc.b    $0F,$0F,$0E,$0E,$0D,$0D,$0C,$0C,$0B,$0B,$0B,$0A,$0A,$0A,$09,$09
     dc.b    $08,$08,$08,$07,$07,$07,$06,$06,$06,$06,$05,$05,$05,$04,$04,$04
     dc.b    $04,$03,$03,$03,$03,$03,$02,$02,$02,$02,$02,$02,$01,$01,$01,$01
@@ -478,17 +492,17 @@ Echo_GetStatus:
     
     move.b  ($A01FFF), d1           ; Get next pending command (if any)
     beq.s   @QueueChecked           ; No commands left to process?
-    move.b  (a1,d1.w), d1           ; Get mask of flags to leave
-    and.b   d1, d0                  ; Remove flags that should be clear
-    move.b  @OrTable-@AndTable(a1,d1.w), d1 ; Get mask of flags to set
-    or.b    d1, d0                  ; Insert flags that should be set
+    move.b  (a1,d1.w), d2           ; Get mask of flags to leave
+    and.b   d2, d0                  ; Remove flags that should be clear
+    move.b  @OrTable-@AndTable(a1,d1.w), d2 ; Get mask of flags to set
+    or.b    d2, d0                  ; Insert flags that should be set
 
     move.b  ($A01FFB), d1           ; Repeat that with 2nd pending command
     beq.s   @QueueChecked
     move.b  (a1,d1.w), d2
     and.b   d2, d0
-    move.b  @OrTable-@AndTable(a1,d1.w), d1
-    or.b    d1, d0
+    move.b  @OrTable-@AndTable(a1,d1.w), d2
+    or.b    d2, d0
 
 @QueueChecked:
     Echo_Z80Release                 ; Let the Z80 go!
