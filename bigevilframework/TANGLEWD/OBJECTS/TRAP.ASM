@@ -220,6 +220,8 @@ TrapUpdate:
 
 	; Hold object in place
 	move.l Trap_TrappedObject(a0), a2
+	cmpa   #0x0, a2
+	beq    @Unoccupied
 	move.w Entity_Width(a2), d2
 	move.w Entity_Height(a2), d3
 	move.w Entity_Width(a0), d4
