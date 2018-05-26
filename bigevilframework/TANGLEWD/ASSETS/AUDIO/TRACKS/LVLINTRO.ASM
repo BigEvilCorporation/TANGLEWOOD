@@ -1,4 +1,4 @@
-	dc.b $f8, $22, $08	; Set FM register 34 to value 8
+	dc.b $f8, $22, $00	; Set FM register 34 to value 0
 	dc.b $f8, $26, $bd	; Set FM register 38 to value 189
 ; Pattern $00, Row 0; 
 	dc.b $40, $09	; Set instrument for channel FM 1

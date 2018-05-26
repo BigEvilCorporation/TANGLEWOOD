@@ -10,7 +10,6 @@
 	dc.b $05, $05	; Note D-0 on channel FM 5
 	dc.b $46, $be	; Set instrument for channel FM 6
 	dc.b $26, $00	; Set volume for channel FM 6
-	dc.b $f6, $cc	; Set pan/AMS/FMS for channel FM 6
 	dc.b $f8, $24, $fe, $f8, $25, $03	; Set PCM rate to value 4
 	dc.b $0c, $be	; Sample 190 on channel PCM
 	dc.b $fe, $01	; Delay
