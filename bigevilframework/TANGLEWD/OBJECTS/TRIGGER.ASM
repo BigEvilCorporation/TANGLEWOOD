@@ -13,7 +13,7 @@ TriggerBox_Height       equ 0x0080
 ; Struct
 	rsset (Entity_Struct_Size)
 ;--------------------------
-TriggerBox_WatchObject  rs.l 1	; Object to check against trigger (Player1 by default)
+TriggerBox_WatchObject  rs.l 1	; Object to check against trigger (Player1 by default) - address of POINTER to object, not address of object
 TriggerBox_Routine      rs.l 1	; Subroutine address
 TriggerBox_RegisterD0	rs.l 1	; D Regs
 TriggerBox_RegisterD1	rs.l 1

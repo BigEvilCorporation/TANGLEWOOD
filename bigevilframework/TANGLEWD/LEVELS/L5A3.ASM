@@ -68,6 +68,7 @@ l5a3Data_CutsceneLoadLift2		rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneRaftStart		rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneRevealDemon	rs.b Cutscene_Struct_Size
 l5a3Data_CutsceneRevealScrap	rs.b Cutscene_Struct_Size
+l5a3Data_Djakk1Addr				rs.l 1	; TriggerBox_WatchObject is address of ptr to object, not address of object
 ;---------------------------------
 	RS_ALIGN
 l5a3Data_Struct_Size     		rs.b 0
@@ -178,7 +179,7 @@ l5a3_Init:
 	move.l a1, Button_UserData(a0)
 	move.l #BridgeBeginRoll, Button_OnDown(a0)
 	move.l #BridgeBeginUnroll, Button_OnUp(a0)
-	move.b #0x1, Button_Active(a0)
+	move.b #0x0, Button_Active(a0)				; Bridge over spike pit, disable until Djakk is on it
 
 	ENTITY_GETBYNAME Button, l5a3_Button4, a0
 	ENTITY_GETBYNAME Bridge, l5a3_Bridge3, a1
@@ -200,6 +201,19 @@ l5a3_Init:
 	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a2)
 	move.b #0x0, PhysicsObj_CollideSpecialTerrain(a3)
 
+	;==============================================================
+
+	; Set Djakk as bridge button enable/disable trigger box listener
+	; TriggerBox_WatchObject is address of POINTER, not address of object
+	lea    LevelData_L5A3, a3
+	ENTITY_GETBYNAME Monster, l5a3_Djakk1, a0
+	move.l a0, l5a3Data_Djakk1Addr(a3)
+	ENTITY_GETBYNAME TriggerBox, l5a3_DjakkActivateBridgeButton, a1
+	ENTITY_GETBYNAME TriggerBox, l5a3_DjakkDeactivateBridgeButton, a2
+	lea    l5a3Data_Djakk1Addr(a3), a3
+	move.l a3, TriggerBox_WatchObject(a1)
+	move.l a3, TriggerBox_WatchObject(a2)
+	
 	;==============================================================
 
 	; Set Echo's predator Skivv
@@ -247,6 +261,26 @@ l5a3_Trigger_End:
 	lea    GameStateEndAct, a0
 	jsr    GameStateEnter
 	
+	rts
+
+test_label:
+	rts
+
+test_label_2:
+	rts
+
+l5a3_Trigger_DjakkActivateBridgeButton:
+
+	ENTITY_GETBYNAME Button, l5a3_Button2, a0
+	move.b #0x1, Button_Active(a0)
+
+	rts
+
+l5a3_Trigger_DjakkDeactivateBridgeButton:
+
+	ENTITY_GETBYNAME Button, l5a3_Button2, a0
+	move.b #0x0, Button_Active(a0)
+
 	rts
 
 l5a3_Trigger_ShakeStart:
