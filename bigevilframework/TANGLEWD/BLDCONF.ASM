@@ -16,7 +16,7 @@ DMA_FROM_CART			equ 1
 
 ; ROM config
 ROM_PADDING_4MB			equ 1
-ECHO_ENCRYPT_Z80		equ 0
+ECHO_ENCRYPT_Z80		equ 1
 
 ; Region testing
 FORCE_PAL_MODE			equ 0
@@ -66,10 +66,10 @@ INCLUDE_LEVEL_8			equ 1
 INCLUDE_LEVEL_TST1		equ 0
 
 ; Characters
-INCLUDE_CHARACTER_ECHO	equ 1
+INCLUDE_CHARACTER_ECHO	equ 0
 
 ; All fireflies ending test
-L8A4_TEST_ALL_FIREFLIES	equ 0
+L8A4_TEST_ALL_FIREFLIES	equ 1
 
 ; Demo mode
 DEMO_SHOW_THANKS		equ 0
@@ -100,12 +100,12 @@ InitialLevel			equ l1a0_HarlequinForestIntro
 ;InitialLevel			equ l3a2_HeritageAct2
 ;InitialLevel			equ l3a3_HeritageAct3
 ;InitialLevel			equ l4a1_TetheredAct1
-;InitialLevel			equ l4a2_TetheredAct2
+InitialLevel			equ l4a2_TetheredAct2
 ;InitialLevel			equ l4a3_TetheredAct3
 ;InitialLevel			equ l5a1_BygoneAct1
 ;InitialLevel			equ l5a2_BygoneAct2
 ;InitialLevel			equ l5a3_BygoneAct3
-InitialLevel			equ l5a4_BygoneAct4
+;InitialLevel			equ l5a4_BygoneAct4
 ;InitialLevel			equ l6a1_DeadwoodAct1
 ;InitialLevel			equ l6a2_DeadwoodAct2
 ;InitialLevel			equ l6a3_DeadwoodAct3
@@ -125,10 +125,10 @@ InitialState			equ  GameStateLogos
 	ELSE
 ;InitialState			equ  GameStateLogos
 ;InitialState			equ  GameStateMainMenu
-InitialState			equ  GameStateOptions
+;InitialState			equ  GameStateOptions
 ;InitialState			equ  GameStateLevelSelect
 ;InitialState			equ  GameStatePasswordScreen
 ;InitialState			equ  GameStateSoundTest
-;InitialState			equ  GameStateGameplay
+InitialState			equ  GameStateGameplay
 ;InitialState			equ  GameStateCredits
 	ENDIF
