@@ -180,13 +180,9 @@ DjubbUpdate:
 	sub.l  d0, d1
 	tst.l  d1
 	bgt    @MoveRight
-	andi.b #PhysicsObjHitWallRight, d2
-	bne    @EndMove
 	jsr    CharacterMoveLeft
 	bra    @EndMove
 	@MoveRight:
-	andi.b #PhysicsObjHitWallLeft, d2
-	bne    @EndMove
 	jsr    CharacterMoveRight
 	bra    @EndMove
 
