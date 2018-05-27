@@ -861,6 +861,9 @@ l8a4_Cutscene_RestoreNymnAsPlayer1:
 	move.l Player1, Player2
 	move.l a3, Player1
 
+	; Disable controls by default
+	move.b #0x0, Player_ControlEnabled(a3)
+
 	move.b #0x0, d0
 
 	rts
