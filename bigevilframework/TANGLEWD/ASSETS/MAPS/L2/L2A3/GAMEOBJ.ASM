@@ -172,14 +172,14 @@ L2A3_Deathbox_68_idx	equ 0x0
 L2A3_Deathbox_69_idx	equ 0x1
 L2A3_Deathbox_66_idx	equ 0x2
 L2A3_Deathbox_45_idx	equ 0x3
-L2A3_Deathbox_78_idx	equ 0x4
+L2A3_DeathBoxWindFlue_idx	equ 0x4
 
 	IFND FINAL
 L2A3_Deathbox_68_name	dc.b "L2A3_Deathbox_68",0
 L2A3_Deathbox_69_name	dc.b "L2A3_Deathbox_69",0
 L2A3_Deathbox_66_name	dc.b "L2A3_Deathbox_66",0
 L2A3_Deathbox_45_name	dc.b "L2A3_Deathbox_45",0
-L2A3_Deathbox_78_name	dc.b "L2A3_Deathbox_78",0
+L2A3_DeathBoxWindFlue_name	dc.b "L2A3_DeathBoxWindFlue",0
 	even
 	ENDIF
 
@@ -874,7 +874,7 @@ L2A3_LoadGameObjects:
 	move.w #0x0018, Entity_Height(a0)
 	jsr DeathboxLoadGfx
 	IFND FINAL
-	lea L2A3_Deathbox_78_name, a3
+	lea L2A3_DeathBoxWindFlue_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0x10, d0

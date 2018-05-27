@@ -147,6 +147,11 @@ l2a3_Init:
 	move.w #0x0001, WindFlue_OffTime(a0)
 	move.w #0x7FFF, WindFlue_Timer(a0)
 
+	; Remove large death box from world grid, its corners span more than the screen
+	ENTITY_GETBYNAME Deathbox, l2a3_DeathBoxWindFlue, a0
+	jsr    EntityRemoveFromWorldGrid
+	jsr    EntityAddToUpdateList
+
 	;==============================================================
 
 	; 'Special' terrain is lightning shelter, don't collide
