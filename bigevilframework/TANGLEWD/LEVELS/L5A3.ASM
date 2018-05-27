@@ -263,12 +263,6 @@ l5a3_Trigger_End:
 	
 	rts
 
-test_label:
-	rts
-
-test_label_2:
-	rts
-
 l5a3_Trigger_DjakkActivateBridgeButton:
 
 	ENTITY_GETBYNAME Button, l5a3_Button2, a0
@@ -738,6 +732,9 @@ l5a3_CutsceneRevealScrap:
 
 	; Echo begin follow-only AI
 	CUTSCENE_OBJECT_ROUTINE Player2,#EchoAIStart_LinearFollow
+
+	; Disable Echo pickup
+	CUTSCENE_OBJECT_SET_PARAM_B Player2,#Echo_CanBeCarried,#0x0
 
 	; Enable player control
 	CUTSCENE_OBJECT_SET_PARAM_B Player1,#Player_ControlEnabled,#0x1
