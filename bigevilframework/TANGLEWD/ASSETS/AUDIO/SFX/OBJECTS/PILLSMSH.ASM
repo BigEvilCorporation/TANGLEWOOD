@@ -15,6 +15,7 @@
 	dc.b $06, $49	; Note E-2 on channel FM 6
 	dc.b $2b, $00	; Set volume for channel PSG 4
 	dc.b $4b, $d9	; Set instrument for channel PSG 4
+	dc.b $2b, $00	; Set volume for channel PSG 4
 	dc.b $3a, $04, $0d	; Set frequency '212' for channel PSG 3
 	dc.b $0b, $07	; Note G-0 on channel PSG 4
 	dc.b $fe, $01	; Delay

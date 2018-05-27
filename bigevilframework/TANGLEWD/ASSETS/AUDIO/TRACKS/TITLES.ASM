@@ -1014,6 +1014,7 @@
 	dc.b $06, $af	; Note G-5 on channel FM 6
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $4b, $06	; Set instrument for channel PSG 4
+	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
 	dc.b $35, $2c, $89	; Set frequency '11401' (octave 5 semitone 1161) for channel FM 5
@@ -2470,6 +2471,7 @@
 	dc.b $05, $c1	; Note C-6 on channel FM 5
 	dc.b $28, $07	; Set volume for channel PSG 1
 	dc.b $48, $03	; Set instrument for channel PSG 1
+	dc.b $28, $07	; Set volume for channel PSG 1
 	dc.b $08, $30	; Note C-2 on channel PSG 1
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
@@ -2548,9 +2550,11 @@
 	dc.b $08, $48	; Note C-3 on channel PSG 1
 	dc.b $29, $05	; Set volume for channel PSG 2
 	dc.b $49, $07	; Set instrument for channel PSG 2
+	dc.b $29, $05	; Set volume for channel PSG 2
 	dc.b $09, $2a	; Note A-1 on channel PSG 2
 	dc.b $2a, $05	; Set volume for channel PSG 3
 	dc.b $4a, $07	; Set instrument for channel PSG 3
+	dc.b $2a, $05	; Set volume for channel PSG 3
 	dc.b $0a, $26	; Note G-1 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $35, $1c, $89	; Set frequency '7305' (octave 3 semitone 1161) for channel FM 5

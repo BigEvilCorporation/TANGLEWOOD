@@ -3161,6 +3161,7 @@
 	dc.b $04, $61	; Note C-3 on channel FM 4
 	dc.b $2b, $06	; Set volume for channel PSG 4
 	dc.b $4b, $31	; Set instrument for channel PSG 4
+	dc.b $2b, $06	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $fe, $01	; Delay
 	dc.b $32, $1c, $f8	; Set frequency '7416' (octave 3 semitone 1272) for channel FM 3

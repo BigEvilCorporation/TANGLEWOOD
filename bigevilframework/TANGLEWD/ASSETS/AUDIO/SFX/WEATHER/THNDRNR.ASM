@@ -21,6 +21,7 @@
 	dc.b $06, $73	; Note A-3 on channel FM 6
 	dc.b $2b, $01	; Set volume for channel PSG 4
 	dc.b $4b, $39	; Set instrument for channel PSG 4
+	dc.b $2b, $01	; Set volume for channel PSG 4
 	dc.b $3a, $05, $03	; Set frequency '53' for channel PSG 3
 	dc.b $0b, $07	; Note G-0 on channel PSG 4
 	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3

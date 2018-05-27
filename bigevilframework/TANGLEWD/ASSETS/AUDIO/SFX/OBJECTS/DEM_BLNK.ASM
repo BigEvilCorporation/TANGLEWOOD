@@ -14,9 +14,11 @@
 	dc.b $06, $61	; Note C-3 on channel FM 6
 	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $4b, $cd	; Set instrument for channel PSG 4
+	dc.b $2b, $05	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 	dc.b $2a, $00	; Set volume for channel PSG 3
 	dc.b $4a, $cd	; Set instrument for channel PSG 3
+	dc.b $2a, $00	; Set volume for channel PSG 3
 	dc.b $0a, $90	; Note C-6 on channel PSG 3
 	dc.b $fe, $01	; Delay
 	dc.b $35, $0b, $c9	; Set frequency '3017' (octave 1 semitone 969) for channel FM 5

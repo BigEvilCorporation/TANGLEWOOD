@@ -483,11 +483,13 @@
 	dc.b $00, $49	; Note E-2 on channel FM 1
 	dc.b $28, $06	; Set volume for channel PSG 1
 	dc.b $48, $63	; Set instrument for channel PSG 1
+	dc.b $28, $06	; Set volume for channel PSG 1
 	dc.b $08, $2e	; Note B-1 on channel PSG 1
 ; Pattern $04, Row 1; 
 	dc.b $fe, $03	; Delay
 	dc.b $29, $06	; Set volume for channel PSG 2
 	dc.b $49, $63	; Set instrument for channel PSG 2
+	dc.b $29, $06	; Set volume for channel PSG 2
 	dc.b $09, $46	; Note B-2 on channel PSG 2
 ; Pattern $04, Row 2; 
 	dc.b $fe, $03	; Delay
@@ -502,6 +504,7 @@
 	dc.b $05, $49	; Note E-2 on channel FM 5
 	dc.b $2a, $08	; Set volume for channel PSG 3
 	dc.b $4a, $63	; Set instrument for channel PSG 3
+	dc.b $2a, $08	; Set volume for channel PSG 3
 	dc.b $0a, $46	; Note B-2 on channel PSG 3
 ; Pattern $04, Row 7; 
 ; Pattern $04, Row 8; 
@@ -2021,6 +2024,7 @@
 	dc.b $00, $53	; Note A-2 on channel FM 1
 	dc.b $2b, $04	; Set volume for channel PSG 4
 	dc.b $4b, $68	; Set instrument for channel PSG 4
+	dc.b $2b, $04	; Set volume for channel PSG 4
 	dc.b $0b, $06	; Note F#0 on channel PSG 4
 ; Pattern $0c, Row 37; 
 ; Pattern $0c, Row 38; 

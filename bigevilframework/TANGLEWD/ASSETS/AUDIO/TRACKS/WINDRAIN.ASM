@@ -14,6 +14,7 @@
 	dc.b $01, $21	; Note C-1 on channel FM 2
 	dc.b $2b, $06	; Set volume for channel PSG 4
 	dc.b $4b, $3a	; Set instrument for channel PSG 4
+	dc.b $2b, $06	; Set volume for channel PSG 4
 	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
 	dc.b $0b, $07	; Note G-0 on channel PSG 4
 	dc.b $fe, $01	; Delay

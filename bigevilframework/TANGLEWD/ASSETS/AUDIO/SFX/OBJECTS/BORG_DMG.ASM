@@ -10,6 +10,7 @@
 	dc.b $06, $a1	; Note C-5 on channel FM 6
 	dc.b $2b, $00	; Set volume for channel PSG 4
 	dc.b $4b, $c7	; Set instrument for channel PSG 4
+	dc.b $2b, $00	; Set volume for channel PSG 4
 	dc.b $3a, $07, $01	; Set frequency '23' for channel PSG 3
 	dc.b $0b, $07	; Note G-0 on channel PSG 4
 	dc.b $3a, $02, $00	; Set frequency '2' for channel PSG 3
