@@ -37,6 +37,9 @@ Boulder_HitFloorShakeAmp	equ 0x0280
 Boulder_HitFloorShakeVel	equ 0x4000
 Boulder_HitFloorShakeDecay	equ 0x0030
 
+Boulder_PushDetectBoxBorderX	equ 0x0006 ; Size to grow push detection bounds by
+Boulder_PushDetectBoxBorderY	equ 0x0004 ; Size to grow push detection bounds by
+
 ;==============================================================
 
 ; Animations
@@ -105,6 +108,8 @@ BoulderInit:
 	move.w  #Boulder_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	MOVE_NTSC_L Boulder_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Boulder_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
+	move.w  #Boulder_PushDetectBoxBorderX, PhysicsObj_PushDetectOuterX(a0)
+	move.w  #Boulder_PushDetectBoxBorderY, PhysicsObj_PushDetectOuterY(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_SnapToMovingPlatform(a0)
 	move.l  #0x0, Boulder_SpawnX(a0)

@@ -295,7 +295,7 @@ PlayerInit:
 	move.w  #Player1BoundsOffsetY, PhysicsObj_BoundsTop(a0)
 	move.w  #Player1BoundsWidth, PhysicsObj_BoundsWidth(a0)
 	move.w  #Player1BoundsHeight, PhysicsObj_BoundsHeight(a0)
-	move.w  #Player1PushBoundsOuterDist, PhysicsObj_PushDetectOuter(a0)
+	move.w  #Player1PushBoundsOuterDist, PhysicsObj_PushDetectOuterX(a0)
 	
 	;==============================================================
 

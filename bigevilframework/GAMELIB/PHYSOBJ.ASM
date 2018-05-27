@@ -16,7 +16,7 @@ PhysicsObjHitStaticWall				equ 0x04
 PhysicsObjHitBarrier				equ 0x08
 PhysicsObjHitMovingBarrier			equ 0x10
 
-PhysicsObjDefaultPushBoundsOuter	equ 0x6
+PhysicsObjDefaultPushBoundsOuterX	equ 0x6
 PhysicsObjMaxSnapToFloorDist		equ 0x10
 PhysicsObjVelocityPerTimeSplice		equ 0x7*subpixels_per_pixel	; Min wall thickness - 1
 
@@ -54,7 +54,8 @@ PhysicsObj_BoundsLeft			rs.w 1 ; Collision bounds offset X
 PhysicsObj_BoundsTop			rs.w 1 ; Collision bounds offset Y
 PhysicsObj_BoundsWidth			rs.w 1 ; Collision bounds offset width
 PhysicsObj_BoundsHeight			rs.w 1 ; Collision bounds offset height
-PhysicsObj_PushDetectOuter		rs.w 1 ; Collision bounds outer box extension size for push detection
+PhysicsObj_PushDetectOuterX		rs.w 1 ; Collision bounds outer box extension size for push detection X
+PhysicsObj_PushDetectOuterY		rs.w 1 ; Collision bounds outer box extension size for push detection Y
 PhysicsObj_AccelX  		    	rs.w 1 ; X acceleration
 PhysicsObj_AccelY  		    	rs.w 1 ; Y acceleration
 PhysicsObj_DecelX  		    	rs.w 1 ; X deceleration
@@ -134,7 +135,8 @@ PhysicsObjInit:
 	move.w #0x0, PhysicsObj_BoundsTop(a0)
 	move.w #0x0, PhysicsObj_BoundsWidth(a0)
 	move.w #0x0, PhysicsObj_BoundsHeight(a0)
-	move.w #PhysicsObjDefaultPushBoundsOuter, PhysicsObj_PushDetectOuter(a0)
+	move.w #PhysicsObjDefaultPushBoundsOuterX, PhysicsObj_PushDetectOuterX(a0)
+	move.w #0x0, PhysicsObj_PushDetectOuterY(a0)
 	move.w #0x0, PhysicsObj_AccelX(a0)
 	move.w #0x0, PhysicsObj_AccelY(a0)
 	move.w #0x0, PhysicsObj_DecelX(a0)
@@ -2234,8 +2236,10 @@ PhysicsObjFindPushable:
 	add.w  d6, d1
 	
 	; Grow by push detect outer box extension
-	move.w PhysicsObj_PushDetectOuter(a0), d0
-	PHYSICS_GROWBOUNDSX d1,d2,d0
+	move.w PhysicsObj_PushDetectOuterX(a0), d0
+	swap   d0
+	move.w PhysicsObj_PushDetectOuterY(a0), d0
+	PHYSICS_GROWBOUNDS d1,d2,d0
 	
 	; Loop over pushable objects
 	LIST_GET_HEAD PushableObjs,a2	; Get list head
@@ -2268,8 +2272,10 @@ PhysicsObjFindPushable:
 	add.w  d6, d3
 
 	; Grow by push detect outer box extension
-	move.w PhysicsObj_PushDetectOuter(a2), d0
-	PHYSICS_GROWBOUNDSX d3,d4,d0
+	move.w PhysicsObj_PushDetectOuterX(a2), d0
+	swap   d0
+	move.w PhysicsObj_PushDetectOuterY(a2), d0
+	PHYSICS_GROWBOUNDS d3,d4,d0
 	
 	; Test intersection
 	PUSHM  d1-d4
@@ -2334,10 +2340,15 @@ PhysicsObjPushPullObj:
 
 	; Check outer push bounds
 	PUSHM  d1-d4
-	move.w PhysicsObj_PushDetectOuter(a0), d0
-	PHYSICS_GROWBOUNDSX d1,d2,d0
-	move.w PhysicsObj_PushDetectOuter(a2), d0
-	PHYSICS_GROWBOUNDSX d3,d4,d0
+	move.w PhysicsObj_PushDetectOuterX(a0), d0
+	swap   d0
+	move.w PhysicsObj_PushDetectOuterY(a0), d0
+	PHYSICS_GROWBOUNDS d1,d2,d0
+	move.w PhysicsObj_PushDetectOuterX(a2), d0
+	swap   d0
+	move.w PhysicsObj_PushDetectOuterY(a2), d0
+	PHYSICS_GROWBOUNDS d3,d4,d0
+	move.w PhysicsObj_PushDetectOuterX(a0), d0
 	jsr    PHYS_TestBoxIntersectBox
 	POPM   d1-d4
 	tst.b  d0

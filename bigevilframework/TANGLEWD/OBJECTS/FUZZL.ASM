@@ -32,6 +32,8 @@ Fuzzl_HitGroundSFXVel		equ 0x020000	; Min downward velocity to play thud SFX
 Fuzzl_WindResistanceFloor   equ 0x0080 ; Wind resistance (on floor)
 Fuzzl_WindResistanceAir     equ 0x0020 ; Wind resistance (in air)
 Fuzzl_Mass					equ 0x0001
+Fuzzl_PushDetectBoxBorderX	equ 0x0008 ; Size to grow push detection bounds by
+Fuzzl_PushDetectBoxBorderY	equ 0x0004 ; Size to grow push detection bounds by
 
 ; The Mother Fuzzl
 Mother_Width				equ 0x20
@@ -157,6 +159,8 @@ FuzzlInit:
 	move.w  #Fuzzl_Width, PhysicsObj_WallBoundsRight(a0)
 	MOVE_NTSC_L Fuzzl_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Fuzzl_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
+	move.w  #Fuzzl_PushDetectBoxBorderX, PhysicsObj_PushDetectOuterX(a0)
+	move.w  #Fuzzl_PushDetectBoxBorderY, PhysicsObj_PushDetectOuterY(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_CanBePulled(a0)
 	move.b  #0x0, PhysicsObj_AffectedByWind(a0)
