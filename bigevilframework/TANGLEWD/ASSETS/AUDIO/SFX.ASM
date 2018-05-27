@@ -594,9 +594,9 @@ SFX_MushroomBounce:
 
 SFX_FuzzlDrop:
 	dc.l SFX_Data_FuzzlDrop			; Data
-	dc.b SFX_Priority_FootstepSml	; Priority
+	dc.b SFX_Priority_High			; Priority
 	dc.b Audio_NonExclusive			; Exclusivity
-	dc.b SFX_PriorityClash_Replace	; Priority clash
+	dc.b SFX_PriorityClash_NoPlay	; Priority clash
 
 	even
 
