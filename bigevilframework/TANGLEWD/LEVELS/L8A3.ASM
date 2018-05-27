@@ -154,7 +154,15 @@ l8a3_Init:
 
 	; Start final fight music
 	lea    L8_FinalBossMusic, a0
+	cmp.l  audio_current_track, a0
+	beq    @Playing
 	jsr    SND_PlayTrack
+	@Playing:
+
+	; Hack: Reset vol and fader from prev level fade-down
+	move.b #0xFF, d0
+	jsr    SND_SetGlobalVolume
+	move.b #0x0, audio_fader_speed
 	
 	rts
 	
