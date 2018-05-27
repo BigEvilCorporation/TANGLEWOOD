@@ -105,12 +105,13 @@ L3A1_FuzzlCaged3_name	dc.b "L3A1_FuzzlCaged3",0
 	even
 	ENDIF
 
-L3A1_Stone_count equ 0x5
+L3A1_Stone_count equ 0x6
 L3A1_Stone_66_idx	equ 0x0
 L3A1_Stone_69_idx	equ 0x1
 L3A1_Stone_51_idx	equ 0x2
 L3A1_Stone_67_idx	equ 0x3
 L3A1_Stone_68_idx	equ 0x4
+L3A1_Stone_73_idx	equ 0x5
 
 	IFND FINAL
 L3A1_Stone_66_name	dc.b "L3A1_Stone_66",0
@@ -118,6 +119,7 @@ L3A1_Stone_69_name	dc.b "L3A1_Stone_69",0
 L3A1_Stone_51_name	dc.b "L3A1_Stone_51",0
 L3A1_Stone_67_name	dc.b "L3A1_Stone_67",0
 L3A1_Stone_68_name	dc.b "L3A1_Stone_68",0
+L3A1_Stone_73_name	dc.b "L3A1_Stone_73",0
 	even
 	ENDIF
 
@@ -514,6 +516,7 @@ L3A1_LoadGameObjects:
 	jsr FuzzlCageInit
 	move.l #0x04900000, Entity_WorldPosX(a0)
 	move.l #0x02b00000, Entity_WorldPosY(a0)
+	move.b #0x0, PhysicsObj_CollidePlatforms(a0)
 	jsr FuzzlCageLoadGfx
 	IFND FINAL
 	lea L3A1_FuzzlCage1_name, a3
@@ -648,6 +651,19 @@ L3A1_LoadGameObjects:
 	jsr StoneLoadGfx
 	IFND FINAL
 	lea L3A1_Stone_68_name, a3
+	move.l a0, a2
+	add.l #Entity_DebugName, a2
+	move.l #0xd, d0
+	MEMCPYB a2,a3,d0
+	ENDIF
+	add.l #Stone_Struct_Size, a0
+
+	jsr StoneInit
+	move.l #0x06600000, Entity_WorldPosX(a0)
+	move.l #0x03900000, Entity_WorldPosY(a0)
+	jsr StoneLoadGfx
+	IFND FINAL
+	lea L3A1_Stone_73_name, a3
 	move.l a0, a2
 	add.l #Entity_DebugName, a2
 	move.l #0xd, d0
@@ -898,7 +914,7 @@ L3A1_LoadGameObjects:
 	POPL   a1
 
 	jsr ButtonInit
-	move.l #0x06380000, Entity_WorldPosX(a0)
+	move.l #0x06180000, Entity_WorldPosX(a0)
 	move.l #0x03980000, Entity_WorldPosY(a0)
 	jsr ButtonLoadGfx
 	IFND FINAL
