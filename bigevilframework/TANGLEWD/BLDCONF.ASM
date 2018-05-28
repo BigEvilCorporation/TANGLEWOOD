@@ -66,10 +66,10 @@ INCLUDE_LEVEL_8			equ 1
 INCLUDE_LEVEL_TST1		equ 0
 
 ; Characters
-INCLUDE_CHARACTER_ECHO	equ 0
+INCLUDE_CHARACTER_ECHO	equ 1
 
 ; All fireflies ending test
-L8A4_TEST_ALL_FIREFLIES	equ 1
+L8A4_TEST_ALL_FIREFLIES	equ 0
 
 ; Demo mode
 DEMO_SHOW_THANKS		equ 0
@@ -96,11 +96,11 @@ InitialLevel			equ l1a0_HarlequinForestIntro
 ;InitialLevel			equ l2a1_StormWarningAct1
 ;InitialLevel			equ l2a2_StormWarningAct2
 ;InitialLevel			equ l2a3_StormWarningAct3
-;InitialLevel			equ l3a1_HeritageAct1
+InitialLevel			equ l3a1_HeritageAct1
 ;InitialLevel			equ l3a2_HeritageAct2
 ;InitialLevel			equ l3a3_HeritageAct3
 ;InitialLevel			equ l4a1_TetheredAct1
-InitialLevel			equ l4a2_TetheredAct2
+;InitialLevel			equ l4a2_TetheredAct2
 ;InitialLevel			equ l4a3_TetheredAct3
 ;InitialLevel			equ l5a1_BygoneAct1
 ;InitialLevel			equ l5a2_BygoneAct2
