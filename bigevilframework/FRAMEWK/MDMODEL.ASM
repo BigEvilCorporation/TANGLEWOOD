@@ -8,13 +8,14 @@
 
 ABCD_Test_Table:
 	;     d0,  d1, ccr, res,  sr	; res/sr on AtGames Firecore
-	dc.b $4A, $4A, $00, $FA, $1B	; 94 08
-	dc.b $4A, $4A, $1F, $FB, $1B	; 95 0A
+	dc.b $4A, $4A, $00, $9A, $08	; 94 08
+	dc.b $4A, $4A, $1F, $9B, $08	; 95 0A
 	dc.b $4E, $4E, $00, $02, $11	; 9C 08
 	dc.b $4E, $4E, $1F, $03, $11	; 9D 0A
 	dc.b $FF, $FF, $00, $64, $11	; FE 08
 	dc.b $FF, $FF, $1F, $65, $11	; FF 0A
 ABCD_Test_Table_End
+	even
 
 SYS_DetectSystemType:
 
