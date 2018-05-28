@@ -11,6 +11,11 @@ SYS_DetectSystemType:
 	; Determine system type
 	move.b #system_type_genuine, system_type
 
+	; Skip test if A + Start is held
+	jsr    PAD_ReadPadA
+	cmp.w  #(1<<pad_button_a|1<<pad_button_start), d0
+	beq    @End
+
 	; Detect AtGames Flashback - Z80 driver will have disabled SSG-EG on boot if it detected missing IYL instruction
 	jsr    SND_GetSSGEGEnabled
 	tst.b  d0
