@@ -6,6 +6,16 @@
 ;   mdmodel.asm - Checks for various Mega Drive types
 ;==============================================================
 
+ABCD_Test_Table:
+	;     d0,  d1, ccr, res,  sr	; res/sr on AtGames Firecore
+	dc.b $4A, $4A, $00, $FA, $1B	; 94 08
+	dc.b $4A, $4A, $1F, $FB, $1B	; 95 0A
+	dc.b $4E, $4E, $00, $02, $11	; 9C 08
+	dc.b $4E, $4E, $1F, $03, $11	; 9D 0A
+	dc.b $FF, $FF, $00, $64, $11	; FE 08
+	dc.b $FF, $FF, $1F, $65, $11	; FF 0A
+ABCD_Test_Table_End
+
 SYS_DetectSystemType:
 
 	; Determine system type
@@ -33,14 +43,71 @@ SYS_DetectSystemType:
 	bra    @End
 	@NotFirecore:
 
+	; Detect systems with broken ABCD implementation, assume clone or emu
+	jsr    SYS_Check_ABCD
+	tst.b  d0
+	beq    @ABCDOk
+	move.b #system_type_clone_emu, system_type
+	bra    @End
+	@ABCDOk:
+
 	; Detect systems with broken 128KB VRAM implementation, assume clone or emu
 	jsr    SYS_Check_VRAM_128KB_Wrap
 	tst.b  d0
-	beq    @ProbablyRealHardware
+	beq    @VRAM128Ok
 	move.b #system_type_clone_emu, system_type
-	@ProbablyRealHardware:
+	bra    @End
+	@VRAM128Ok:
 
 	@End:
+
+	rts
+
+SYS_Check_ABCD:
+	; ---------------------------------------------------------------------------------------------------------
+	; SYS_Check_ABCD
+	; ---------------------------------------------------------------------------------------------------------
+	; Checks common failures emulating the ABCD instructions
+	; ---------------------------------------------------------------------------------------------------------
+	; RETURNS:
+	; d0 (b) 0 = ABCD tests passed (likely genuine hardware)
+	;        1 = ABCD test failure (likely a RedKid 2 CPU - AtGames Firecore/TecToy, or other clone/emu)
+	; ---------------------------------------------------------------------------------------------------------
+
+	; Clear result and ssr
+	moveq  #0x0, d0
+	moveq  #0x0, d3
+
+	lea    ABCD_Test_Table, a5
+	move.w #((ABCD_Test_Table_End-ABCD_Test_Table)/5)-1, d7
+	@TestLp:
+
+	; Get test params
+	move.b (a5)+, d1	; Source operand
+	move.b (a5)+, d2	; Dest operand
+	move.b (a5)+, d3	; CCR
+	move.b (a5)+, d4	; Expected result
+	move.b (a5)+, d5	; Expected sr
+
+	; Do ABCD
+	move   d3, ccr
+	abcd.b d1, d2
+	move   sr, d6		; Get sr
+
+	; Check result
+	cmp.b  d2, d4
+	bne    @TestFail
+	cmp.b  d6, d5
+	bne    @TestFail
+
+	; Next
+	dbra   d7, @TestLp
+	bra    @TestSuccess
+
+	@TestFail:
+	move.b #0x1, d0
+	
+	@TestSuccess:
 
 	rts
 
@@ -110,7 +177,7 @@ SYS_Check_AtGames_Firecore:
 	; ---------------------------------------------------------------------------------------------------------
 	; SYS_Check_AtGames_Firecore
 	; ---------------------------------------------------------------------------------------------------------
-	; Detects the AtGames Firecore by probing 128KB VRAM mode, and known default values of its
+	; Detects the AtGames Firecore by probing ABCD, and known default values of its
 	; debug regs at $B00000.
 	; ---------------------------------------------------------------------------------------------------------
 	; RETURNS:
@@ -120,8 +187,8 @@ SYS_Check_AtGames_Firecore:
 
 	move.b #0x0, d0
 
-	; Check for 128KB VRAM implementation
-	jsr    SYS_Check_VRAM_128KB_Wrap
+	; Check ABCD test first, or it's not safe to probe the debug registers
+	jsr    SYS_Check_ABCD
 	tst.b  d0
 	beq    @NotAtGames
 
