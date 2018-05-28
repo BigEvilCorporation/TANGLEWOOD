@@ -7,14 +7,42 @@
 ;==============================================================
 
 ABCD_Test_Table:
-	;     d0,  d1, ccr, res,  sr	; res/sr on AtGames Firecore
-	dc.b $4A, $4A, $00, $9A, $08	; 94 08
-	dc.b $4A, $4A, $1F, $9B, $08	; 95 0A
-	dc.b $4E, $4E, $00, $02, $11	; 9C 08
-	dc.b $4E, $4E, $1F, $03, $11	; 9D 0A
-	dc.b $FF, $FF, $00, $64, $11	; FE 08
-	dc.b $FF, $FF, $1F, $65, $11	; FF 0A
+	;     d0,  d1, ccr
+	dc.b $4A, $4A, $00
+	dc.b $4A, $4A, $1F
+	dc.b $4E, $4E, $00
+	dc.b $4E, $4E, $1F
+	dc.b $FF, $FF, $00
+	dc.b $FF, $FF, $1F
 ABCD_Test_Table_End
+
+ABCD_Results_SEGA:
+	;    res,  sr
+	dc.b $9A, $08
+	dc.b $9B, $08
+	dc.b $02, $11
+	dc.b $03, $11
+	dc.b $64, $11
+	dc.b $65, $11
+
+ABCD_Results_Firecore:
+	;    res,  sr
+	dc.b $94, $08
+	dc.b $95, $0A
+	dc.b $9C, $08
+	dc.b $9D, $0A
+	dc.b $FE, $08
+	dc.b $FF, $0A
+
+ABCD_Results_Flashback_GPGX:
+	;    res,  sr
+	dc.b $FA, $1B
+	dc.b $FB, $1B
+	dc.b $02, $11
+	dc.b $03, $11
+	dc.b $64, $11
+	dc.b $65, $11
+
 	even
 
 SYS_DetectSystemType:
@@ -45,9 +73,10 @@ SYS_DetectSystemType:
 	@NotFirecore:
 
 	; Detect systems with broken ABCD implementation, assume clone or emu
+	lea    ABCD_Results_SEGA, a0
 	jsr    SYS_Check_ABCD
 	tst.b  d0
-	beq    @ABCDOk
+	bne    @ABCDOk
 	move.b #system_type_clone_emu, system_type
 	bra    @End
 	@ABCDOk:
@@ -68,34 +97,39 @@ SYS_Check_ABCD:
 	; ---------------------------------------------------------------------------------------------------------
 	; SYS_Check_ABCD
 	; ---------------------------------------------------------------------------------------------------------
-	; Checks common failures emulating the ABCD instructions
+	; Checks ABCD values against a results table
+	; ---------------------------------------------------------------------------------------------------------
+	; INPUT:
+	; a0 --- Test table
 	; ---------------------------------------------------------------------------------------------------------
 	; RETURNS:
-	; d0 (b) 0 = ABCD tests passed (likely genuine hardware)
-	;        1 = ABCD test failure (likely a RedKid 2 CPU - AtGames Firecore/TecToy, or other clone/emu)
+	; d0 (b) 0 = ABCD tests didn't match
+	;        1 = ABCD tests matched
 	; ---------------------------------------------------------------------------------------------------------
 
 	; Clear result and ssr
 	moveq  #0x0, d0
 	moveq  #0x0, d3
 
-	lea    ABCD_Test_Table, a5
-	move.w #((ABCD_Test_Table_End-ABCD_Test_Table)/5)-1, d7
+	lea    ABCD_Test_Table, a1
+	move.w #((ABCD_Test_Table_End-ABCD_Test_Table)/3)-1, d7
 	@TestLp:
 
 	; Get test params
-	move.b (a5)+, d1	; Source operand
-	move.b (a5)+, d2	; Dest operand
-	move.b (a5)+, d3	; CCR
-	move.b (a5)+, d4	; Expected result
-	move.b (a5)+, d5	; Expected sr
+	move.b (a1)+, d1	; Source operand
+	move.b (a1)+, d2	; Dest operand
+	move.b (a1)+, d3	; CCR
 
 	; Do ABCD
 	move   d3, ccr
 	abcd.b d1, d2
 	move   sr, d6		; Get sr
 
-	; Check result
+	; Get test results
+	move.b (a0)+, d4	; Expected result
+	move.b (a0)+, d5	; Expected sr
+
+	; Check results
 	cmp.b  d2, d4
 	bne    @TestFail
 	cmp.b  d6, d5
@@ -103,12 +137,11 @@ SYS_Check_ABCD:
 
 	; Next
 	dbra   d7, @TestLp
-	bra    @TestSuccess
+	
+	; Test success
+	move.b #0x1, d0
 
 	@TestFail:
-	move.b #0x1, d0
-	
-	@TestSuccess:
 
 	rts
 
@@ -189,6 +222,7 @@ SYS_Check_AtGames_Firecore:
 	move.b #0x0, d0
 
 	; Check ABCD test first, or it's not safe to probe the debug registers
+	lea    ABCD_Results_Firecore, a0
 	jsr    SYS_Check_ABCD
 	tst.b  d0
 	beq    @NotAtGames
