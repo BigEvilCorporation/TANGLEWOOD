@@ -25,6 +25,9 @@ Crate_PlatformWidth			equ Crate_Width	; Physics platform width
 Crate_UpperPlatformXOffset	equ (Crate_Width-Crate_PlatformWidth)/2	; Offset to platform from top of Crate
 Crate_UpperPlatformYOffset	equ 0x0000	; Offset to platform from top of Crate
 
+Crate_PushDetectBoxBorderX	equ 0x0006 ; Size to grow push detection bounds by
+Crate_PushDetectBoxBorderY	equ 0x0004 ; Size to grow push detection bounds by
+
 ;==============================================================
 
 ; Struct
@@ -76,6 +79,8 @@ CrateInit:
 	move.w  #Crate_ProbeWallX, PhysicsObj_WallProbeCentreX(a0)
 	MOVE_NTSC_L Crate_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Crate_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
+	move.w  #Crate_PushDetectBoxBorderX, PhysicsObj_PushDetectOuterX(a0)
+	move.w  #Crate_PushDetectBoxBorderY, PhysicsObj_PushDetectOuterY(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x0, Crate_PushSFXPlaying(a0)
 

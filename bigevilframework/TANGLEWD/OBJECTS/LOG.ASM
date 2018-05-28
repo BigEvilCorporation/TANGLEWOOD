@@ -33,6 +33,9 @@ Log_PlatformYOffset		equ 0x0000		; Offset to platform from top of Log
 Log_CamShakeVel			equ 0x4000
 Log_CamShakeAmp			equ 0x0100
 
+Log_PushDetectBoxBorderX	equ 0x0006 ; Size to grow push detection bounds by
+Log_PushDetectBoxBorderY	equ 0x0004 ; Size to grow push detection bounds by
+
 ;==============================================================
 
 ; Animations
@@ -94,6 +97,8 @@ LogInit:
 	move.w  #Log_Width, PhysicsObj_WallBoundsRight(a0)
 	MOVE_NTSC_L Log_MaxVelYUp, PhysicsObj_MaxVelYUp(a0), d0
 	MOVE_NTSC_L Log_MaxVelYDown, PhysicsObj_MaxVelYDown(a0), d0
+	move.w  #Log_PushDetectBoxBorderX, PhysicsObj_PushDetectOuterX(a0)
+	move.w  #Log_PushDetectBoxBorderY, PhysicsObj_PushDetectOuterY(a0)
 	move.b  #0x1, PhysicsObj_CanBePushed(a0)
 	move.b  #0x1, PhysicsObj_SnapToMovingPlatform(a0)
 	move.l  #0x0, Log_PushDestMarker(a0)
