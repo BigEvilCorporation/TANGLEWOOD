@@ -63,6 +63,7 @@ Boulder_CanCrack		rs.b 1 ; Can be cracked/respawned
 Boulder_Cracked			rs.b 1	; Cracked open, awaiting respawn
 Boulder_RollSFXPlaying	rs.b 1
 Boulder_PlatformActive	rs.b 1
+Boulder_PlatformFullWidth rs.b 1 ; Use full width of boulder for platform
 ;-----------------------------
 	RS_ALIGN
 Boulder_Struct_Size		rs.b 0
@@ -120,6 +121,7 @@ BoulderInit:
 	move.b  #0x1, Boulder_CanCrack(a0)
 	move.b  #0x0, Boulder_RollSFXPlaying(a0)
 	move.b  #0x0, Boulder_PlatformActive(a0)
+	move.b  #0x0, Boulder_PlatformFullWidth(a0)
 	
 	; Setup collision bounds
 	move.w  #0x0, PhysicsObj_BoundsLeft(a0)
@@ -327,13 +329,29 @@ BoulderUpdate:
 	;==============================================================
 	
 	; Reposition platform
+	tst.b  Boulder_PlatformFullWidth(a0)
+	beq    @HalfWidthPlatform
+
 	lea    Boulder_Platform(a0), a2
+	move.w #Boulder_Width, Platform_Width(a2)
+	move.l Entity_WorldPosX(a0), Platform_PosX(a2)
+	move.l Entity_WorldPosY(a0), d1
+	addi.l #Boulder_PlatformYOffset*subpixels_per_pixel, d1
+	move.l d1, Platform_PosY(a2)
+
+	bra    @EndPlatformPos
+
+	@HalfWidthPlatform:
+	lea    Boulder_Platform(a0), a2
+	move.w #Boulder_PlatformWidth, Platform_Width(a2)
 	move.l Entity_WorldPosX(a0), d0
 	move.l Entity_WorldPosY(a0), d1
 	addi.l #Boulder_PlatformXOffset*subpixels_per_pixel, d0
 	addi.l #Boulder_PlatformYOffset*subpixels_per_pixel, d1
 	move.l d0, Platform_PosX(a2)
 	move.l d1, Platform_PosY(a2)
+
+	@EndPlatformPos:
 	
 	; Set platform velocity
 	clr.l  d2

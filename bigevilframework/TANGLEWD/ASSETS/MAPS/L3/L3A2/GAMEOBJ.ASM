@@ -383,6 +383,7 @@ L3A2_LoadGameObjects:
 	move.l #0x03700000, Entity_WorldPosY(a0)
 	move.b #0x1, Boulder_Cracked(a0)
 	move.b #0x0, Boulder_CanCrack(a0)
+	move.b #0x1, Boulder_PlatformFullWidth(a0)
 	jsr BoulderLoadGfx
 	IFND FINAL
 	lea L3A2_Boulder2_name, a3
@@ -398,6 +399,7 @@ L3A2_LoadGameObjects:
 	move.l #0x03700000, Entity_WorldPosY(a0)
 	move.b #0x1, Boulder_Cracked(a0)
 	move.b #0x0, Boulder_CanCrack(a0)
+	move.b #0x1, Boulder_PlatformFullWidth(a0)
 	jsr BoulderLoadGfx
 	IFND FINAL
 	lea L3A2_Boulder1_name, a3

@@ -329,6 +329,11 @@ PlayerUpdate:
 
 	; Process special colour ability
 	jsr    PlayerUpdateColourAbility
+
+	; Only snap to platforms if not jumping
+	move.b Character_Jumping(a0), d0
+	eor.b  #0x1, d0
+	move.b d0, PhysicsObj_SnapToMovingPlatform(a0)
 	
 	; If landing a jump (and not dead), allow falling down holes
 	move.b Character_Jumping(a0), d0
