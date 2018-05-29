@@ -387,7 +387,8 @@ L8A6_LoadGameObjects:
 	jsr FlueInit
 	move.l #0x08a80000, Entity_WorldPosX(a0)
 	move.l #0x02380000, Entity_WorldPosY(a0)
-	move.l #0x000C0000, Flue_EjectForceY(a0)
+	MOVE_NTSC_L 0x000C0000, Flue_EjectForceY(a0), d0
+
 	jsr FlueLoadGfx
 	IFND FINAL
 	lea L8A6_Flue1_name, a3
