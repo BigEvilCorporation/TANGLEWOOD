@@ -548,6 +548,12 @@ MonsterSerialise:
 	jsr   MonsterStartTrackPlayer
 	@NotChasing:
 
+	cmp.b #MonsterState_Tamed, Monster_state(a0)
+	bne   @NotTamed
+	jsr   MonsterEndTamed
+	jsr   MonsterStartTrackPlayer
+	@NotTamed:
+
 	POPM  d0-d1/a3
 	
 	;==============================================================
