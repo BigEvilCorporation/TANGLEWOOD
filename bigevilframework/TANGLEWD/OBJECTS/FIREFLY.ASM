@@ -18,7 +18,7 @@ Firefly_Height       equ 0x10
 Firefly_Animation	 rs.b (Animation_Struct_Size)
 Firefly_ResetTimer   rs.w 1
 Firefly_Colour       rs.b 1
-Firefly_Pickup_Value rs.b 1
+Firefly_Collected    rs.b 1
 ;--------------------------
 Firefly_Struct_Size  rs.b 0+2 ; Alignment padding
 
@@ -50,7 +50,7 @@ FireflyInit:
 	move.w #Firefly_Height, Entity_Height(a0)
 	move.w #0x0, Firefly_ResetTimer(a0)
 	move.b #ColourRed, Firefly_Colour(a0)
-	move.b #0x1, Firefly_Pickup_Value(a0)
+	move.b #0x0, Firefly_Collected(a0)
 	
 	; Default anim
 	ANIM_LOAD_DEFAULT firefly,red,idle,Firefly_Animation,0,1,0,0
@@ -105,7 +105,7 @@ FireflySerialise:
 	
 	@Saving:
 	
-	SAVEB Entity_Active(a0)
+	SAVEB Firefly_Collected(a0)
 	SAVEB SpriteObj_Visible(a0)
 	
 	bra  @End
@@ -114,7 +114,7 @@ FireflySerialise:
 	
 	@Loading:
 	
-	LOADB Entity_Active(a0)
+	LOADB Firefly_Collected(a0)
 	LOADB SpriteObj_Visible(a0)
 	
 	;==============================================================
@@ -127,8 +127,8 @@ FireflyTestObj:
 	; a0 --- Pickup address
 	; a1 --- Test object address
 	
-	tst.b  Entity_Active(a0)
-	beq    @AlreadyPickedUp
+	tst.b  Firefly_Collected(a0)
+	bne    @AlreadyPickedUp
 
 	; Test bounds intersection
 	ENTITY_GETBOUNDS d1,d2,d3,a0
@@ -145,6 +145,9 @@ FireflyTestObj:
 	; Inactive and invisible
 	move.b #0x0, Entity_Active(a0)
 	move.b #0x0, SpriteObj_Visible(a0)
+
+	; Set collected
+	move.b #0x1, Firefly_Collected(a0)
 	
 	; Increment counters
 	addq.w #0x1, FireflyPickupCountAct

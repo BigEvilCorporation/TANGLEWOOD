@@ -30,6 +30,7 @@ PauseState_FireflyWorldGridFlags		rs.b 1
 PauseState_FireflySpritePrio			rs.b 1
 PauseState_FireflyVisible				rs.b 1
 PauseState_FireflyActive				rs.b 1
+PauseState_FireflyCollected				rs.b 1
 PauseState_FireflyTextSpritesCount		rs.b 1
 PauseState_FireflyTotalTextSpritesCount	rs.b 1
 PauseState_PasswordTextSpritesCount		rs.b 1
@@ -242,6 +243,7 @@ Pause_Enter:
 	move.b SpriteObj_Priority(a0), PauseState_FireflySpritePrio(a1)
 	move.b SpriteObj_Visible(a0), PauseState_FireflyVisible(a1)
 	move.b Entity_Active(a0), PauseState_FireflyActive(a1)
+	move.b Firefly_Collected(a0), PauseState_FireflyCollected(a1)
 
 	; Set as rendering, remove from world grid
 	jsr    EntityRemoveFromWorldGrid
@@ -250,6 +252,9 @@ Pause_Enter:
 	; Set visible and active
 	move.b #0x1, SpriteObj_Visible(a0)
 	move.b #0x1, Entity_Active(a0)
+
+	; Set already collected
+	move.b #0x1, Firefly_Collected(a0)
 	
 	; Set UI position
 	move.l (WorldScrollX), d0
@@ -326,6 +331,7 @@ Pause_Exit:
 	move.b PauseState_FireflySpritePrio(a1), SpriteObj_Priority(a0)
 	move.b PauseState_FireflyVisible(a1), SpriteObj_Visible(a0)
 	move.b PauseState_FireflyActive(a1), Entity_Active(a0)
+	move.b PauseState_FireflyCollected(a1), Firefly_Collected(a0)
 	
 	; Remove from render list if not previously present
 	move.b PauseState_FireflyWorldGridFlags(a1), d0
