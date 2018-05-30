@@ -100,6 +100,7 @@ SFX_Data_Elder_Roar:
 	ESF_Stop
 	even
 
+	IF INCLUDE_LEVEL_5
 SFX_Data_Scrap_Yap:
 	ESF_Lock ESF_PCM
 	ESF_SetPCMRate PCM_Freq_Default
@@ -107,6 +108,7 @@ SFX_Data_Scrap_Yap:
 	ESF_Delay 9
 	ESF_Stop
 	even
+	ENDIF
 
 SFX_Data_Wind_Short:
 	ESF_Lock ESF_PCM
@@ -172,6 +174,7 @@ SFX_Data_Scirus_Swipe:
 	ESF_Stop
 	even
 
+	IF INCLUDE_CHARACTER_ECHO
 SFX_Data_Nymn_Call_Short:
 	ESF_Lock ESF_PCM
 	ESF_SetPCMRate PCM_Freq_Default
@@ -219,7 +222,9 @@ SFX_Data_Echo_Call_Sad2:
 	ESF_Delay 98
 	ESF_Stop
 	even
+	ENDIF
 
+	IF INCLUDE_LEVEL_7
 SFX_Data_Wyrm_Attack:
 	ESF_Lock ESF_PCM
 	ESF_SetPCMRate PCM_Freq_Default
@@ -227,7 +232,9 @@ SFX_Data_Wyrm_Attack:
 	ESF_Delay 52
 	ESF_Stop
 	even
+	ENDIF
 
+	IF INCLUDE_LEVEL_4
 SFX_Data_BorgusRoar:
 	ESF_Lock ESF_PCM
 	ESF_SetPCMRate PCM_Freq_Default
@@ -235,6 +242,7 @@ SFX_Data_BorgusRoar:
 	ESF_Delay 41
 	ESF_Stop
 	even
+	ENDIF
 	
 ; FM SFX
 SFX_Data_Ability_On:		include 'assets\audio\SFX\objects\pwr_on.asm'
@@ -246,9 +254,13 @@ SFX_Data_BridgeRoll:		include 'assets\audio\SFX\objects\bridroll.asm'
 SFX_Data_BridgeSlow:		include 'assets\audio\SFX\objects\bridslow.asm'
 SFX_Data_BridgeStop:		include 'assets\audio\SFX\objects\bridstop.asm'
 SFX_Data_BorgusDamage:		include 'assets\audio\SFX\objects\borg_dmg.asm'
+
+	IF INCLUDE_LEVEL_4
 SFX_Data_BorgusFootstep:	include 'assets\audio\SFX\objects\borg_fs.asm'
 SFX_Data_BorgusSpit:		include 'assets\audio\SFX\objects\borg_spt.asm'
 SFX_Data_BorgusDie:			include 'assets\audio\SFX\objects\borg_ded.asm'
+	ENDIF
+
 SFX_Data_BoulderRoll:		include 'assets\audio\SFX\objects\bldroll.asm'
 SFX_Data_BoulderBreak:		include 'assets\audio\SFX\objects\bldbreak.asm'
 SFX_Data_ButtonFail:		include 'assets\audio\SFX\objects\btnfail.asm'
@@ -392,6 +404,7 @@ SFX_BoulderBreak:
 
 	even
 
+	IF INCLUDE_LEVEL_4
 SFX_BorgusFootstep:
 	dc.l SFX_Data_BorgusFootstep	; Data
 	dc.b SFX_Priority_FootstepLrg	; Priority
@@ -431,6 +444,7 @@ SFX_BorgusDie:
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
 	even
+	ENDIF
 
 SFX_ButtonFail:
 	dc.l SFX_Data_ButtonFail		; Data
@@ -936,6 +950,7 @@ SFX_Elder_Roar:
 
 	even
 
+	IF INCLUDE_LEVEL_5
 SFX_Scrap_Yap:
 	dc.l SFX_Data_Scrap_Yap			; Data
 	dc.b SFX_Priority_Default		; Priority
@@ -943,6 +958,7 @@ SFX_Scrap_Yap:
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
 	even
+	ENDIF
 
 SFX_Hogg_Grunt:
 	dc.l SFX_Data_Hogg_Grunt		; Data
@@ -992,6 +1008,7 @@ SFX_Scirus_Hiss:
 
 	even
 
+	IF INCLUDE_LEVEL_7
 SFX_Wyrm_attack:
 	dc.l SFX_Data_Wyrm_attack		; Data
 	dc.b SFX_Priority_Default		; Priority
@@ -999,6 +1016,7 @@ SFX_Wyrm_attack:
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
 	even
+	ENDIF
 
 SFX_Chirp1:
 	dc.l SFX_Data_Chirp1			; Data
@@ -1008,6 +1026,7 @@ SFX_Chirp1:
 
 	even
 
+	IF INCLUDE_CHARACTER_ECHO
 SFX_Nymn_Call_Short:
 	dc.l SFX_Data_Nymn_Call_Short	; Data
 	dc.b SFX_Priority_Default		; Priority
@@ -1055,6 +1074,7 @@ SFX_Echo_Call_Sad2:
 	dc.b SFX_PriorityClash_Replace	; Priority clash
 
 	even
+	ENDIF
 
 SFX_Thunder_Far:
 	dc.l SFX_Data_Thunder_Far		; Data

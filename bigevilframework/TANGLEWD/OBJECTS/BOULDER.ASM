@@ -25,7 +25,10 @@ Boulder_RollSFXVel			equ 0x002000
 Boulder_HitGroundSFXVel		equ 0x050000	; Min downward velocity to play thud SFX
 Boulder_MinDamageYVel		equ 0x050000	; Min downward velocity to deal damage to characters
 Boulder_HitDamage			equ 0xFF		; Damage dealt to characters
+
+	IF INCLUDE_LEVEL_4
 Boulder_HitDamageBorgus		equ (0x7F/Borgus_NumLives)+1	; Special case for Borgus fight
+	ENDIF
 
 Boulder_MinCrackYVel		equ 0x050000	; Min downward velocity to crack open on floor collision 
 
@@ -531,6 +534,8 @@ BoulderCheckDjakks:
 
 BoulderCheckBorgus:
 
+	IF INCLUDE_LEVEL_4
+
 	move.l a1, -(sp)
 	
 	; Check if squishing a Borgus
@@ -585,5 +590,7 @@ BoulderCheckBorgus:
 	@EndBorgusLoop:
 	
 	move.l (sp)+, a1
+
+	ENDIF
 
 	rts

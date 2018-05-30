@@ -15,8 +15,9 @@ CHECKSUM_TEST			equ 0
 DMA_FROM_CART			equ 1
 
 ; ROM config
-ROM_PADDING_4MB			equ 1
-ECHO_ENCRYPT_Z80		equ 1
+ROM_PADDING_2MB			equ 1
+ROM_PADDING_4MB			equ 0
+ECHO_ENCRYPT_Z80		equ 0
 
 ; Region testing
 FORCE_PAL_MODE			equ 0
@@ -39,8 +40,9 @@ INCLUDE_PROFILER		equ 0
 	ENDIF
 
 ; Utility menus
+INCLUDE_PASSWORD		equ 0
 INCLUDE_OPTIONS			equ 1
-INCLUDE_LEVELSELECT		equ 1
+INCLUDE_LEVELSELECT		equ 0
 INCLUDE_SOUNDTEST		equ 1
 
 ; Debug key combos
@@ -54,28 +56,31 @@ INCLUDE_DEBUG_SKIPLEVEL	equ 0
 INCLUDE_DEBUG_DEATH		equ 0
 	ENDIF
 
+; Cheats
+CHEAT_LEVEL_SELECT		equ 0
+
 ; Levels
 INCLUDE_LEVEL_1			equ 1
-INCLUDE_LEVEL_2			equ 1
-INCLUDE_LEVEL_3			equ 1
-INCLUDE_LEVEL_4			equ 1
-INCLUDE_LEVEL_5			equ 1
-INCLUDE_LEVEL_6			equ 1
-INCLUDE_LEVEL_7			equ 1
-INCLUDE_LEVEL_8			equ 1
+INCLUDE_LEVEL_2			equ 0
+INCLUDE_LEVEL_3			equ 0
+INCLUDE_LEVEL_4			equ 0
+INCLUDE_LEVEL_5			equ 0
+INCLUDE_LEVEL_6			equ 0
+INCLUDE_LEVEL_7			equ 0
+INCLUDE_LEVEL_8			equ 0
 INCLUDE_LEVEL_TST1		equ 0
 
 ; Characters
-INCLUDE_CHARACTER_ECHO	equ 1
+INCLUDE_CHARACTER_ECHO	equ 0
 
 ; All fireflies ending test
 L8A4_TEST_ALL_FIREFLIES	equ 0
 
 ; Demo mode
-DEMO_SHOW_THANKS		equ 0
+DEMO_SHOW_THANKS		equ 1
 DEMO_USE_TIMEOUT		equ 0
 DEMO_SHOW_LEVEL_SELECT	equ 0
-DEMO_SHOW_DISCLAIMER	equ 0
+DEMO_SHOW_DISCLAIMER	equ 1
 
 ; Autotest
 AUTOTEST_ENABLED		equ 0
@@ -88,7 +93,7 @@ AUTOTEST_TESTMODE		equ AutotestMode_LevelLoad
 	IFD FINAL
 InitialLevel			equ l1a0_HarlequinForestIntro
 	ELSE
-;InitialLevel			equ l1a0_HarlequinForestIntro
+InitialLevel			equ l1a0_HarlequinForestIntro
 ;InitialLevel			equ l1a1_HarlequinForestAct1
 ;InitialLevel			equ l1a2_HarlequinForestAct2
 ;InitialLevel			equ l1a3_HarlequinForestAct3
@@ -96,7 +101,7 @@ InitialLevel			equ l1a0_HarlequinForestIntro
 ;InitialLevel			equ l2a1_StormWarningAct1
 ;InitialLevel			equ l2a2_StormWarningAct2
 ;InitialLevel			equ l2a3_StormWarningAct3
-InitialLevel			equ l3a1_HeritageAct1
+;InitialLevel			equ l3a1_HeritageAct1
 ;InitialLevel			equ l3a2_HeritageAct2
 ;InitialLevel			equ l3a3_HeritageAct3
 ;InitialLevel			equ l4a1_TetheredAct1
@@ -123,12 +128,12 @@ InitialLevel			equ l3a1_HeritageAct1
 	IFD FINAL
 InitialState			equ  GameStateLogos
 	ELSE
-;InitialState			equ  GameStateLogos
+InitialState			equ  GameStateLogos
 ;InitialState			equ  GameStateMainMenu
 ;InitialState			equ  GameStateOptions
 ;InitialState			equ  GameStateLevelSelect
 ;InitialState			equ  GameStatePasswordScreen
 ;InitialState			equ  GameStateSoundTest
-InitialState			equ  GameStateGameplay
+;InitialState			equ  GameStateGameplay
 ;InitialState			equ  GameStateCredits
 	ENDIF

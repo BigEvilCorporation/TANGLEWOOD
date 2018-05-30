@@ -93,7 +93,9 @@ Credits_Palette:
 
 ; Music
 Credits_Playlist_Start:
+	IF INCLUDE_LEVEL_8
 	dc.l track_bgm_credits
+	ENDIF
 	IF INCLUDE_LEVEL_4
 	dc.l track_bgm_cue_l4
 	ENDIF

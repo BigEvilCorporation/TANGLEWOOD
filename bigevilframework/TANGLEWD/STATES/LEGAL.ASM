@@ -221,6 +221,8 @@ LegalScreen_Update:
 	tst.l  TimerLogoFade
 	beq    @FadedOut
 
+	IF CHEAT_LEVEL_SELECT
+
 	ENTITY_GETBYNAME Fuzzl, legal_screen_LegalScreenFuzzl, a0
 	tst.b  Entity_Active(a0)
 	beq    @Elapsed
@@ -233,6 +235,8 @@ LegalScreen_Update:
 	ENTITY_GETBYNAME Fuzzl, legal_screen_LegalScreenFuzzl, a0
 	move.w #0x0000, PhysicsObj_AccelX(a0)
 	move.l #0x0000, PhysicsObj_VelX(a0)
+
+	ENDIF
 	
 	; Wait for timeout
 	move.l (TimerLogoFade), d0
@@ -288,6 +292,8 @@ LegalScreen_Update:
 
 	bra    @End
 
+	IF CHEAT_LEVEL_SELECT
+
 	@StartHeld:
 
 	ENTITY_GETBYNAME Fuzzl, legal_screen_LegalScreenFuzzl, a0
@@ -340,6 +346,8 @@ LegalScreen_Update:
 	move.b #0x1, LegalFuzzlEaten
 
 	@NoEat:
+
+	ENDIF
 
 	@Fading:
 	@NotElapsed:

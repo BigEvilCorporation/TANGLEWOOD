@@ -54,6 +54,8 @@ CreditsStrings:
 	CREDIT_SPACE
 	CREDIT_SPACE
 
+	IF INCLUDE_LEVEL_8
+
 	CREDIT_HEADING1 "Nymn original concept by"
 	CREDIT_NAME		"Drew Lade"
 	CREDIT_SPACE
@@ -344,5 +346,7 @@ CreditsStrings:
 	CREDIT_SPACE
 	CREDIT_HEADING1 "Extra Special Super Thanks"
 	CREDIT_NAME		"Javier 'Sik' Degirolmo"
+
+	ENDIF
 
 	CREDIT_END

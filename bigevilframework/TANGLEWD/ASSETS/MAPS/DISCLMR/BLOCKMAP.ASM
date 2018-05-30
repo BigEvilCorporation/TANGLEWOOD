@@ -7,7 +7,7 @@
 ; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
 
-map_blockmap_demodisclaimer_screen_size_b	equ 0x0000006A	; Size in bytes
+map_blockmap_demodisclaimer_screen_size_b	equ 0x0000006E	; Size in bytes
 map_blockmap_demodisclaimer_screen_size_w	equ (map_blockmap_demodisclaimer_screen_size_b/2)	; Size in words
 map_blockmap_demodisclaimer_screen_size_l	equ (map_blockmap_demodisclaimer_screen_size_b/4)	; Size in longwords
 map_demodisclaimer_screen_width	equ 0x28
@@ -18,11 +18,11 @@ map_blockmap_demodisclaimer_screen_height	equ 0x08
 map_blockmap_demodisclaimer_screen_coloffsets:
 	dc.w 0x0000
 	dc.w 0x0002
-	dc.w 0x000C
-	dc.w 0x0018
-	dc.w 0x0026
-	dc.w 0x0034
-	dc.w 0x0042
-	dc.w 0x0050
-	dc.w 0x005C
-	dc.w 0x0068
+	dc.w 0x000E
+	dc.w 0x001C
+	dc.w 0x002A
+	dc.w 0x0038
+	dc.w 0x0046
+	dc.w 0x0054
+	dc.w 0x0062
+	dc.w 0x006C

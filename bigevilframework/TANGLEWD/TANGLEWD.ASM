@@ -124,7 +124,11 @@ code_start
 	include 'objects\pushobj.asm'
 	include 'objects\actor.asm'
 	include 'objects\aimarker.asm'
+
+		IF INCLUDE_LEVEL_4
 	include 'objects\borgus.asm'
+		ENDIF
+
 	include 'objects\bridge.asm'
 	include 'objects\button.asm'
 	include 'objects\cart.asm'
@@ -156,7 +160,11 @@ code_start
 	include 'objects\pool.asm'
 	include 'objects\raft.asm'
 	include 'objects\scirus.asm'
+
+	IF INCLUDE_LEVEL_5
 	include 'objects\scrap.asm'
+	ENDIF
+	
 	include 'objects\skivv.asm'
 	include 'objects\stalact.asm'
 	include 'objects\stone.asm'
@@ -166,7 +174,10 @@ code_start
 	include 'objects\waterbdy.asm'
 	include 'objects\winch.asm'
 	include 'objects\windflue.asm'
+
+		IF INCLUDE_LEVEL_7
 	include 'objects\wyrm.asm'
+		ENDIF
 
 	; Include AI
 	include 'ai\echoai.asm'
@@ -311,7 +322,6 @@ code_end
 	IF ROM_PADDING_4MB
 LarryStringLen	equ 461
 	dcb.b   $400000-*-LarryStringLen, $FF
-	ENDIF
 
 	dc.b "So Larry Bundy Jr of all people messages me out of the blue, with a link to his"
 	dc.b " video on programmers leaving rants in their code, asking if I would leave one"
@@ -319,6 +329,10 @@ LarryStringLen	equ 461
 	dc.b " here, Larry, the least you could have done was visited my booth at Play Expo"
 	dc.b " if you wanted a credit, but no, my favourite YouTuber left me hanging, and"
 	dc.b " expects me to follow this up? I don't even have any space left in the fuc"
+
+	ELSEIF ROM_PADDING_2MB
+	dcb.b   $200000-*, $FF
+	ENDIF
 
 	; Checksum calc end
 checksum_end

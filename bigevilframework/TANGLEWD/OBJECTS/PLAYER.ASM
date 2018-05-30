@@ -2137,6 +2137,8 @@ PlayerLightningAttack:
 	;==============================================================
 	; Wyrms
 
+	IF INCLUDE_LEVEL_7
+
 	move.l (EntityPoolStart_Wyrm), a2
 	move.w (EntityCount_Wyrm), d6
 
@@ -2166,6 +2168,8 @@ PlayerLightningAttack:
 	dbra d6, @WyrmLoop
 	
 	@NoWyrms:
+
+	ENDIF
 
 	;==============================================================
 	; Fish

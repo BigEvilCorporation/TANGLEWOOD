@@ -385,9 +385,13 @@ LINECOUNT = 0
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_NewGame
 LINECOUNT = LINECOUNT+1
 
+	IF INCLUDE_PASSWORD
 	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Continue
+	ELSE
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#3,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
+	ENDIF
 LINECOUNT = LINECOUNT+1
 
 	IF INCLUDE_OPTIONS

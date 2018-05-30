@@ -62,7 +62,11 @@ level_assets_end
 	; ************************************
 sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\bolt.asm
+
+	IF INCLUDE_LEVEL_4
 	INCLUDE_TEXT_ASSET assets\sprites\borgus.asm
+	ENDIF
+
 	INCLUDE_TEXT_ASSET assets\sprites\boulder.asm
 	INCLUDE_TEXT_ASSET assets\sprites\bridge.asm
 	INCLUDE_TEXT_ASSET assets\sprites\button.asm
@@ -79,9 +83,11 @@ sprite_assets_start
 	;INCLUDE_TEXT_ASSET assets\sprites\djrake.asm
 	INCLUDE_TEXT_ASSET assets\sprites\djakcage.asm
 	INCLUDE_TEXT_ASSET assets\sprites\djubb.asm
+
 	IF INCLUDE_CHARACTER_ECHO
 	INCLUDE_TEXT_ASSET assets\sprites\echo.asm
 	ENDIF
+
 	INCLUDE_TEXT_ASSET assets\sprites\elder.asm
 	INCLUDE_TEXT_ASSET assets\sprites\firefly.asm
 	INCLUDE_TEXT_ASSET assets\sprites\fuzzl.asm
@@ -102,7 +108,11 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\rain.asm
 	INCLUDE_TEXT_ASSET assets\sprites\rope.asm
 	INCLUDE_TEXT_ASSET assets\sprites\scirus.asm
+
+	IF INCLUDE_LEVEL_5
 	INCLUDE_TEXT_ASSET assets\sprites\scrap.asm
+	ENDIF
+	
 	INCLUDE_TEXT_ASSET assets\sprites\skivv.asm
 	INCLUDE_TEXT_ASSET assets\sprites\spitball.asm
 	INCLUDE_TEXT_ASSET assets\sprites\stalact.asm
@@ -112,7 +122,10 @@ sprite_assets_start
 	INCLUDE_TEXT_ASSET assets\sprites\twd_logo.asm
 	INCLUDE_TEXT_ASSET assets\sprites\water.asm
 	INCLUDE_TEXT_ASSET assets\sprites\winch.asm
+
+	IF INCLUDE_LEVEL_7
 	INCLUDE_TEXT_ASSET assets\sprites\wyrm.asm
+	ENDIF
 sprite_assets_end
 
 	; ************************************
@@ -138,7 +151,11 @@ sprite_assets_end
 	; Sprite animation data
 	; ************************************
 	INCLUDE_TEXT_ASSET assets\anims\bolt.asm
+
+	IF INCLUDE_LEVEL_4
 	INCLUDE_TEXT_ASSET assets\anims\borgus.asm
+	ENDIF
+
 	INCLUDE_TEXT_ASSET assets\anims\boulder.asm
 	INCLUDE_TEXT_ASSET assets\anims\button.asm
 	INCLUDE_TEXT_ASSET assets\anims\cart.asm
@@ -147,9 +164,11 @@ sprite_assets_end
 	INCLUDE_TEXT_ASSET assets\anims\demon.asm
 	INCLUDE_TEXT_ASSET assets\anims\djakk.asm
 	INCLUDE_TEXT_ASSET assets\anims\djubb.asm
+
 	IF INCLUDE_CHARACTER_ECHO
 	INCLUDE_TEXT_ASSET assets\anims\echo.asm
 	ENDIF
+
 	INCLUDE_TEXT_ASSET assets\anims\elder.asm
 	INCLUDE_TEXT_ASSET assets\anims\firefly.asm
 	INCLUDE_TEXT_ASSET assets\anims\fuzzl.asm
@@ -166,13 +185,20 @@ sprite_assets_end
 	INCLUDE_TEXT_ASSET assets\anims\rain.asm
 	INCLUDE_TEXT_ASSET assets\anims\rope.asm
 	INCLUDE_TEXT_ASSET assets\anims\scirus.asm
+
+	IF INCLUDE_LEVEL_5
 	INCLUDE_TEXT_ASSET assets\anims\scrap.asm
+	ENDIF
+
 	INCLUDE_TEXT_ASSET assets\anims\skivv.asm
 	INCLUDE_TEXT_ASSET assets\anims\spitball.asm
 	INCLUDE_TEXT_ASSET assets\anims\swarm.asm
 	INCLUDE_TEXT_ASSET assets\anims\water.asm
 	INCLUDE_TEXT_ASSET assets\anims\winch.asm
+
+	IF INCLUDE_LEVEL_7
 	INCLUDE_TEXT_ASSET assets\anims\wyrm.asm
+	ENDIF
 
 	; ************************************
 	; Tilesets

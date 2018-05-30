@@ -149,6 +149,7 @@ track_bgm_boss_l8:
 	even
 	ENDIF
 
+	IF INCLUDE_LEVEL_8
 track_bgm_credits:
 	dc.l	bgm_credits
 	dc.w	0x03FF
@@ -158,6 +159,7 @@ track_bgm_credits:
 	dc.b	SFX_Priority_Lowest
 	dc.b	Track_Transition_Crossfade
 	even
+	ENDIF
 
 	IF INCLUDE_CHARACTER_ECHO
 track_bgm_gameover:

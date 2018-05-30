@@ -492,7 +492,13 @@ PCM05: incbin 'assets\audio\sfx\fstep\splash1.ewf'
 PCM06: incbin 'assets\audio\sfx\weather\thndrfar.ewf'
 PCM07: incbin 'assets\audio\sfx\objects\cratebrk.ewf'
 PCM08: incbin 'assets\audio\sfx\djakk\elder.ewf'
+
+	IF INCLUDE_LEVEL_5
 PCM09: incbin 'assets\audio\sfx\scrap\yap.ewf'
+	ELSE
+PCM09: dc.b 0xFF
+	ENDIF
+
 PCM0A: incbin 'assets\audio\sfx\weather\windshrt.ewf'
 PCM0B: incbin 'assets\audio\sfx\weather\windlong.ewf'
 PCM0C: incbin 'assets\audio\sfx\objects\hogggrnt.ewf'
@@ -501,10 +507,26 @@ PCM0E: incbin 'assets\audio\sfx\objects\sc_alert.ewf'
 PCM0F: incbin 'assets\audio\sfx\objects\sc_chat.ewf'
 PCM10: incbin 'assets\audio\sfx\objects\sc_hiss.ewf'
 PCM11: incbin 'assets\audio\sfx\objects\sc_swipe.ewf'
+
+	IF INCLUDE_CHARACTER_ECHO
 PCM12: incbin 'assets\audio\sfx\nymn\talk_low.ewf'
 PCM13: incbin 'assets\audio\sfx\nymn\howl_low.ewf'
+	ELSE
+PCM12: dc.b 0xFF
+PCM13: dc.b 0xFF
+	ENDIF
+
+	IF INCLUDE_LEVEL_7
 PCM14: incbin 'assets\audio\sfx\objects\wyrm_att.ewf'
+	ELSE
+PCM14: dc.b 0xFF
+	ENDIF
+
+	IF INCLUDE_LEVEL_4
 PCM15: incbin 'assets\audio\sfx\objects\borg_ror.ewf'
+	ELSE
+PCM15: dc.b 0xFF
+	ENDIF
 
 PCMInstr_Djakk_Roar		equ PCM_InstrIndex+0x00
 PCMInstr_Djakk_Bite		equ PCM_InstrIndex+0x01

@@ -324,11 +324,15 @@ SoundTest_OnPlaySFX:
 	move.l a1, d0
 	andi.l #0xFF, d0
 
+	IF CHEAT_LEVEL_SELECT
+
 	; Store history for cheats
 	move.l SoundTestHistory, d1
 	lsl.l  #0x8, d1
 	move.b d0, d1
 	move.l d1, SoundTestHistory
+
+	ENDIF
 
 	; Index to SFX table entry
 	mulu   #SFX_Struct_Size, d0
