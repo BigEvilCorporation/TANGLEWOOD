@@ -16,7 +16,7 @@ DMA_FROM_CART			equ 1
 
 ; ROM config
 ROM_PADDING_4MB			equ 1
-ECHO_ENCRYPT_Z80		equ 1
+ECHO_ENCRYPT_Z80		equ 0
 
 ; Region testing
 FORCE_PAL_MODE			equ 0
