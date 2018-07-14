@@ -386,9 +386,19 @@ LINECOUNT = 0
 LINECOUNT = LINECOUNT+1
 
 	IF INCLUDE_PASSWORD
+	IFD EMUBUILD
+	; Disable Continue if no save slot available
+	cmp.l  #0x0, CurrentSavePassword
+	bne    @SaveValid
 	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
+	bra   @SaveInvalid
+	ENDIF
+
+	@SaveValid:
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_TanglewoodLogo,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Continue
+	@SaveInvalid:
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#3,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	ENDIF
@@ -472,9 +482,25 @@ MainMenu_OnSelected:
 
 	@Continue:
 
+	IFD EMUBUILD
+
+	; Set gameplay state
+	lea    GameStateMainMenuData, a2
+	move.l #GameStateGameplay, MainMenuState_NextState(a2)
+
+	; Stop music
+	jsr    SND_StopTrack
+
+	; Play New Game SFX
+	PLAYSFX #SFX_UI_Press_Start
+
+	ELSE
+
 	; Set password screen state
 	lea    GameStateMainMenuData, a2
 	move.l #GameStatePasswordScreen, MainMenuState_NextState(a2)
+
+	ENDIF
 
 	bra    @BeginFade
 

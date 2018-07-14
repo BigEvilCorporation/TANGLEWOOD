@@ -393,6 +393,26 @@ AutotestData			 rs.b Autotest_Struct_Size
 	ENDIF
 
 ; ************************************
+; Emulator build
+; ************************************
+	IFD EMUBUILD
+
+; Save slot data
+EmuCurrentSaveSlot		rs.b 1
+EmuSaveSlot_Password	rs.l MaxSaveSlots
+EmuSaveSlot_ChapterIdx	rs.b MaxSaveSlots
+EmuSaveSlot_ActIdx		rs.b MaxSaveSlots
+EmuSaveSlot_FFliesAct	rs.b MaxSaveSlots
+EmuSaveSlot_FFliesGame	rs.b MaxSaveSlots
+
+; Emulator traps - increment to trigger
+EmuTrap_SetSaveSlotData		rs.b 1
+EmuTrap_SaveSlotSelected	rs.b 1
+
+	RS_ALIGN
+	ENDIF
+
+; ************************************
 ; Shared VRAM
 ; ************************************
 SharedVRAM_Start		rs.b 0
