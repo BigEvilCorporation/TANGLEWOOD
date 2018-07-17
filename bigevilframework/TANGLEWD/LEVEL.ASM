@@ -28,6 +28,10 @@ GameStartNew:
 	; Clear password
 	move.l #0x0, CurrentSavePassword
 
+	; Clear save data
+	move.l #0x0, LastActivatedCheckpoint
+	move.w #0x0, LastSaveVersion
+
 	rts
 
 GameStateReset:

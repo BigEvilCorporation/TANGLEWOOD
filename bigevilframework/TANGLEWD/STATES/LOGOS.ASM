@@ -88,13 +88,6 @@ Logos_Enter:
 	MOVE_NTSC_W LogosNextColourDelay, LogoState_NextColourTimer(a3), d0
 	move.b #0x1, LogoState_CurrColourIdx(a3)
 	move.b #0x0, LogoState_CurrPaletteIdx(a3)
-
-	;==============================================================
-
-	IFD EMUBUILD
-	; Request save slot data from host emulator
-	addi.b #0x1, EmuTrap_SetSaveSlotData
-	ENDIF
 	
 	rts
 	

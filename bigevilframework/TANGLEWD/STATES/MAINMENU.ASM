@@ -178,6 +178,15 @@ MainMenu_Enter:
 
 	;==============================================================
 
+	; Request save data from host app
+	move.l #0xFFFFFFFF, CurrentSavePassword
+	add.b  #0x1, EmuTrap_SetSaveSlotData
+	@WaitForHostApp:
+	cmp.l  #0xFFFFFFFF, CurrentSavePassword
+	beq    @WaitForHostApp
+
+	;==============================================================
+
 	; Init UI
 	jsr    MainMenu_InitUI
 
@@ -212,7 +221,9 @@ MainMenu_Enter:
 	
 MainMenu_Exit:
 	
+	IFND EMUBUILD
 	move.l #0x0, CurrentLevel
+	ENDIF
 
 	rts
 	
@@ -390,17 +401,17 @@ LINECOUNT = LINECOUNT+1
 	; Disable Continue if no save slot available
 	cmp.l  #0x0, CurrentSavePassword
 	bne    @SaveValid
-	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_TanglewoodLogo,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	bra   @SaveInvalid
 	ENDIF
 
 	@SaveValid:
-	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_TanglewoodLogo,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Continue
 	@SaveInvalid:
 	ELSE
-	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#3,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_TanglewoodLogo,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	ENDIF
 LINECOUNT = LINECOUNT+1
 

@@ -125,6 +125,13 @@ Gameplay_Enter:
 	; Start demo timer
 	MOVE_NTSC_L DemoTimeout, TimerDemoReset, d0
 	ENDIF
+
+	;==============================================================
+
+	IFD EMUBUILD
+	; Save game in host app
+	addi.b #0x1, EmuTrap_SaveGame
+	ENDIF
 	
 	rts
 	

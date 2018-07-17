@@ -46,6 +46,11 @@ SaveGame:
 	
 	; Increment save version
 	addq.w #0x1, LastSaveVersion
+
+	IFD EMUBUILD
+	; Save game in host app
+	addi.b #0x1, EmuTrap_SaveGame
+	ENDIF
 	
 	POPL   a1
 	POPL   a0

@@ -408,6 +408,7 @@ EmuSaveSlot_FFliesGame	rs.b MaxSaveSlots
 ; Emulator traps - increment to trigger
 EmuTrap_SetSaveSlotData		rs.b 1
 EmuTrap_SaveSlotSelected	rs.b 1
+EmuTrap_SaveGame			rs.b 1
 
 	RS_ALIGN
 	ENDIF
