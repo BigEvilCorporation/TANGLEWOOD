@@ -178,12 +178,16 @@ MainMenu_Enter:
 
 	;==============================================================
 
+	IFD EMUBUILD
+
 	; Request save data from host app
 	move.l #0xFFFFFFFF, CurrentSavePassword
 	add.b  #0x1, EmuTrap_SetSaveSlotData
 	@WaitForHostApp:
 	cmp.l  #0xFFFFFFFF, CurrentSavePassword
 	beq    @WaitForHostApp
+
+	ENDIF
 
 	;==============================================================
 
