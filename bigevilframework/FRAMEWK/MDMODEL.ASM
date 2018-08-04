@@ -57,7 +57,7 @@ SYS_DetectSystemType:
 
 	IFD EMUBUILD
 	; Embedded into host emulator, treat as genuine
-	beq    @End
+	bra    @End
 	ENDIF
 
 	; Detect AtGames Flashback - Z80 driver will have disabled SSG-EG on boot if it detected missing IYL instruction
