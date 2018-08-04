@@ -55,6 +55,11 @@ SYS_DetectSystemType:
 	cmp.w  #(1<<pad_button_a|1<<pad_button_start), d0
 	beq    @End
 
+	IFD EMUBUILD
+	; Embedded into host emulator, treat as genuine
+	beq    @End
+	ENDIF
+
 	; Detect AtGames Flashback - Z80 driver will have disabled SSG-EG on boot if it detected missing IYL instruction
 	jsr    SND_GetSSGEGEnabled
 	tst.b  d0

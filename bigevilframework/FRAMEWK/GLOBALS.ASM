@@ -90,6 +90,7 @@ system_type_genuine		equ 0	; Probably genuine SEGA hardware, or a very good clon
 system_type_firecore	equ 1	; Probably an AtGames Firecore
 system_type_flashback	equ 2	; Probably an AtGames Flashback
 system_type_clone_emu	equ 3	; Probably a clone or emulator
+system_type_host_emu	equ 4	; Embedded into custom host emulator
 
 ; ************************************
 ; Status register
