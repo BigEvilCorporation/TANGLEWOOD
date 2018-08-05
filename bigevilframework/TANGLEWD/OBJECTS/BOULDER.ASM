@@ -325,6 +325,18 @@ BoulderUpdate:
 	@InView:
 	@Cracked:
 	@NotFalling:
+
+	IFD EMUBUILD
+	; Update achievement data
+	tst.b  PhysicsObj_OnFloor(a0)
+	beq    @NoAchievement
+	tst.b  Boulder_LastOnFloor(a0)
+	bne    @NoAchievement
+	cmp.l  #-Boulder_MinDamageYVel, Boulder_LastVelY(a0)
+	bge    @NoAchievement
+	addi.b #0x1, Ach_Data_BoulderSmashCount
+	@NoAchievement:
+	ENDIF
 	
 	; Base functionality
 	jsr    PhysicsObjUpdate

@@ -116,6 +116,24 @@ l1a4_Init:
 	
 l1a4_Update:
 
+	IFD EMUBUILD
+
+	; Achievements
+	tst.b  EmuTrap_ACH_L1A4_KILL_DJAKK
+	bne    @Unlocked
+	ENTITY_GETBYNAME Checkpoint, L1A4_Checkpoint_101, a0
+	tst.b  Checkpoint_Activated(a0)
+	beq    @NotAtCheckpoint
+	ENTITY_GETBYNAME Monster, l1a4_Djakk, a0
+	tst.b  Character_Dead(a0)
+	beq    @NotDead
+	addi.b #0x1, EmuTrap_ACH_L1A4_KILL_DJAKK
+	@Unlocked:
+	@NotAtCheckpoint:
+	@NotDead:
+
+	ENDIF
+
 	rts
 	
 l1a4_Serialise:

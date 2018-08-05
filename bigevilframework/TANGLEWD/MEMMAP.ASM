@@ -410,6 +410,24 @@ EmuTrap_SetSaveSlotData		rs.b 1
 EmuTrap_SaveSlotSelected	rs.b 1
 EmuTrap_SaveGame			rs.b 1
 
+; Achievement traps
+EmuTrap_ACH_L1A4_KILL_DJAKK		rs.b 1
+EmuTrap_ACH_L2A3_KILL_DJAKK		rs.b 1
+EmuTrap_ACH_SURVIVE_SCIRUS		rs.b 1
+EmuTrap_ACH_SURVIVE_DJAKK		rs.b 1
+EmuTrap_ACH_BORGUS_TWO_BOULDERS	rs.b 1
+EmuTrap_ACH_KILL_SWARM			rs.b 1
+EmuTrap_ACH_COMPLETE_GAME		rs.b 1
+EmuTrap_ACH_COMPLETE_GAME_ALT	rs.b 1
+EmuTrap_ACH_HOGG_WALL			rs.b 1
+EmuTrap_ACH_ECHO_FIREFLY		rs.b 1
+EmuTrap_ACH_CART_RACE			rs.b 1
+EmuTrap_ACH_SURVIVE_WYRM		rs.b 1
+
+; Persistent achievement data
+Ach_Data_BoulderSmashCount	rs.b 1
+Ach_Data_HoggWallCount		rs.b 1
+
 	RS_ALIGN
 	ENDIF
 

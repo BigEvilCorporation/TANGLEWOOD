@@ -1567,8 +1567,16 @@ MonsterUpdateBite:
 	
 	; Back to chase state
 	jsr    MonsterStartTrackPlayer
+
+	bra    @End
 	
 	@OutOfHitBox:
+
+	IFD EMUBUILD
+	; Unlock achievement
+	addi.b #0x1, EmuTrap_ACH_SURVIVE_DJAKK
+	ENDIF
+
 	@End:
 
 	rts

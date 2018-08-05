@@ -247,4 +247,9 @@ SwarmReceiveDamage:
 	; Elapse timer next frame
 	move.w #0x1, Swarm_Timer(a0)
 
+	IFD EMUBUILD
+	; Unlock achievement
+	addi.b #0x1, EmuTrap_ACH_KILL_SWARM
+	ENDIF
+
 	rts

@@ -344,6 +344,21 @@ CartUpdate:
 	; Reset draw offset
 	move.w #0x0, SpriteObj_DrawOffsetY(a0)
 
+	IFD EMUBUILD
+	PUSHALL
+	; Unlock achievement
+	move.l Cart_Occupant(a0), a2
+	move.l Player1, a3
+	move.l Player2, a4
+	cmp.l  a2, a3										; Check occupant is player 1
+	bne    @NoAchievement
+	cmp.b  #Player_RideState_Cart, Player_RideState(a4)	; Check player 2 is still in cart
+	bne    @NoAchievement
+	addi.b #0x1, EmuTrap_ACH_CART_RACE					; Player 1 won the race
+	@NoAchievement:
+	POPALL
+	ENDIF
+
 	; Eject occupant
 	move.l Cart_Occupant(a0), a2
 	jsr    CartEjectOccupant

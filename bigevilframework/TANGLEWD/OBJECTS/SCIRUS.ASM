@@ -515,6 +515,11 @@ ScirusAI_CheckSafeDistance:
 	move.b #ScirusAffinity_Friend, d0
 	jsr    ScirusSetAffinity
 
+	IFD EMUBUILD
+	; Unlock achievement
+	addi.b #0x1, EmuTrap_ACH_SURVIVE_SCIRUS
+	ENDIF
+
 	@TooClose:
 	@HitWall:
 	@End:

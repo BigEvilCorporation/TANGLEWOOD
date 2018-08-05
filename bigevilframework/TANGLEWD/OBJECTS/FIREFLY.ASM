@@ -178,6 +178,15 @@ FireflyTestObj:
 
 	@EndSFX:
 
+	IFD EMUBUILD
+	; Unlock achievement
+	move.l Player2, a6
+	cmp.l  a1, a6
+	bne    @NoAchievement
+	addi.b #0x1, EmuTrap_ACH_ECHO_FIREFLY
+	@NoAchievement:
+	ENDIF
+
 	@NotPickedUp:
 	@AlreadypickedUp:
 	@NoIntersection:

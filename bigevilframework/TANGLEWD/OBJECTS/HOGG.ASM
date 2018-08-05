@@ -426,6 +426,15 @@ HoggAIStart_Stuck:
 	@OutOfSoundRange:
 	POPL   a1
 
+	IFD EMUBUILD
+	; Unlock achievement
+	addi.b #0x1, Ach_Data_HoggWallCount
+	cmp.b  #0x3, Ach_Data_HoggWallCount
+	bne    @NoAchievement
+	addi.b #0x1, EmuTrap_ACH_HOGG_WALL
+	@NoAchievement:
+	ENDIF
+
 	rts
 
 HoggAIUpdate_Stuck:

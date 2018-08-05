@@ -912,6 +912,7 @@ WyrmAIUpdate_Bite:
 	
 	; Get player
 	PUSHL  a0
+	move.l a0, a2
 	move.l Player1, a0
 
 	; If player invisible, assume safe (in flue)
@@ -923,14 +924,31 @@ WyrmAIUpdate_Bite:
 	cmp.l  PhysicsObj_VelY(a0), d1
 	blt    @PlayerSafe
 
+	; Check for contact again
+	PHYSICS_GETBOUNDS d1,d2,d3,a0
+	PHYSICS_GETBOUNDS d3,d4,d5,a2
+	jsr    PHYS_TestBoxIntersectBox
+	tst.b  d0
+	beq    @PlayerSurvived
+
 	; Hide player
 	move.b #0x0, SpriteObj_Visible(a0)
 	
 	; Kill player
 	move.b #Wyrm_BiteDamage, d0
 	jsr    CharacterDealDamage
+	bra    @PlayerDamaged
+
+	@PlayerSurvived:
+
+	IFD EMUBUILD
+	; Unlock achievement
+	addi.b #0x1, EmuTrap_ACH_SURVIVE_WYRM
+	ENDIF
 
 	@PlayerSafe:
+
+	@PlayerDamaged:
 
 	POPL   a0
 	

@@ -228,6 +228,17 @@ Credits_Enter:
 	; Start music
 	lea    GameStateCreditsData, a2
 	move.l #Credits_Playlist_Start, Credits_CurrTrackPtr(a2)
+
+	IFD EMUBUILD
+	; Unlock achievement
+	IF !L8A4_TEST_ALL_FIREFLIES
+	cmp.w #TotalFireflyCount, FireflyPickupCountTotalSave
+	bne   @NotCollectedAll
+	ENDIF
+	addi.b #0x1, EmuTrap_ACH_COMPLETE_GAME_ALT
+	@NotCollectedAll:
+	addi.b #0x1, EmuTrap_ACH_COMPLETE_GAME
+	ENDIF
 	
 	rts
 	

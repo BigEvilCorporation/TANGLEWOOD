@@ -563,5 +563,21 @@ LevelReset:
 	move.b Level_BgColour(a1), d0
 	ori.w  #(PaletteId_World0<<4), d0
 	VDP_SETREG 7, d0
+
+	;==============================================================
+
+	IFD EMUBUILD
+	; Clear persistent achievement data
+	jsr    LevelClearAchievementData
+	ENDIF
 	
 	rts
+
+	IFD EMUBUILD
+LevelClearAchievementData:
+
+	move.b #0x0, Ach_Data_BoulderSmashCount
+	move.b #0x0, Ach_Data_HoggWallCount
+
+	rts
+	ENDIF

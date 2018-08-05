@@ -197,6 +197,20 @@ l2a3_Init:
 	
 l2a3_Update:
 
+	IFD EMUBUILD
+
+	; Achievements
+	tst.b  EmuTrap_ACH_L2A3_KILL_DJAKK
+	bne    @Unlocked
+	ENTITY_GETBYNAME Monster, l2a3_Djakk, a0
+	tst.b  Character_Dead(a0)
+	beq    @NotDead
+	addi.b #0x1, EmuTrap_ACH_L2A3_KILL_DJAKK
+	@Unlocked:
+	@NotDead:
+
+	ENDIF
+
 	rts
 	
 l2a3_Serialise:
