@@ -167,3 +167,14 @@ l1a3_Trigger_WakeDjakk:
 	
 	rts
 	
+L1A3_Trigger_SneakDjakk:
+
+	IFD EMUBUILD
+	ENTITY_GETBYNAME Monster, l1a3_Djakk, a0
+	cmp.b  #MonsterState_InCave, Monster_state(a0)
+	bne    @NoAchievement
+	addi.b #0x1, EmuTrap_ACH_L1A3_SNEAK_DJAKK
+	@NoAchievement:
+	ENDIF
+
+	rts

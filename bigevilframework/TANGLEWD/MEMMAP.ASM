@@ -423,6 +423,7 @@ EmuTrap_ACH_HOGG_WALL			rs.b 1
 EmuTrap_ACH_ECHO_FIREFLY		rs.b 1
 EmuTrap_ACH_CART_RACE			rs.b 1
 EmuTrap_ACH_SURVIVE_WYRM		rs.b 1
+EmuTrap_ACH_L1A3_SNEAK_DJAKK	rs.b 1
 
 ; Persistent achievement data
 Ach_Data_BoulderSmashCount	rs.b 1

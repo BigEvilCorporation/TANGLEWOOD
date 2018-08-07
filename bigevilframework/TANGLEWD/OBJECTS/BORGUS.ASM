@@ -638,7 +638,7 @@ BorgusFireFuzzl:
 
 	IFD EMUBUILD
 	; Unlock achievement
-	cmp.b  #0x2, Ach_Data_BoulderSmashCount
+	tst.b  Ach_Data_BoulderSmashCount
 	bne    @NoAchievement
 	addi.b #0x1, EmuTrap_ACH_BORGUS_TWO_BOULDERS
 	@NoAchievement:

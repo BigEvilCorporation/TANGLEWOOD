@@ -43,6 +43,10 @@ Boulder_HitFloorShakeDecay	equ 0x0030
 Boulder_PushDetectBoxBorderX	equ 0x0006 ; Size to grow push detection bounds by
 Boulder_PushDetectBoxBorderY	equ 0x0004 ; Size to grow push detection bounds by
 
+	IFD EMUBUILD
+Boulder_MinYVelDropAchievement	equ 0x070000
+	ENDIF
+
 ;==============================================================
 
 ; Animations
@@ -202,6 +206,18 @@ BoulderLoadGfx:
 BoulderUpdate:
 	; a0 --- GameObj addr
 	; a1 --- Level addr
+
+	IFD EMUBUILD
+	; Update achievement data
+	tst.b  PhysicsObj_OnFloor(a0)
+	beq    @NoAchievement
+	tst.b  Boulder_LastOnFloor(a0)
+	bne    @NoAchievement
+	cmp.l  #-Boulder_MinYVelDropAchievement, Boulder_LastVelY(a0)
+	bge    @NoAchievement
+	addi.b #0x1, Ach_Data_BoulderSmashCount
+	@NoAchievement:
+	ENDIF
 	
 	; If unbreakable
 	tst.b  Boulder_CanCrack(a0)
@@ -325,18 +341,6 @@ BoulderUpdate:
 	@InView:
 	@Cracked:
 	@NotFalling:
-
-	IFD EMUBUILD
-	; Update achievement data
-	tst.b  PhysicsObj_OnFloor(a0)
-	beq    @NoAchievement
-	tst.b  Boulder_LastOnFloor(a0)
-	bne    @NoAchievement
-	cmp.l  #-Boulder_MinDamageYVel, Boulder_LastVelY(a0)
-	bge    @NoAchievement
-	addi.b #0x1, Ach_Data_BoulderSmashCount
-	@NoAchievement:
-	ENDIF
 	
 	; Base functionality
 	jsr    PhysicsObjUpdate
