@@ -122,6 +122,28 @@ l8a2_Init:
 	
 l8a2_Update:
 
+	IFD EMUBUILD
+	; Unlock achievement
+	tst.b  EmuTrap_ACH_KILL_ALL_DJUBBS
+	bne    @Unlocked
+
+	move.l EntityPoolStart_Djubb, a0
+	move.w EntityCount_Djubb, d0
+	beq    @NoDjubb
+	subq   #0x1, d0
+	@DjubbLp:
+	tst.b  Character_Dead(a0)
+	beq    @DjubbAlive
+	lea    Djubb_Struct_Size(a0), a0
+	dbra   d0, @DjubbLp
+
+	addi.b #0x1, EmuTrap_ACH_KILL_ALL_DJUBBS
+
+	@Unlocked:
+	@DjubbAlive:
+	@NoDjubb:
+	ENDIF
+
 	rts
 	
 l8a2_Serialise:
