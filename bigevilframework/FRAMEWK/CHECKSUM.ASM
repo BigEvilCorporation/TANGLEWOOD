@@ -50,7 +50,7 @@ SYS_Checksum:
 	bne.s  @CheckLp
 
 	; Test checksum
-	move.w header_checksum_addr, d0	; Checksum
+	move.w header_checksum_addr, d1	; Checksum
 	cmp.w  d0, d1
 	beq    @ChecksumCorrect
 

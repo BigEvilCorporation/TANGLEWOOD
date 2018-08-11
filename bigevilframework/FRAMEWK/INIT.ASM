@@ -79,9 +79,15 @@ CPU_EntryPoint:
 	move.w #status_reg_init, sr	; INT level 3 (all interrupts) + supervisor + trace (if debug)
 
 	; Run checksum test
-	IF CHECKSUM_TEST
-	jsr SYS_Checksum
+	IF !CHECKSUM_TEST
+	jsr    PAD_ReadPadA
+	cmp.w  #(1<<pad_button_a|1<<pad_button_b|1<<pad_button_start), d0
+	bne    @NoChkSum
 	ENDIF
+
+	jsr SYS_Checksum
+
+	@NoChkSum:
 
 	; ************************************
 	; CPU_Main
