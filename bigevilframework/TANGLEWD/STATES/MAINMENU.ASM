@@ -415,6 +415,10 @@ LINECOUNT = LINECOUNT+1
 	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	CURSOR_ADD_WIDGET a5,a3
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Continue
+	IFD EMUBUILD
+	; If save valid, place cursor on Continue by default
+	move.b #LINECOUNT, UIWidgetCursor_CurrIndex(a5)
+	ENDIF
 	@SaveInvalid:
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
@@ -464,6 +468,11 @@ LINECOUNT = LINECOUNT+1
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#Copyright_Str_short,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuLegalTextX,#MainMenuLegalTextY
 	ENDIF
+
+	; Move cursor to intial option
+	move.l a5, a0
+	move.b UIWidgetCursor_CurrIndex(a0), d0
+	jsr    UIWidgetCursorSelect
 
 	rts
 
