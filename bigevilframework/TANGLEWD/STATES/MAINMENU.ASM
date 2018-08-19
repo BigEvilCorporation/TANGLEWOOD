@@ -61,12 +61,14 @@ MainMenuLegalTextY		equ (8*26)
 
 MainMenu_Opt_NewGame		equ 0x0
 MainMenu_Opt_Continue		equ 0x1
-MainMenu_Opt_Options		equ 0x2
-MainMenu_Opt_LevelSelect	equ 0x3
-MainMenu_Opt_SoundTest		equ 0x4
+MainMenu_Opt_Password		equ 0x2
+MainMenu_Opt_Options		equ 0x3
+MainMenu_Opt_LevelSelect	equ 0x4
+MainMenu_Opt_SoundTest		equ 0x5
 
 MainMenu_Str_NewGame		dc.b "New Game",0
 MainMenu_Str_Continue		dc.b "Continue",0
+MainMenu_Str_Password		dc.b "Password",0
 MainMenu_Str_Options		dc.b "Options",0
 MainMenu_Str_LevelSelect	dc.b "Level Select",0
 MainMenu_Str_SoundTest		dc.b "Sound Test",0
@@ -400,7 +402,7 @@ LINECOUNT = 0
 	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_NewGame
 LINECOUNT = LINECOUNT+1
 
-	IF INCLUDE_PASSWORD
+	IF INCLUDE_CONTINUE
 	IFD EMUBUILD
 	; Disable Continue if no save slot available
 	cmp.l  #0x0, CurrentSavePassword
@@ -416,6 +418,15 @@ LINECOUNT = LINECOUNT+1
 	@SaveInvalid:
 	ELSE
 	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
+	ENDIF
+LINECOUNT = LINECOUNT+1
+
+	IF INCLUDE_PASSWORD
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Password,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
+	CURSOR_ADD_WIDGET a5,a3
+	WIDGET_SET_ONSELECTED a3,MainMenu_OnSelected,MainMenu_Opt_Password
+	ELSE
+	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Password,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	ENDIF
 LINECOUNT = LINECOUNT+1
 
@@ -466,6 +477,8 @@ MainMenu_OnSelected:
 	beq    @NewGame
 	cmp.b  #MainMenu_Opt_Continue, d0
 	beq    @Continue
+	cmp.b  #MainMenu_Opt_Password, d0
+	beq    @Password
 	cmp.b  #MainMenu_Opt_Options, d0
 	beq    @Options
 	cmp.b  #MainMenu_Opt_LevelSelect, d0
@@ -497,8 +510,6 @@ MainMenu_OnSelected:
 
 	@Continue:
 
-	IFD EMUBUILD
-
 	; Set gameplay state
 	lea    GameStateMainMenuData, a2
 	move.l #GameStateGameplay, MainMenuState_NextState(a2)
@@ -509,13 +520,12 @@ MainMenu_OnSelected:
 	; Play New Game SFX
 	PLAYSFX #SFX_UI_Press_Start
 
-	ELSE
+	bra    @BeginFade
 
+	@Password:
 	; Set password screen state
 	lea    GameStateMainMenuData, a2
 	move.l #GameStatePasswordScreen, MainMenuState_NextState(a2)
-
-	ENDIF
 
 	bra    @BeginFade
 
