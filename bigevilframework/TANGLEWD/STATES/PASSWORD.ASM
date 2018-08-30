@@ -340,6 +340,9 @@ PasswordScreen_OnLoad:
 	; Set save password for first act
 	move.l d0, CurrentSavePassword
 
+	; Clear save version
+	move.w #0x0, LastSaveVersion
+
 	; Stop music
 	jsr    SND_StopTrack
 
