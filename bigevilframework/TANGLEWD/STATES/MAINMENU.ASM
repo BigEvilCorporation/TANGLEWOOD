@@ -182,11 +182,11 @@ MainMenu_Enter:
 
 	IFD EMUBUILD
 
-	; Request save data from host app
-	move.l #0xFFFFFFFF, CurrentSavePassword
-	add.b  #0x1, EmuTrap_SetSaveSlotData
+	; Request save data available from host app
+	move.b #0xFF, EmuData_AwaitingResponse
+	add.b  #0x1, EmuTrap_GetSaveAvailable
 	@WaitForHostApp:
-	cmp.l  #0xFFFFFFFF, CurrentSavePassword
+	cmp.b  #0xFF, EmuData_AwaitingResponse
 	beq    @WaitForHostApp
 
 	ENDIF
@@ -405,7 +405,7 @@ LINECOUNT = LINECOUNT+1
 	IF INCLUDE_CONTINUE
 	IFD EMUBUILD
 	; Disable Continue if no save slot available
-	cmp.l  #0x0, CurrentSavePassword
+	tst.b  EmuData_SaveAvailable
 	bne    @SaveValid
 	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
 	bra   @SaveInvalid
@@ -518,6 +518,17 @@ MainMenu_OnSelected:
 	bra    @BeginFade
 
 	@Continue:
+
+	IFD EMUBUILD
+
+	; Request save data from host app
+	move.b #0xFF, EmuData_AwaitingResponse
+	add.b  #0x1, EmuTrap_GetSaveData
+	@WaitForHostApp:
+	cmp.b  #0xFF, EmuData_AwaitingResponse
+	beq    @WaitForHostApp
+
+	ENDIF
 
 	; Set gameplay state
 	lea    GameStateMainMenuData, a2
