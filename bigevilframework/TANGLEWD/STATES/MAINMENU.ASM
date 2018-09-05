@@ -528,6 +528,10 @@ MainMenu_OnSelected:
 	cmp.b  #0xFF, EmuData_AwaitingResponse
 	beq    @WaitForHostApp
 
+	; If user canceled
+	tst.b  EmuData_AwaitingResponse
+	beq    @GetSaveCanceled
+
 	ENDIF
 
 	; Set gameplay state
@@ -614,5 +618,7 @@ MainMenu_OnSelected:
 	
 	; Mark fading out
 	move.l #0x0, TimerLogoFade
+
+	@GetSaveCanceled:
 
 	rts
