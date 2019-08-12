@@ -21,13 +21,18 @@ TANGLEWOOD builds with **SNASM68K.EXE** (16-bit, 2.02Ex, Mar 1995) or **PSY-Q AS
 
 SNASM68K.EXE runs under MS-DOS 5, Windows 95, or DOSBox configured with EMS option.
 
+To build with SNASM68K.EXE, place a copy of the executable in the **ASSEMBLR** directory and continue reading.
+To build with ASM68K.EXE, you'll need to modify the command lines to suit. I'll provide examples when I get the chance.
+
 ### SEGA Mega Drive/Genesis Build
 
 Start by looking at **BLDCONF.ASM** to configure the various build options, then run one of the build batch files from the **TANGLEWD** directory:
 
-- **BLDFIN.BAT**: assembles a final build with all debug options disabled
-- **BLDEMU.BAT**: assembles a debug/emulator build in BIN format
-- **BLDDEBUG.BAT**: assembles a debug build in COFF format, for SNASM2 debugger (Cross Products MegaCD devkits)
+- **BUILDFIN.BAT**: assembles a final build with all debug options disabled
+- **BUILDEMU.BAT**: assembles a debug/emulator build in BIN format
+- **BUILDDBG.BAT**: assembles a debug build in COFF format, for SNASM2 debugger (Cross Products MegaCD devkits)
+
+Logs and output binaries can be found in the **TANGLEWD/BIN** directory.
 
 ### Emulator Hosted Build
 
@@ -59,3 +64,7 @@ then back out to the main menu.
 ## Echo Sound System
 
 TANGLEWOOD uses the **Echo Sound System** by Javier (Sik) Degirolmo. See https://github.com/sikthehedgehog/Echo for the license.
+
+## MDStudio
+
+I highly recommend Nicolas Hamel's MDStudio for any 68K Mega Drive development: https://github.com/gouky/MDStudio. TANGLEWOOD was partially developed in the MDStudio environment.
