@@ -94,8 +94,13 @@
 
 	dc.b "SEGA MEGA DRIVE "                                                                 ; 16 bytes - Console name
 	dc.b "(C)EVIL 2018.MAY"                                                                 ; 16 bytes - Copyright holder and release date
+	IFD EMUBUILD
 	dc.b "TANGLEWOOD (R) PC HOST EMU                      "                                 ; 48 bytes - Domestic name
 	dc.b "TANGLEWOOD (R) PC HOST EMU                      "                                 ; 48 bytes - International name
+	ELSE
+	dc.b "TANGLEWOOD (R)                                  "                                 ; 48 bytes - Domestic name
+	dc.b "TANGLEWOOD (R)                                  "                                 ; 48 bytes - International name
+	ENDIF
 	dc.b "GM EVIL0106-00"                                                                   ; 14 bytes - Game type and product code
 header_checksum_addr:
 	dc.w 0xD867                                                                             ; 02 bytes - Checksum

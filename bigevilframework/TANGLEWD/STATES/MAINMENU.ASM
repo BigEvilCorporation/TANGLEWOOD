@@ -420,10 +420,8 @@ LINECOUNT = LINECOUNT+1
 	move.b #LINECOUNT, UIWidgetCursor_CurrIndex(a5)
 	ENDIF
 	@SaveInvalid:
-	ELSE
-	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Continue,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_MenuTextDisabled,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)
-	ENDIF
 LINECOUNT = LINECOUNT+1
+	ENDIF
 
 	IF INCLUDE_PASSWORD
 	WINDOW_CREATE_WIDGET_TEXT a0,#MainMenu_Str_Password,#tiles_twfontf,(vram_addr_systemfontb),#PaletteId_Fuzzl,#UIWidgetText_DrawPlane_Sprite,#MainMenuUIX,#MainMenuUIY+(MainMenuUILineSpacing*LINECOUNT)

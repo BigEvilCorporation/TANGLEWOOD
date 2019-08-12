@@ -40,9 +40,9 @@ INCLUDE_PROFILER		equ 0
 	ENDIF
 
 ; Utility menus
-INCLUDE_CONTINUE		equ 1	; Host emu continue game
+INCLUDE_CONTINUE		equ 0	; Host emu continue game
 INCLUDE_PASSWORD		equ 1	; Enter save password
-INCLUDE_OPTIONS			equ 0	; Controls and SSG-EG menu
+INCLUDE_OPTIONS			equ 1	; Controls and SSG-EG menu
 INCLUDE_LEVELSELECT		equ 1	; Level select screen
 INCLUDE_SOUNDTEST		equ 1	; Sound test screen
 
