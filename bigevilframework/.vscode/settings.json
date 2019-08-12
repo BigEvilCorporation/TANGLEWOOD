@@ -1,0 +1,15 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+	// Controls the font size in pixels.
+	"editor.fontSize": 18,
+
+	// Controls how the editor should render whitespace characters, possibilities are 'none', 'boundary', and 'all'. The 'boundary' option does not render single spaces between words.
+	"editor.renderWhitespace": "all",
+
+	// Insert spaces when pressing Tab. This setting is overriden based on the file contents when `editor.detectIndentation` is on.
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+
+	// Configure file associations to languages (e.g. "*.extension": "html"). These have precedence over the default associations of the languages installed.
+	"files.associations": { "*.asm":"m68k" }
+}

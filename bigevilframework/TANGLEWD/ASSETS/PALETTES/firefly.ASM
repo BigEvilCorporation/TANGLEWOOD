@@ -1,0 +1,27 @@
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   Created with BEEhive - the complete art tool for SEGA Mega Drive
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   http://www.bigevilcorporation.co.uk
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+;   BEEhive and SEGA Genesis Framework (c) Matt Phillips 2015
+; == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
+
+
+palette_firefly:
+	dc.w	0x0EEE
+	dc.w	0x0040
+	dc.w	0x0EEE
+	dc.w	0x00AC
+	dc.w	0x02EA
+	dc.w	0x00EE
+	dc.w	0x0008
+	dc.w	0x000C
+	dc.w	0x000A
+	dc.w	0x0400
+	dc.w	0x0844
+	dc.w	0x0820
+	dc.w	0x0020
+	dc.w	0x0062
+	dc.w	0x0082
+	dc.w	0x0EEE
+
