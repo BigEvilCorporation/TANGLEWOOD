@@ -1,9 +1,11 @@
 # TANGLEWOOD
+
 A puzzle-platforming game for the SEGA Mega Drive and Genesis, in 68000 assembly. Release date 14th August 2018.
 
 A game by Matt Phillips, [Big Evil Corporation Ltd](http://www.bigevilcorporation.co.uk)
 
 ## **PLEASE DO NOT DISTRIBUTE UNMODIFIED BINARIES**
+
 You may build and play a personal copy of TANGLEWOOD from this source, but **please do not pirate the original, unmodified game**.
 
 **TANGLEWOOD is still available for sale in the following stores:**
@@ -15,15 +17,19 @@ You may build and play a personal copy of TANGLEWOOD from this source, but **ple
 
 ## Building
 
-TANGLEWOOD builds with SNASM68K.EXE (16-bit, 2.02Ex, Mar 1995) or PSY-Q ASM68K.EXE (32-bit, with path fix by Nemesis). No links to these executables are provided, please source them yourself. Despite their ages, they're still proprietary software.
+TANGLEWOOD builds with **SNASM68K.EXE** (16-bit, 2.02Ex, Mar 1995) or **PSY-Q ASM68K.EXE** (32-bit, with path fix by Nemesis). No links to these executables are provided, please source them yourself. Despite their ages, they're still proprietary software.
 
 SNASM68K.EXE runs under MS-DOS 5, Windows 95, or DOSBox configured with EMS option.
 
+### SEGA Mega Drive/Genesis Build
+
 Start by looking at **BLDCONF.ASM** to configure the various build options, then run one of the build batch files from the **TANGLEWD** directory:
 
-- **BLDFIN.BAT**: assembles final build with all debug options disabled
-- **BLDEMU.BAT**: assembles debug/emulator build in BIN format
-- **BLDDEBUG.BAT**: assembles debug build in COFF format, for SNASM2 debugger (Cross Products MegaCD devkits)
+- **BLDFIN.BAT**: assembles a final build with all debug options disabled
+- **BLDEMU.BAT**: assembles a debug/emulator build in BIN format
+- **BLDDEBUG.BAT**: assembles a debug build in COFF format, for SNASM2 debugger (Cross Products MegaCD devkits)
+
+### Emulator Hosted Build
 
 To build the PC emulator hosted version of the game with achievements and save system support, pass the **EMUBUILD** preprocessor option. These builds will hang without the necessary communication from the host emulator, though. See https://github.com/BigEvilCorporation/EvilEmu
 
@@ -52,4 +58,4 @@ then back out to the main menu.
 
 ## Echo Sound System
 
-TANGLEWOOD uses the Echo Sound System by Javier (Sik) Degirolmo. See https://github.com/sikthehedgehog/Echo
+TANGLEWOOD uses the **Echo Sound System** by Javier (Sik) Degirolmo. See https://github.com/sikthehedgehog/Echo for the license.
